@@ -1,4 +1,4 @@
-Country,latitude,longitude,brightness,scan,track,acq_date,acq_time,satellite,confidence,version,bright_t31,frp,daynight,PCA component1,PCA component2
+Country,latitude,longitude,brightness,scan,track,acq_date,acq_time,satellite,confidence,version,bright_t31,frp,daynight,PCA_component1,PCA_component2
 Ukraine,49.345,24.238,312,1.5,1.2,2020-01-22,0905,T,68,6.0NRT,270,27,D,-1.2060788301853294,0.7517537776655159
 Ukraine,49.343,24.258,306.8,1.5,1.2,2020-01-22,0905,T,64,6.0NRT,271.7,20.6,D,-1.1981397790787864,0.588768653163901
 Ukraine,48.978,24.276,308.5,1.4,1.2,2020-01-22,0905,T,67,6.0NRT,275.9,21.5,D,-0.7896486558706668,0.5349427355662657
