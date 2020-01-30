@@ -1,5 +1,4 @@
 body {
-  min-width: 760px;
 }
 
 .background path {
@@ -37,11 +36,10 @@ grid-area: Header;}
 
 .Map { 
 grid-area: Map;
-height: 100%;
 background-color: red; }
 
-.parallel { grid-area: parallel;
-height: 100%;
+.parallel { 
+    grid-area: parallel;
 }
 
 body {
@@ -65,9 +63,10 @@ stroke: #fff;
 shape-rendering: crispEdges;
 }
 
-.histogram_area { grid-area: histogram_area;
-height: 100%;
-background-color: yellow; }
+.histogram_area { 
+    grid-area: histogram_area;
+    height: 100%;
+    background-color: yellow; }
 
 .boxplots {
   display: grid;
@@ -93,6 +92,5 @@ background-color: blue; }
 height: 100%;
 background-color: orange; }
 
-.text_area { grid-area: text_area; 
-height: 4px;
+.text_area { grid-area: text_area;
 background-color: gray;}
