@@ -1,12 +1,12 @@
-var margin = {top: 30, right: 10, bottom: 10, left: 0},
-  width = 920 - margin.left - margin.right,
-  height = 450 - margin.top - margin.bottom;
+var margin_parallel = {top: 30, right: 10, bottom: 10, left: 0},
+  width_parallel = 920 - margin_parallel.left - margin_parallel.right,
+  height_parallel = 450 - margin_parallel.top - margin_parallel.bottom;
 
-var svg = d3.select(".parallel_area").append("svg")
-  .attr("width", width + margin.left + margin.right)
-  .attr("height", height + margin.top + margin.bottom)
+var svg_parallel = d3.select(".parallel_area").append("svg")
+  .attr("width", width_parallel + margin_parallel.left + margin_parallel.right)
+  .attr("height", height_parallel + margin_parallel.top + margin_parallel.bottom)
   .append("g")
-  .attr("transform","translate(" + margin.left + "," + margin.top + ")");
+  .attr("transform","translate(" + margin_parallel.left + "," + margin_parallel.top + ")");
 
 var selected =[]
 
@@ -57,17 +57,26 @@ d3.csv("./data/out_modis_20200129.csv", function(data) {
     
       y[k] = d3.scalePoint()
       .domain(countries)
-      .range([0, height]);
+      .range([0, height_parallel]);
+    }
+    else if(k == "acq_time"){
+      var low = new Date();
+      low.setHours(0);
+      low.setMinutes(0);
+      var high = new Date();
+      high.setHours(23);
+      high.setMinutes(59);
+      y[k] = d3.scaleTime().domain([low, high]).range([height_parallel, 0]);
     }
     else{
       y[k] = d3.scaleLinear()
-      .domain(d3.extent(data, function(d) { return +d[k]; }) )
-      .range([height, 0]);
+      .domain( d3.extent(data, function(d) { return +d[k]; }) )
+      .range([height_parallel, 0]);
     }
   }
 
   x = d3.scalePoint()
-    .range([0, width])
+    .range([0, width_parallel])
     .padding(1)
     .domain(names);
 
@@ -84,9 +93,22 @@ d3.csv("./data/out_modis_20200129.csv", function(data) {
   function path(d) {
     points = [];
     for(i in dimensions){
-      n = dimensions[i].name
-      k = dimensions[i].key
-      points.push([x(n), y[k](d[k])]);        
+      n = dimensions[i].name;
+      k = dimensions[i].key;
+      if(k == "acq_time"){
+        value = String(d[k]);
+        var h = value.substring(0,2);
+        var mm = value.substring(2,4);
+        date = new Date();
+        date.setHours(h);
+        date.setMinutes(mm);
+        
+        points.push([x(n), y[k](date)]);  
+      }
+      else{
+        points.push([x(n), y[k](d[k])]);   
+      }
+         
     }
     return d3.line()(points);
   }
@@ -94,21 +116,21 @@ d3.csv("./data/out_modis_20200129.csv", function(data) {
 
   extents = dimensions.map(function(p) { return [0,0]; });
 
-  background = svg.append("g")
+  background = svg_parallel.append("g")
       .attr("class", "background")
     .selectAll("path")
       .data(data)
     .enter().append("path")
       .attr("d", path);
 
-  foreground = svg.append("g")
+  foreground = svg_parallel.append("g")
       .attr("class", "foreground")
     .selectAll("path")
       .data(data)
     .enter().append("path")
       .attr("d", path);
 
-  var g = svg.selectAll("axis")
+  var g = svg_parallel.selectAll("axis")
     .data(dimensions)
     .enter().append("g")
     .attr("class", "axis")
@@ -127,7 +149,7 @@ d3.csv("./data/out_modis_20200129.csv", function(data) {
   g.append("g")
     .attr("class", "brush")
     .each(function(d) {
-    d3.select(this).call(y[d.key].brush = d3.brushY().extent([[-8, 0], [8,height]]).
+    d3.select(this).call(y[d.key].brush = d3.brushY().extent([[-8, 0], [8,height_parallel]]).
     on("start", brushstart).
     on("brush", brush)).
     on("click", cancelSelection)})
@@ -152,7 +174,7 @@ d3.csv("./data/out_modis_20200129.csv", function(data) {
       }
     }
     
-    selected = []
+    selected = [];
 
     foreground.style("display", function(d) {
       value = dimensions.every(function(p, i) {
@@ -165,6 +187,17 @@ d3.csv("./data/out_modis_20200129.csv", function(data) {
           value = countries.indexOf(d[p.key]);
           return ex1 >= value && value >= ex0;
         }
+        if(p.key == "acq_time"){
+          value = String(d[p.key]);
+          h = value.substring(0,2);
+          mm = value.substring(2,4);
+
+          date = new Date();
+          date.setHours(h);
+          date.setMinutes(mm);
+          
+          return extents[i][1] <= date && date <= extents[i][0];
+        }
         else{
           return extents[i][1] <= d[p.key] && d[p.key] <= extents[i][0];
         }
@@ -175,7 +208,6 @@ d3.csv("./data/out_modis_20200129.csv", function(data) {
         selected.push(d);
         return null;
       }
-
       return  "none";
     });
     
