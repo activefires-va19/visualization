@@ -25,21 +25,21 @@ position: fixed;
   right: 0;
   bottom: 0;
   display: grid;
-  grid-template-columns: 1.3fr 0.7fr 1.2fr 0.8fr;
-  grid-template-rows: 0.2fr 1.5fr 1.3fr;
-  grid-template-areas: "Header Header Header Header" "Map parallel parallel text_area" "histogram_area boxplots pie_area scatterplot_area";
+  grid-template-columns: 1fr 0.7fr 0.8fr 1.2fr 1.3fr;
+  grid-template-rows: 0.2fr 1.4fr 1.4fr;
+  grid-template-areas: "header_area header_area header_area header_area header_area" "map_area map_area parallel_area parallel_area parallel_area" "scatterplot_area scatterplot_area box_area pie_area histo_area";
 }
 
-.Header { 
+.header_area { 
 background-color: #000000;
-grid-area: Header;}
+grid-area: header_area;}
 
-.Map { 
-grid-area: Map;
+.map_area { 
+grid-area: map_area;
 background-color: red; }
 
-.parallel { 
-    grid-area: parallel;
+.parallel_area { 
+    grid-area: parallel_area ;
 }
 
 body {
@@ -63,17 +63,17 @@ stroke: #fff;
 shape-rendering: crispEdges;
 }
 
-.histogram_area { 
-    grid-area: histogram_area;
+.histo_area { 
+    grid-area: histo_area;
     height: 100%;
     background-color: yellow; }
 
-.boxplots {
-  display: grid;
+.box_area {
+display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   grid-template-rows: 1fr 1fr 1fr;
   grid-template-areas: "box1 box1 box1" "box2 box2 box2" "box3 box3 box3";
-  grid-area: boxplots;
+  grid-area: box_area;
   background-color: brown;
   height: 100%;
 }
