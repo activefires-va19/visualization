@@ -41,12 +41,6 @@ d3.csv("./data/out_modis_20200129.csv", function(data) {
 	  else dayOfWeek = 'Sunday';
 	  data[i].dayOfWeek = dayOfWeek;
   }
-  for (i=0;i<data.length;i++){
-	  data[i].PCA_component1 = (parseFloat(data[i].PCA_component1) + Math.abs(min_x)).toString();
-	  data[i].PCA_component2 = (parseFloat(data[i].PCA_component2) + Math.abs(min_y)).toString();
-  }
-  max_x = max_x+Math.abs(min_x);
-  max_y = max_y+Math.abs(min_y);
   var x = d3.scaleLinear()
     .domain([0, max_x+5])
     .range([ 0, width_scatter ]);
