@@ -9,7 +9,7 @@ shape-rendering: crispEdges;
 
 .foreground path {
 fill: none;
-stroke: rgb(5, 142, 255);
+stroke: rgb(139, 173, 236);
 }
 
 .brush .extent {

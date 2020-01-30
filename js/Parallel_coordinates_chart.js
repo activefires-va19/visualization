@@ -59,9 +59,18 @@ d3.csv("./data/out_modis_20200129.csv", function(data) {
       .domain(countries)
       .range([0, height]);
     }
+    else if(k == "acq_time"){
+      var low = new Date();
+      low.setHours(0);
+      low.setMinutes(0);
+      var high = new Date();
+      high.setHours(23);
+      high.setMinutes(59);
+      y[k] = d3.scaleTime().domain([low, high]).range([height, 0]);
+    }
     else{
       y[k] = d3.scaleLinear()
-      .domain(d3.extent(data, function(d) { return +d[k]; }) )
+      .domain( d3.extent(data, function(d) { return +d[k]; }) )
       .range([height, 0]);
     }
   }
@@ -84,9 +93,22 @@ d3.csv("./data/out_modis_20200129.csv", function(data) {
   function path(d) {
     points = [];
     for(i in dimensions){
-      n = dimensions[i].name
-      k = dimensions[i].key
-      points.push([x(n), y[k](d[k])]);        
+      n = dimensions[i].name;
+      k = dimensions[i].key;
+      if(k == "acq_time"){
+        value = String(d[k]);
+        var h = value.substring(0,2);
+        var mm = value.substring(2,4);
+        date = new Date();
+        date.setHours(h);
+        date.setMinutes(mm);
+        
+        points.push([x(n), y[k](date)]);  
+      }
+      else{
+        points.push([x(n), y[k](d[k])]);   
+      }
+         
     }
     return d3.line()(points);
   }
@@ -152,7 +174,7 @@ d3.csv("./data/out_modis_20200129.csv", function(data) {
       }
     }
     
-    selected = []
+    selected = [];
 
     foreground.style("display", function(d) {
       value = dimensions.every(function(p, i) {
@@ -165,6 +187,17 @@ d3.csv("./data/out_modis_20200129.csv", function(data) {
           value = countries.indexOf(d[p.key]);
           return ex1 >= value && value >= ex0;
         }
+        if(p.key == "acq_time"){
+          value = String(d[p.key]);
+          h = value.substring(0,2);
+          mm = value.substring(2,4);
+
+          date = new Date();
+          date.setHours(h);
+          date.setMinutes(mm);
+          
+          return extents[i][1] <= date && date <= extents[i][0];
+        }
         else{
           return extents[i][1] <= d[p.key] && d[p.key] <= extents[i][0];
         }
@@ -175,7 +208,6 @@ d3.csv("./data/out_modis_20200129.csv", function(data) {
         selected.push(d);
         return null;
       }
-
       return  "none";
     });
     
