@@ -130,7 +130,7 @@ d3.csv("./data/out_modis_20200129.csv", function(data) {
     d3.select(this).call(y[d.key].brush = d3.brushY().extent([[-8, 0], [8,height]]).
     on("start", brushstart).
     on("brush", brush)).
-    on("click", fix)})
+    on("click", cancelSelection)})
     .selectAll("rect")
     .attr("x", -8)
     .attr("width", 16);
@@ -181,8 +181,14 @@ d3.csv("./data/out_modis_20200129.csv", function(data) {
     
   }
 
-  function fix(){
-    key = this.__data__.key
+  function cancelSelection(){
+    key = this.__data__.key;
+    children = this.childNodes;
+    hide = false;
+    for (i =0; i<children.length;i++){
+		if(children[i].__data__.type == 'selection' && children[i].y.animVal.value==0) hide=true;
+	}
+	if (!hide) return;
     for(i in dimensions){
         if(key == dimensions[i].key){
           extents[i] = [0,0];
