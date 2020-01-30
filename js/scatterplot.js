@@ -41,8 +41,14 @@ d3.csv("./data/out_modis_20200129.csv", function(data) {
 	  else dayOfWeek = 'Sunday';
 	  data[i].dayOfWeek = dayOfWeek;
   }
+  for (i=0;i<data.length;i++){
+	  data[i].PCA_component1 = (parseFloat(data[i].PCA_component1) + Math.abs(min_x)).toString();
+	  data[i].PCA_component2 = (parseFloat(data[i].PCA_component2) + Math.abs(min_y)).toString();
+  }
+  max_x = max_x+Math.abs(min_x);
+  max_y = max_y+Math.abs(min_y);
   var x = d3.scaleLinear()
-    .domain([min_x-5, max_x+5])
+    .domain([0, max_x+5])
     .range([ 0, width_scatter ]);
   svg_scatter.append("g")
     .attr("transform", "translate(0," + height_scatter + ")")
@@ -57,7 +63,7 @@ d3.csv("./data/out_modis_20200129.csv", function(data) {
 
   // Add Y axis
   var y = d3.scaleLinear()
-    .domain([min_y-5, max_y +5])
+    .domain([0, max_y+5])
     .range([ height_scatter, 0]);
   svg_scatter.append("g")
     .call(d3.axisLeft(y));
@@ -81,8 +87,8 @@ d3.csv("./data/out_modis_20200129.csv", function(data) {
     .data(data)
     .enter()
     .append("circle")
-      .attr("cx", function (d) { return x(d.PCA_component1+min_x); } )
-      .attr("cy", function (d) { return y(d.PCA_component2+min_y); } )
+      .attr("cx", function (d) { return x(d.PCA_component1); } )
+      .attr("cy", function (d) { return y(d.PCA_component2); } )
       .attr("r", 4)
       .style("fill", function (d) { return color[d.dayOfWeek] } )
       .style("opacity", 0.5)
