@@ -105,7 +105,7 @@ orchestrator.addListener('dataReady', function (e) {
 
   function filteringByScatterplot(d) {
     brush_coords = scatterplot_brushing_last;
-    if (brush_coords == undefined) return true;
+    if (brush_coords == undefined) return false;
     cx = x(d.PCA_component1);
     cy = y(d.PCA_component2);
     var x0 = brush_coords[0][0],
@@ -119,9 +119,9 @@ orchestrator.addListener('dataReady', function (e) {
   function updateChart() {
     scatterplot_brushing_last = d3.event.selection;
     orchestrator.notifyScatterplotBrushing();
-    myCircle.attr("class", function (d) {
-      if (filteringByScatterplot(d)) return 'selected'
-      else return '';
+    svg_scatter.select('.circle_container').selectAll("circle").data(evalData()).classed("selected", function (d) {
+      if (filteringByScatterplot(d)) return true;
+      else return false;
     })
   }
 
@@ -169,10 +169,14 @@ orchestrator.addListener('dataReady', function (e) {
     u.enter().append('circle')
       .attr("r", 0)
       .attr("cx", function (d) { return x(d.PCA_component1); })
-      .attr("cy", function (d) { return y(d.PCA_component2); });
-    u.transition().duration(200).attr("r", 4).attr("cx", function (d) { return x(d.PCA_component1); })
       .attr("cy", function (d) { return y(d.PCA_component2); })
+      .style("fill", function (d) { return color[d.dayOfWeek] })
+      .style("opacity", 0.5).merge(u);
+
+    svg_scatter.select('.circle_container').selectAll("circle").data(modifiedData).transition().duration(200)
       .attr("r", 4)
+      .attr("cx", function (d) { return x(d.PCA_component1); })
+      .attr("cy", function (d) { return y(d.PCA_component2); })
       .style("fill", function (d) { return color[d.dayOfWeek] })
       .style("opacity", 0.5)
       .attr('class', function (d) {
