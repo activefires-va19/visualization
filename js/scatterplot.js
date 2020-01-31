@@ -106,7 +106,6 @@ orchestrator.addListener('dataReady', function (e) {
   function filteringByScatterplot(d) {
     brush_coords = scatterplot_brushing_last;
     if (brush_coords == undefined) return true;
-    if (last_hover_x != undefined && last_hover_y != undefined && last_hover_x == d.PCA_component1 && last_hover_y == d.PCA_component2) return true;
     cx = x(d.PCA_component1);
     cy = y(d.PCA_component2);
     var x0 = brush_coords[0][0],
