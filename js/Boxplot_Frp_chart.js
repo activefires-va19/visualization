@@ -12,6 +12,9 @@ orchestrator.addListener('dataReady', function (e) {
         points_frp.push(+elem["frp"]);
     });
 
+
+    
+    //Calculating median and quantiles for boxplot
     var data_sorted3 = points_frp.sort(d3.ascending);
     var first_quantile3 = d3.quantile(data_sorted3, .25);
     var median3 = d3.quantile(data_sorted3, .5);
