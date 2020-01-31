@@ -18,47 +18,47 @@ var points_fire = []
 
 orchestrator.addListener('dataReady', function (e) {
     data = orchestrator.data;
-    for(i=0; i<data.length; i++){
-        points_fire.push({long: +(data[i].longitude), lat: +(data[i].latitude)});
-    }
+    d3.json("./data/map.js", function(data){
+
+        map_countries = ["Albania","Algeria","Austria","Belarus",
+                        "Belgium","Bosnia and Herzegovina","Bulgaria","Bulgaria","Croatia","Cyprus",
+                        "Czech Republic","England","France","Germany",
+                        "Greece","Hungary","Italy","Kosovo",
+                        "Moldova","Montenegro","Macedonia",
+                        "Poland","Portugal","Romania","Serbia","Slovenia","Slovakia",
+                        "Spain","Switzerland",
+                        "Tunisia","Turkey",
+                        "Ukraine","United Kingdom"];
+    
+        data.features = data.features.filter( function(d){return map_countries.includes(d.properties.name)} )
+    
+        //Drawing our map
+        svg_map.append("g")
+            .selectAll("path")
+            .data(data.features)
+            .enter()
+            .append("path")
+            .attr("fill", "#6fb1f3")
+            .attr("d", d3.geoPath().projection(projection))
+            .style("stroke", "black")
+            .style("opacity", .3)
+        
+        update_map();
+    })
 });
 
-d3.json("./data/map.js", function(data){
 
-
-    map_countries = ["Albania","Algeria","Austria","Belarus",
-                    "Belgium","Bosnia and Herzegovina","Bulgaria","Bulgaria","Croatia","Cyprus",
-                    "Czech Republic","England","France","Germany",
-                    "Greece","Hungary","Italy","Kosovo",
-                    "Moldova","Montenegro","Macedonia",
-                    "Poland","Portugal","Romania","Serbia","Slovenia","Slovakia",
-                    "Spain","Switzerland",
-                    "Tunisia","Turkey",
-                    "Ukraine","United Kingdom"];
-
-    data.features = data.features.filter( function(d){return map_countries.includes(d.properties.name)} )
-
-    //Drawing our map
-    svg_map.append("g")
-        .selectAll("path")
-        .data(data.features)
-        .enter()
-        .append("path")
-        .attr("fill", "#6fb1f3")
-        .attr("d", d3.geoPath().projection(projection))
-        .style("stroke", "black")
-        .style("opacity", .3)
-
+function update_map(){
     //Adding fire points
     svg_map.selectAll("fires")
-        .data(points_fire)
+        .data(data)
         .enter()
         .append("circle")
-        .attr("cx", function(d){return projection([d.long, d.lat])[0];})
-        .attr("cy", function(d){return projection([d.long, d.lat])[1];})
+        .attr("cx", function(d){return projection([+d["longitude"], +d["latitude"]])[0];})
+        .attr("cy", function(d){return projection([+d["longitude"], +d["latitude"]])[1];})
         .attr("r", 1)
         .style("fill", "FFA500")
         .attr("stroke", "#FFA500")
         .attr("stroke-width", 3)
         .attr("fill-opacity", .4)
-})
+}
