@@ -12,15 +12,28 @@ var svg_h = d3.select(".histo_area")
 d3.csv("./data/out_modis_20200129.csv", function(data) {
 
   var parseHour = d3.timeParse("%H%M");
+  var parseDays = d3.timeParse("%Y-%m-%d-%H%M");
 
   events_hour = [];
-
+  events_days = [];
   data.forEach( e => {
     events_hour.push(parseHour(e["acq_time"]));
+    events_days.push(parseDays(e["acq_date"]+"-"+e["acq_time"]));
   });
 
-  low_h = parseHour("0000");
-  high_h = parseHour("2359");
+
+function update_histogram(data_selected){
+  if(data_selected == events_hour){
+    low_h = parseHour("0000");
+    high_h = parseHour("2359");
+    ticks = 24;
+  }
+  else{
+    low_h = events_days[0];
+    high_h = events_days[events_days.length-1];
+    ticks = 72;
+  }
+  
 
   var x_h = d3.scaleTime()
       .domain([low_h, high_h])
@@ -33,9 +46,9 @@ d3.csv("./data/out_modis_20200129.csv", function(data) {
   var histogram = d3.histogram()
       .value(function(d) { return d; })
       .domain(x_h.domain())
-      .thresholds(x_h.ticks(24));
+      .thresholds(x_h.ticks(ticks));
 
-  var bins = histogram(events_hour);
+  var bins = histogram(data_selected);
  
   var y_h = d3.scaleLinear().range([height_h, 0]);
 
@@ -52,4 +65,9 @@ d3.csv("./data/out_modis_20200129.csv", function(data) {
         .attr("width", function(d) { return x_h(d.x1) - x_h(d.x0)-1 ; })
         .attr("height", function(d) { return height_h - y_h(d.length); })
         .style("fill", "#6fb1f3")
+}
+
+//update_histogram(events_days);
+update_histogram(events_hour);
+  
 });
