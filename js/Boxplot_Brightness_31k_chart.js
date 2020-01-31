@@ -20,11 +20,24 @@ orchestrator.addListener('dataReady', function (e) {
     var min2 = first_quantile2 - 1.5 * interQuantileRange2;
     var max2 = first_quantile2 + 1.5 * interQuantileRange2;
 
+    if(min2 < 0) min2 = 0;
+
     var center2 = 50;
     var width2 = 25;
 
+    var low2;
+
+    if(min2 - 10 < 0){
+        low2 = 0;
+    }
+    else{
+        low2 = (min2 - 10);
+    }
+
+    var high2 = (max2 + 10);
+
     var y2 = d3.scaleLinear()
-        .domain([(min2 - 10), (max2 + 10)])
+        .domain([low2, high2])
         .range([height_box_b, 0]);
 
     var yAxis2 = d3.axisLeft(y2);
