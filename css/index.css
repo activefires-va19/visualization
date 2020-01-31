@@ -16,7 +16,7 @@ grid-area: header_area;}
 
 .map_area { 
 grid-area: map_area;
-background-color: red; }
+}
 
 .parallel_area { 
     grid-area: parallel_area ;
