@@ -82,7 +82,6 @@ orchestrator.addListener('dataReady', function (e) {
     return ret;
   }
 
-  var last_hover_x, last_hover_y;
   // Add dots
   var myCircle = svg_scatter.append('g').attr('class', 'circle_container')
     .selectAll("circle")
@@ -92,18 +91,8 @@ orchestrator.addListener('dataReady', function (e) {
     .attr("cx", function (d) { return x(d.PCA_component1); })
     .attr("cy", function (d) { return y(d.PCA_component2); })
     .attr("r", 4)
-    .on('mouseover', function (e) {
-      last_hover_x = d.PCA_component1;
-      last_hover_y = d.PCA_component2;
-      orchestrator.notifyScatterplotBrushing();
-    })
-    .on('mouseout', function (e) {
-      last_hover_x = undefined;
-      last_hover_y = undefined;
-      orchestrator.notifyScatterplotBrushing();
-    })
     .style("fill", function (d) { return color[d.dayOfWeek] })
-    .style("opacity", 0.5)
+    .style("opacity", 0.5);
 
   // Add brushing
   svg_scatter
