@@ -59,7 +59,7 @@ orchestrator.addListener('dataReady', function (e) {
             .attr("fill-opacity", .4);
 
         orchestrator.addListener('scatterplotBrushing', function (e) {
-            svg_map.select(".circles_container").selectAll("circle").data(evalData()).attr('stroke', function (d) {
+            svg_map.select(".circles_container").selectAll("circle").data(evalData()).transition().duration(130).attr('stroke', function (d) {
                 if (orchestrator.filteringByScatterplot(d)) return 'red'
                 else return "#FFA500";
             });
