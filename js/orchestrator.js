@@ -1,8 +1,7 @@
 Orchestrator = function () {
     this.dataLoaded = false;
     this.data = []
-    this.highlightBrush = []
-    this.highlighOthers = []
+    this.filteredByParallel = undefined;
     this.listenersContainer = new EventTarget();
     this.filteringByScatterplot = undefined;
     this.filteringByParallel = undefined;
@@ -37,6 +36,11 @@ Orchestrator.prototype.notifyScatterplotBrushing = function () {
 }
 
 Orchestrator.prototype.notifyParallelBrushing = function () {
+    if (this.filteredByParallel == undefined) this.filteredByParallel = [];
+    else this.filteredByParallel.splice(0, this.filteredByParallel.length);
+    for (i = 0; i < data.length; i++) {
+        if (this.filteringByParallel != undefined && this.filteringByParallel(data[i])) this.filteredByParallel.push(data[i]);
+    }
     this.listenersContainer.dispatchEvent(new Event('parallelBrushing'));
 }
 
@@ -46,6 +50,11 @@ Orchestrator.prototype.notifyOtherHighlight = function () {
 
 Orchestrator.prototype.notifyDataChanged = function () {
     this.listenersContainer.dispatch(new Event('dataChanged'));
+}
+
+Orchestrator.prototype.getDataFilteredByParallel = function () {
+    if (this.filteredByParallel == undefined) return this.data;
+    else return this.filteredByParallel;
 }
 
 var orchestrator = new Orchestrator();

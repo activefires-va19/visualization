@@ -72,14 +72,8 @@ orchestrator.addListener('dataReady', function (e) {
     "Sunday": "#a6761d"
   };
 
-
-
   function evalData() {
-    ret = [];
-    for (i = 0; i < data.length; i++) {
-      if (orchestrator.filteringByParallel != undefined && orchestrator.filteringByParallel(data[i])) ret.push(data[i])
-    }
-    return ret;
+    return orchestrator.getDataFilteredByParallel();
   }
 
   // Add dots

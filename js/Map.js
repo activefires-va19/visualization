@@ -19,12 +19,8 @@ var points_fire = []
 orchestrator.addListener('dataReady', function (e) {
     data = orchestrator.data;
     function evalData() {
-        ret = [];
-        for (i = 0; i < data.length; i++) {
-            if (orchestrator.filteringByParallel != undefined && orchestrator.filteringByParallel(data[i])) ret.push(data[i])
-        }
-        return ret;
-    }
+        return orchestrator.getDataFilteredByParallel();
+      }
     d3.json("./data/map.js", function (data) {
 
         map_countries = ["Albania", "Algeria", "Austria", "Belarus",
