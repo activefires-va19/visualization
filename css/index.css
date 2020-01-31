@@ -34,7 +34,6 @@ shape-rendering: crispEdges;
 
 .foreground path {
 fill: none;
-stroke: steelblue;
 }
 
 .brush .extent {

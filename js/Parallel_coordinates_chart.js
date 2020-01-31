@@ -126,7 +126,8 @@ orchestrator.addListener('dataReady', function (e) {
     .selectAll("path")
     .data(data)
     .enter().append("path")
-    .attr("d", path);
+    .attr("d", path)
+    .attr("stroke", "steelblue");
 
   var g = svg_parallel.selectAll("axis")
     .data(dimensions)
@@ -161,7 +162,7 @@ orchestrator.addListener('dataReady', function (e) {
   }
 
 
-  function parallelFiltering(d){
+  function parallelFiltering(d) {
     value = dimensions.every(function (p, i) {
       if (extents[i][0] == 0 && extents[i][1] == 0) {
         return true;
@@ -190,8 +191,8 @@ orchestrator.addListener('dataReady', function (e) {
     });
     return value;
   }
-  orchestrator.filteringByParallel = parallelFiltering;
 
+  orchestrator.filteringByParallel = parallelFiltering;
   function brush() {
 
     for (i in dimensions) {
@@ -205,7 +206,7 @@ orchestrator.addListener('dataReady', function (e) {
       }
     }
 
-    
+
     orchestrator.notifyParallelBrushing();
     foreground.style("display", function (d) {
       value = parallelFiltering(d);
@@ -233,4 +234,14 @@ orchestrator.addListener('dataReady', function (e) {
     }
     orchestrator.notifyParallelBrushing();
   }
+
+  orchestrator.addListener('scatterplotBrushing', function (e) {
+    foreground.style("stroke", function (d) {
+      value = orchestrator.filteringByScatterplot(d);
+      if (value) {
+        return 'red';
+      }
+      return "steelblue";
+    });
+  });
 });
