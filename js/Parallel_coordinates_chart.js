@@ -8,8 +8,6 @@ var svg_parallel = d3.select(".parallel_area").append("svg")
   .append("g")
   .attr("transform", "translate(" + margin_parallel.left + "," + margin_parallel.top + ")");
 
-var selected = []
-
 orchestrator.addListener('dataReady', function (e) {
   data = orchestrator.data;
   dimensions = [
@@ -162,6 +160,38 @@ orchestrator.addListener('dataReady', function (e) {
     d3.event.sourceEvent.stopPropagation();
   }
 
+
+  function parallelFiltering(d){
+    value = dimensions.every(function (p, i) {
+      if (extents[i][0] == 0 && extents[i][1] == 0) {
+        return true;
+      }
+      if (p.key == "Country") {
+        ex0 = countries.indexOf(extents[i][0]);
+        ex1 = countries.indexOf(extents[i][1]);
+        value = countries.indexOf(d[p.key]);
+        return ex1 >= value && value >= ex0;
+      }
+      if (p.key == "acq_time") {
+        value = String(d[p.key]);
+        h = value.substring(0, 2);
+        mm = value.substring(2, 4);
+
+        date = new Date();
+        date.setHours(h);
+        date.setMinutes(mm);
+
+        return extents[i][1] <= date && date <= extents[i][0];
+      }
+      else {
+        return extents[i][1] <= d[p.key] && d[p.key] <= extents[i][0];
+      }
+
+    });
+    return value;
+  }
+  orchestrator.filteringByParallel = parallelFiltering;
+
   function brush() {
 
     for (i in dimensions) {
@@ -175,38 +205,11 @@ orchestrator.addListener('dataReady', function (e) {
       }
     }
 
-    selected = [];
-
+    
+    orchestrator.notifyParallelBrushing();
     foreground.style("display", function (d) {
-      value = dimensions.every(function (p, i) {
-        if (extents[i][0] == 0 && extents[i][1] == 0) {
-          return true;
-        }
-        if (p.key == "Country") {
-          ex0 = countries.indexOf(extents[i][0]);
-          ex1 = countries.indexOf(extents[i][1]);
-          value = countries.indexOf(d[p.key]);
-          return ex1 >= value && value >= ex0;
-        }
-        if (p.key == "acq_time") {
-          value = String(d[p.key]);
-          h = value.substring(0, 2);
-          mm = value.substring(2, 4);
-
-          date = new Date();
-          date.setHours(h);
-          date.setMinutes(mm);
-
-          return extents[i][1] <= date && date <= extents[i][0];
-        }
-        else {
-          return extents[i][1] <= d[p.key] && d[p.key] <= extents[i][0];
-        }
-
-      })
-
+      value = parallelFiltering(d);
       if (value) {
-        selected.push(d);
         return null;
       }
       return "none";
@@ -228,5 +231,6 @@ orchestrator.addListener('dataReady', function (e) {
         brush()
       }
     }
+    orchestrator.notifyParallelBrushing();
   }
 });

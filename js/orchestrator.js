@@ -4,6 +4,8 @@ Orchestrator = function () {
     this.highlightBrush = []
     this.highlighOthers = []
     this.listenersContainer = new EventTarget();
+    this.filteringByScatterplot = undefined;
+    this.filteringByParallel = undefined;
 }
 Orchestrator.prototype.loadData = function () {
     _obj = this;
@@ -30,8 +32,12 @@ Orchestrator.prototype.addListener = function (nameEvent, functionz) {
     else this.listenersContainer.addEventListener(nameEvent, functionz);
 }
 
-Orchestrator.prototype.notifyBrushHighlight = function () {
-    this.listenersContainer.dispatch(new Event('brushHightlight'));
+Orchestrator.prototype.notifyScatterplotBrushing = function () {
+    this.listenersContainer.dispatchEvent(new Event('scatterplotBrushing'));
+}
+
+Orchestrator.prototype.notifyParallelBrushing = function () {
+    this.listenersContainer.dispatchEvent(new Event('parallelBrushing'));
 }
 
 Orchestrator.prototype.notifyOtherHighlight = function () {

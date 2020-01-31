@@ -74,10 +74,18 @@ orchestrator.addListener('dataReady', function (e) {
 
 
 
+  function evalData(){
+    ret = [];
+    for (i =0; i<data.length;i++) {
+      if (orchestrator.filteringByParallel != undefined && orchestrator.filteringByParallel(data[i])) ret.push(data[i])
+    }
+    return ret;
+  }
+
   // Add dots
-  var myCircle = svg_scatter.append('g')
+  var myCircle = svg_scatter.append('g').attr('class', 'circle_container')
     .selectAll("circle")
-    .data(data)
+    .data(evalData())
     .enter()
     .append("circle")
     .attr("cx", function (d) { return x(d.PCA_component1); })
@@ -93,20 +101,27 @@ orchestrator.addListener('dataReady', function (e) {
       .on("start brush", updateChart) // Each time the brush selection changes, trigger the 'updateChart' function
     )
 
+  var scatterplot_brushing_last;
+
+  function filteringByScatterplot(d){
+    brush_coords = scatterplot_brushing_last;
+    if (brush_coords == undefined) return true;
+    cx = x(d.PCA_component1);
+    cy = y(d.PCA_component2);
+    var x0 = brush_coords[0][0],
+    x1 = brush_coords[1][0],
+    y0 = brush_coords[0][1],
+    y1 = brush_coords[1][1];
+    return x0 <= cx && cx <= x1 && y0 <= cy && cy <= y1;
+  }
+  orchestrator.filteringByScatterplot = filteringByScatterplot;
   // Function that is triggered when brushing is performed
   function updateChart() {
-    extent = d3.event.selection
-    myCircle.classed("selected", function (d) { return isBrushed(extent, x(d.PCA_component1), y(d.PCA_component2)) })
+    scatterplot_brushing_last = d3.event.selection;
+    orchestrator.notifyScatterplotBrushing();
+    myCircle.classed("selected", function (d) { return filteringByScatterplot(d) })
   }
 
-  // A function that return TRUE or FALSE according if a dot is in the selection or not
-  function isBrushed(brush_coords, cx, cy) {
-    var x0 = brush_coords[0][0],
-      x1 = brush_coords[1][0],
-      y0 = brush_coords[0][1],
-      y1 = brush_coords[1][1];
-    return x0 <= cx && cx <= x1 && y0 <= cy && cy <= y1;    // This return TRUE or FALSE depending on if the points is in the selected area
-  }
 
   var legend = svg_scatter.selectAll('legend')
     .data(['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'])
@@ -143,4 +158,20 @@ orchestrator.addListener('dataReady', function (e) {
       (height_scatter + margin_scatter.top + 20) + ")")
     .style("text-anchor", "middle")
     .text("Y1");
+
+
+  orchestrator.addListener('parallelBrushing', function (e) {
+    modifiedData = evalData();
+    var u = svg_scatter.select('.circle_container').selectAll("circle").data(modifiedData);
+    u.exit().attr("r",0);
+    u.enter().append('circle')
+    .attr("r", 0)
+    .attr("cx", function (d) { return x(d.PCA_component1); })
+    .attr("cy", function (d) { return y(d.PCA_component2); });
+    u.transition().duration(200).attr("r", 4).attr("cx", function (d) { return x(d.PCA_component1); })
+    .attr("cy", function (d) { return y(d.PCA_component2); })
+    .attr("r", 4)
+    .style("fill", function (d) { return color[d.dayOfWeek] })
+    .style("opacity", 0.5)                
+  }); 
 });

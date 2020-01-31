@@ -13,7 +13,6 @@ orchestrator.addListener('dataReady', function (e) {
     });
 
     var data_sorted3 = points_frp.sort(d3.ascending);
-    console.log(data_sorted3);
     var first_quantile3 = d3.quantile(data_sorted3, .25);
     var median3 = d3.quantile(data_sorted3, .5);
     var third_quantile3 = d3.quantile(data_sorted3, .75);
