@@ -14,6 +14,14 @@ var projection = d3.geoMercator()
     .scale(400)                  
     .translate([ width_map/2, height_map/2 ])
 
+var points_fire = []
+
+d3.csv("./data/out_modis_20200129.csv", function (loadedData) {
+    for (i = 0; i < loadedData.length; i++) {
+        points_fire.push({long: +(loadedData[i].longitude), lat: +(loadedData[i].latitude)});
+    }
+})
+
 d3.json("./data/map.js", function(data){
 
 
@@ -39,4 +47,17 @@ d3.json("./data/map.js", function(data){
         .attr("d", d3.geoPath().projection(projection))
         .style("stroke", "black")
         .style("opacity", .3)
+
+    //Adding fire points
+    svg_map.selectAll("fires")
+        .data(points_fire)
+        .enter()
+        .append("circle")
+        .attr("cx", function(d){return projection([d.long, d.lat])[0];})
+        .attr("cy", function(d){return projection([d.long, d.lat])[1];})
+        .attr("r", 1)
+        .style("fill", "FFA500")
+        .attr("stroke", "#FFA500")
+        .attr("stroke-width", 3)
+        .attr("fill-opacity", .4)
 })
