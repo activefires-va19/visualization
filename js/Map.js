@@ -1,4 +1,4 @@
-var margin_map = { top: 10, right: 30, bottom: 10, left: 50 },
+var margin_map = { top: 10, right: 10, bottom: 10, left: 10 },
     width_map = 600 - margin_map.left - margin_map.right,
     height_map = 400 - margin_map.top - margin_map.bottom;
 
@@ -10,17 +10,18 @@ var svg_map = d3.select(".map_area")
     .attr("transform", "translate(" + margin_map.left + "," + margin_map.top + ")");
 
 var projection = d3.geoMercator()
-    .center([2, 47])                
+    .center([10, 42])                
     .scale(400)                  
     .translate([ width_map/2, height_map/2 ])
 
 var points_fire = []
 
-d3.csv("./data/out_modis_20200129.csv", function (loadedData) {
-    for (i = 0; i < loadedData.length; i++) {
-        points_fire.push({long: +(loadedData[i].longitude), lat: +(loadedData[i].latitude)});
+orchestrator.addListener('dataReady', function (e) {
+    data = orchestrator.data;
+    for(i=0; i<data.length; i++){
+        points_fire.push({long: +(data[i].longitude), lat: +(data[i].latitude)});
     }
-})
+});
 
 d3.json("./data/map.js", function(data){
 
