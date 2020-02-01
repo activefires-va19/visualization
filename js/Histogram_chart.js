@@ -1,6 +1,6 @@
-var margin_h = {top: 10, right: 30, bottom: 20, left: 50},
-    width_h = 600 - margin_h.left - margin_h.right,
-    height_h = 400 - margin_h.top - margin_h.bottom;
+var margin_h = { top: 10, right: 30, bottom: 20, left: 50 },
+  width_h = 600 - margin_h.left - margin_h.right,
+  height_h = 400 - margin_h.top - margin_h.bottom;
 
 var svg_h = d3.select(".histo_area")
   .append("svg")
@@ -16,7 +16,7 @@ var events_days = [];
 var x_h, y_h;
 var selected_h = 1;
 
-function parse_hour_h(input){
+function parse_hour_h(input) {
   h = input.substring(0, 2);
   mm = input.substring(2, 4);
 
@@ -29,50 +29,50 @@ function parse_hour_h(input){
 
 orchestrator.addListener('dataReady', function (e) {
   data = evalData();
-  data.forEach( e => {
+  data.forEach(e => {
     events_hour.push(parse_hour_h(e["acq_time"]));
-    events_days.push(parseDays(e["acq_date"]+"-"+e["acq_time"]));
+    events_days.push(parseDays(e["acq_date"] + "-" + e["acq_time"]));
   });
 
-  events_days.sort(function(a,b){return a.getTime() - b.getTime()});
+  events_days.sort(function (a, b) { return a.getTime() - b.getTime() });
   low_h = parse_hour_h("0000");
   high_h = parse_hour_h("2359");
   ticks = 24;
 
   x_h = d3.scaleTime()
-      .domain([low_h, high_h])
-      .range([0, width_h]);
+    .domain([low_h, high_h])
+    .range([0, width_h]);
 
   svg_h.append("g")
-      .attr("class", "x-axis")
-      .attr("transform", "translate(0," + height_h + ")")
-      .call(d3.axisBottom(x_h));
+    .attr("class", "x-axis")
+    .attr("transform", "translate(0," + height_h + ")")
+    .call(d3.axisBottom(x_h));
 
   var histogram = d3.histogram()
-      .value(function(d) { return d; })
-      .domain(x_h.domain())
-      .thresholds(x_h.ticks(ticks));
+    .value(function (d) { return d; })
+    .domain(x_h.domain())
+    .thresholds(x_h.ticks(ticks));
 
   var bins = histogram(events_hour);
- 
+
   y_h = d3.scaleLinear().range([height_h, 0]);
 
-  y_h.domain([0, d3.max(bins, function(d) { return d.length; })]);
+  y_h.domain([0, d3.max(bins, function (d) { return d.length; })]);
 
   svg_h.append("g").attr("class", "y-axis").call(d3.axisLeft(y_h));
 
   svg_h.selectAll("rect")
-      .data(bins)
-      .enter()
-      .append("rect")
-        .attr("class", "histo_bars")
-        .attr("x", 1)
-        .attr("transform", function(d) { return "translate(" + x_h(d.x0) + "," + y_h(d.length) + ")"; })
-        .attr("width", function(d) { return x_h(d.x1) - x_h(d.x0)-1 ; })
-        .attr("height", function(d) { return height_h - y_h(d.length); })
-        .style("fill", "#6fb1f3")
+    .data(bins)
+    .enter()
+    .append("rect")
+    .attr("class", "histo_bars")
+    .attr("x", 1)
+    .attr("transform", function (d) { return "translate(" + x_h(d.x0) + "," + y_h(d.length) + ")"; })
+    .attr("width", function (d) { return x_h(d.x1) - x_h(d.x0) - 1; })
+    .attr("height", function (d) { return height_h - y_h(d.length); })
+    .style("fill", "#6fb1f3")
 
-  function update_histogram(num){
+  function update_histogram(num) {
 
     selected_h = num;
     data = evalData();
@@ -80,80 +80,92 @@ orchestrator.addListener('dataReady', function (e) {
     events_days = [];
     events_hour = [];
 
-    data.forEach( e => {
+    data.forEach(e => {
       events_hour.push(parse_hour_h(e["acq_time"]));
-      events_days.push(parseDays(e["acq_date"]+"-"+e["acq_time"]));
+      events_days.push(parseDays(e["acq_date"] + "-" + e["acq_time"]));
     });
-    events_days.sort(function(a,b){return a.getTime() - b.getTime()});
+    events_days.sort(function (a, b) { return a.getTime() - b.getTime() });
 
-    if(selected_h == 1){
+    if (selected_h == 1) {
       low_h = parse_hour_h("0000");
       high_h = parse_hour_h("2359");
       ticks = 24;
       selected_set = events_hour;
     }
-    else{
+    else {
       day_l = events_days[0].getDate();
-      month_l = events_days[0].getMonth()+1;
+      month_l = events_days[0].getMonth() + 1;
       year_l = events_days[0].getFullYear();
-      if(month_l == 13){
+      if (month_l == 13) {
         month_l = 1;
-        year_l +=1;
+        year_l += 1;
       }
-      string_l = String(year_l)+"-"+String(month_l)+"-"+String(day_l)+"-"+"0000";
+      string_l = String(year_l) + "-" + String(month_l) + "-" + String(day_l) + "-" + "0000";
 
-      day_h = events_days[events_days.length-1].getDate();
-      month_h = events_days[events_days.length-1].getMonth()+1;
-      year_h = events_days[events_days.length-1].getFullYear();
-      if(month_h == 13){
+      day_h = events_days[events_days.length - 1].getDate();
+      month_h = events_days[events_days.length - 1].getMonth() + 1;
+      year_h = events_days[events_days.length - 1].getFullYear();
+      if (month_h == 13) {
         month_h = 1;
-        year_h +=1;
+        year_h += 1;
       }
-      string_h = String(year_h)+"-"+String(month_h)+"-"+String(day_h)+"-"+"2359";
+      string_h = String(year_h) + "-" + String(month_h) + "-" + String(day_h) + "-" + "2359";
 
       low_h = parseDays(string_l);
       high_h = parseDays(string_h);
       ticks = 24;
       selected_set = events_days;
     }
-    
+
 
     x_h.domain([low_h, high_h]);
 
     var histogram = d3.histogram()
-        .value(function(d) { return d; })
-        .domain(x_h.domain())
-        .thresholds(x_h.ticks(ticks));
+      .value(function (d) { return d; })
+      .domain(x_h.domain())
+      .thresholds(x_h.ticks(ticks));
 
     var bins = histogram(selected_set);
 
-    y_h.domain([0, d3.max(bins, function(d) { return d.length; })]);
+    y_h.domain([0, d3.max(bins, function (d) { return d.length; })]);
 
     svg_h.select(".x-axis").transition().duration(1).call(d3.axisBottom(x_h));
 
     svg_h.select(".y-axis").transition().duration(1).call(d3.axisLeft(y_h));
 
-    svg_h.selectAll(".histo_bars").remove();
+    var u = svg_h.selectAll(".histo_bars").data(bins);
+    u.exit().remove();
 
     svg_h.selectAll("rect").data(bins).enter()
-        .append("rect")
-          .attr("x", 1)
-          .attr("class", "histo_bars")
-          .attr("transform", function(d) { return "translate(" + x_h(d.x0) + "," + y_h(d.length) + ")"; })
-          .attr("width", function(d) { return x_h(d.x1) - x_h(d.x0)-1 ; })
-          .attr("height", function(d) { return height_h - y_h(d.length); })
-          .style("fill", "#6fb1f3")
+      .append("rect")
+      .attr("x", 1)
+      .attr("class", "histo_bars")
+      .style("fill", "#6fb1f3")
+      .attr("width", function (d) { return x_h(d.x1) - x_h(d.x0) - 1; })
+      .attr("height", 0)
+      .attr("transform", function (d) { return "translate(" + x_h(d.x0) + "," + y_h(d.length) + ")"; })
+      .style('opacity', 0);
+
+
+    svg_h.selectAll(".histo_bars").data(bins).transition().duration(200)
+      .attr("x", 1)
+      .attr("class", "histo_bars")
+      .attr("transform", function (d) { return "translate(" + x_h(d.x0) + "," + y_h(d.length) + ")"; })
+      .attr("width", function (d) { return x_h(d.x1) - x_h(d.x0) - 1; })
+      .attr("height", function (d) { return height_h - y_h(d.length); })
+      .style("fill", "#6fb1f3")
+      .style('opacity', 1);
   }
 
   orchestrator.addListener('parallelBrushing', function (e) {
     update_histogram(selected_h);
   });
 
-  d3.select("#hours").on("click", function(){
+  d3.select("#hours").on("click", function () {
     update_histogram(1);
   });
 
-  d3.select("#week").on("click", function(){
+  d3.select("#week").on("click", function () {
     update_histogram(2);
   });
 
