@@ -16,15 +16,12 @@ var events_days = [];
 var x_h, y_h;
 var selected_h = 1;
 
-function parse_hour_h(input) {
-  h = input.substring(0, 2);
-  mm = input.substring(2, 4);
-
-  date = new Date();
-  date.setHours(h);
-  date.setMinutes(mm);
-
-  return date;
+function parse_hour_h(e) {
+  var today = new Date();
+  var dd = String(today.getDate()).padStart(2, '0');
+  var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+  var yyyy = today.getFullYear();
+  return new Date(mm + '/' + dd + '/' + yyyy+" " + e.substring(0, 2) + ":" + e.substring(2, 4));
 }
 
 orchestrator.addListener('dataReady', function (e) {
@@ -80,12 +77,8 @@ orchestrator.addListener('dataReady', function (e) {
 
     events_days = [];
     events_hour = [];
-    var today = new Date();
-    var dd = String(today.getDate()).padStart(2, '0');
-    var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
-    var yyyy = today.getFullYear();
     data.forEach(e => {
-      events_hour.push(new Date(mm + '/' + dd + '/' + yyyy+" " + e["acq_time"].substring(0, 2) + ":" + e["acq_time"].substring(2, 4)));
+      events_hour.push(parse_hour_h(e['acq_time']));
       events_days.push(new Date(e["acq_date"] + " " + e["acq_time"].substring(0, 2) + ":" + e["acq_time"].substring(2, 4)));
     });
     events_days.sort(function (a, b) { return a.getTime() - b.getTime() });
@@ -129,7 +122,6 @@ orchestrator.addListener('dataReady', function (e) {
       .thresholds(x_h.ticks(ticks));
 
     var bins = histogram(selected_set);
-
     y_h.domain([0, d3.max(bins, function (d) { return d.length; })]);
 
     svg_h.select(".x-axis").transition().duration(1).call(d3.axisBottom(x_h));
