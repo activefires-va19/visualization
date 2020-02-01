@@ -9,17 +9,20 @@ var svg_h = d3.select(".histo_area")
   .append("g")
   .attr("transform", "translate(" + margin_h.left + "," + margin_h.top + ")");
 
-d3.csv("./data/out_modis_20200129.csv", function(data) {
+var parseHour = d3.timeParse("%H%M");
+var parseDays = d3.timeParse("%Y-%m-%d-%H%M");
+var events_hour = [];
+var events_days = [];
 
-  var parseHour = d3.timeParse("%H%M");
-  var parseDays = d3.timeParse("%Y-%m-%d-%H%M");
-
-  events_hour = [];
-  events_days = [];
+orchestrator.addListener('dataReady', function (e) {
+  data = orchestrator.data;
   data.forEach( e => {
-    events_hour.push(parseHour(e["acq_time"]));
-    events_days.push(parseDays(e["acq_date"]+"-"+e["acq_time"]));
+  events_hour.push(parseHour(e["acq_time"]));
+  events_days.push(parseDays(e["acq_date"]+"-"+e["acq_time"]));
   });
+  update_histogram(events_days);
+  //update_histogram(events_hour);
+});
 
 
 function update_histogram(data_selected){
@@ -66,8 +69,3 @@ function update_histogram(data_selected){
         .attr("height", function(d) { return height_h - y_h(d.length); })
         .style("fill", "#6fb1f3")
 }
-
-//update_histogram(events_days);
-update_histogram(events_hour);
-  
-});
