@@ -86,7 +86,6 @@ stroke: #fff;
 shape-rendering: crispEdges;
 }
 
-<<<<<<< HEAD
 .histo_area { 
     grid-area: histo_area;
     height: 100%;
@@ -117,8 +116,6 @@ height: 100%;}
 .text_area { grid-area: text_area;
 background-color: gray;}
 
-=======
->>>>>>> origin
 .legend text{
     font-size: 13px;
     fill: #333;

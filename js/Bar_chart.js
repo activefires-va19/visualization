@@ -11,7 +11,9 @@ var svg_b = d3.select(".pie_area")
     .attr("transform",
         "translate(" + margin_b.left + "," + margin_b.top + ")");
 
-d3.csv("./data/out_modis_20200129.csv", function (data) {
+orchestrator.addListener('dataReady', function (e) {
+    
+    data = orchestrator.data;
 
     dict = {};
     for (i = 0; i < data.length; i++) {
