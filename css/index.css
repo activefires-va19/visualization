@@ -5,9 +5,22 @@
   height: 50px;
 }
 
+.vl {
+  float: left;
+  border-left: 44px solid black;
+  height: 50px;
+}
+
 #title {
   font-family: 'Roboto Slab';
   margin-left: 10px;
+  display: inline
+}
+
+.title_container {
+width: 250px;
+margin-top: 15px;
+height: 50px;
 }
 
 .container {
