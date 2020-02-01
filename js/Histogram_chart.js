@@ -1,5 +1,5 @@
 var margin_h = { top: 10, right: 30, bottom: 20, left: 50 },
-  width_h = 450 - margin_h.left - margin_h.right,
+  width_h = 470 - margin_h.left - margin_h.right,
   height_h = 370 - margin_h.top - margin_h.bottom;
 
 var svg_h = d3.select(".histo_area")
@@ -28,7 +28,7 @@ orchestrator.addListener('dataReady', function (e) {
   data = evalData();
   data.forEach(e => {
     events_hour.push(parse_hour_h(e["acq_time"]));
-    events_days.push(parseDays(e["acq_date"] + "-" + e["acq_time"]));
+    events_days.push(parseDays(e["acq_date"] + "-"+e['acq_time']));
   });
 
   events_days.sort(function (a, b) { return a.getTime() - b.getTime() });
@@ -44,6 +44,7 @@ orchestrator.addListener('dataReady', function (e) {
   svg_h.append("g")
     .attr("class", "x-axis")
     .attr("transform", "translate(0," + height_h + ")")
+    .style("font-size","9px")
     .call(d3.axisBottom(x_h));
 
   var histogram = d3.histogram()
@@ -79,7 +80,7 @@ orchestrator.addListener('dataReady', function (e) {
     events_hour = [];
     data.forEach(e => {
       events_hour.push(parse_hour_h(e['acq_time']));
-      events_days.push(new Date(e["acq_date"] + " " + e["acq_time"].substring(0, 2) + ":" + e["acq_time"].substring(2, 4)));
+      events_days.push(parseDays(e["acq_date"] + "-" + e["acq_time"]));
     });
     events_days.sort(function (a, b) { return a.getTime() - b.getTime() });
     if (selected_h == 1) {
