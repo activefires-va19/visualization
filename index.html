@@ -6,15 +6,27 @@
   <script src="https://d3js.org/d3.v4.js"></script>
   <script src="https://d3js.org/d3-geo-projection.v2.min.js"></script>
   <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
+  <script
+  src="https://code.jquery.com/jquery-2.2.4.min.js"
+  integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
+  crossorigin="anonymous"></script>
   <link rel="stylesheet" href="./css/index.css">
   <link href='https://fonts.googleapis.com/css?family=Roboto Slab' rel='stylesheet'>
 </head>
 
 <body>
   <div class='header'>
-    <div class="title_container">
+    <span class="title_container">
       <p id='title'> <b>Forest Fire Monitoring Project</b></p>
-    </div>
+    </span>
+    <span class="satellite_filter">
+      <p>Satellite:</p>
+      <input type="checkbox" name="terra" value="terra" default-value=>Terra<br>
+      <input type="checkbox" name="aqua" value="aqua">Aqua<br>
+      <p>Day-time:</p>
+      <input type="checkbox" name="day" value="day">Day<br>
+      <input type="checkbox" name="night" value="night">Night<br>
+    </span>
   </div>
   <div class='container'>
     <div class='subcontainer1'>
@@ -37,6 +49,7 @@
       </div>
     </div>
   </div>
+
   <script src="./js/orchestrator.js"></script>
   <script src="./js/Parallel_coordinates_chart.js"></script>
   <script src="./js/scatterplot.js"></script>

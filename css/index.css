@@ -23,6 +23,11 @@ margin-top: 15px;
 height: 50px;
 }
 
+.satellite_filter {
+  position: static;
+  left: 130px;
+}
+
 .container {
   width: 1750px;
   height: 800px;
