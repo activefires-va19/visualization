@@ -38,8 +38,8 @@ Orchestrator.prototype.notifyScatterplotBrushing = function () {
 Orchestrator.prototype.notifyParallelBrushing = function () {
     if (this.filteredByParallel == undefined) this.filteredByParallel = [];
     else this.filteredByParallel.splice(0, this.filteredByParallel.length);
-    for (i = 0; i < data.length; i++) {
-        if (this.filteringByParallel != undefined && this.filteringByParallel(data[i])) this.filteredByParallel.push(data[i]);
+    for (i = 0; i < this.data.length; i++) {
+        if (this.filteringByParallel != undefined && this.filteringByParallel(this.data[i])) this.filteredByParallel.push(this.data[i]);
     }
     this.listenersContainer.dispatchEvent(new Event('parallelBrushing'));
 }
