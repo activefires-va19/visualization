@@ -19,8 +19,11 @@ Orchestrator.prototype.loadData = function () {
             else if (day == 5) dayOfWeek = 'Saturday';
             else dayOfWeek = 'Sunday';
             loadedData[i].dayOfWeek = dayOfWeek;
+            loadedData[i].area = parseFloat(loadedData[i].scan)*parseFloat(loadedData[i].track);
             _obj.data.push(loadedData[i])
         }
+        loadedData.columns.push("dayOfWeek");
+        loadedData.columns.push("area");
         _obj.dataLoaded = true;
         _obj.listenersContainer.dispatchEvent(new Event('dataReady'))
     })
