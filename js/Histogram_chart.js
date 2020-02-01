@@ -14,21 +14,32 @@ var parseDays = d3.timeParse("%Y-%m-%d-%H%M");
 var events_hour = [];
 var events_days = [];
 
+function parse_hour_h(input){
+  h = input.substring(0, 2);
+  mm = input.substring(2, 4);
+
+  date = new Date();
+  date.setHours(h);
+  date.setMinutes(mm);
+
+  return date;
+}
+
 orchestrator.addListener('dataReady', function (e) {
   data = orchestrator.data;
   data.forEach( e => {
-  events_hour.push(parseHour(e["acq_time"]));
+  events_hour.push(parse_hour_h(e["acq_time"]));
   events_days.push(parseDays(e["acq_date"]+"-"+e["acq_time"]));
   });
-  update_histogram(events_days);
+  update_histogram(events_hour);
   //update_histogram(events_hour);
 });
 
 
 function update_histogram(data_selected){
   if(data_selected == events_hour){
-    low_h = parseHour("0000");
-    high_h = parseHour("2359");
+    low_h = parse_hour_h("0000");
+    high_h = parse_hour_h("2359");
     ticks = 24;
   }
   else{

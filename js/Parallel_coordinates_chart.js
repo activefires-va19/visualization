@@ -8,6 +8,17 @@ var svg_parallel = d3.select(".parallel_area").append("svg")
   .append("g")
   .attr("transform", "translate(" + margin_parallel.left + "," + margin_parallel.top + ")");
 
+function parse_hour_p(input){
+    h = input.substring(0, 2);
+    mm = input.substring(2, 4);
+  
+    date = new Date();
+    date.setHours(h);
+    date.setMinutes(mm);
+  
+    return date;
+}
+
 orchestrator.addListener('dataReady', function (e) {
   data = orchestrator.data;
   dimensions = [
@@ -58,12 +69,8 @@ orchestrator.addListener('dataReady', function (e) {
         .range([0, height_parallel]);
     }
     else if (k == "acq_time") {
-      var low = new Date();
-      low.setHours(0);
-      low.setMinutes(0);
-      var high = new Date();
-      high.setHours(23);
-      high.setMinutes(59);
+      var low = parse_hour_p("0000");
+      var high = parse_hour_p("2359");
       y[k] = d3.scaleTime().domain([low, high]).range([height_parallel, 0]);
     }
     else {
@@ -94,13 +101,7 @@ orchestrator.addListener('dataReady', function (e) {
       n = dimensions[i].name;
       k = dimensions[i].key;
       if (k == "acq_time") {
-        value = String(d[k]);
-        var h = value.substring(0, 2);
-        var mm = value.substring(2, 4);
-        date = new Date();
-        date.setHours(h);
-        date.setMinutes(mm);
-
+        date = parse_hour_p(d[k]);
         points.push([x(n), y[k](date)]);
       }
       else {
@@ -174,14 +175,7 @@ orchestrator.addListener('dataReady', function (e) {
         return ex1 >= value && value >= ex0;
       }
       if (p.key == "acq_time") {
-        value = String(d[p.key]);
-        h = value.substring(0, 2);
-        mm = value.substring(2, 4);
-
-        date = new Date();
-        date.setHours(h);
-        date.setMinutes(mm);
-
+        date = parse_hour_p(d[p.key]);
         return extents[i][1] <= date && date <= extents[i][0];
       }
       else {
