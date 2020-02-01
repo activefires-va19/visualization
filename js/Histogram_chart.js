@@ -33,6 +33,7 @@ orchestrator.addListener('dataReady', function (e) {
     events_days.push(parseDays(e["acq_date"]+"-"+e["acq_time"]));
   });
 
+  events_days.sort(function(a,b){return a.getTime() - b.getTime()});
   low_h = parse_hour_h("0000");
   high_h = parse_hour_h("2359");
   ticks = 24;
@@ -79,9 +80,27 @@ function update_histogram(data_selected){
     ticks = 24;
   }
   else{
-    low_h = events_days[0];
-    high_h = events_days[events_days.length-1];
-    ticks = 72;
+    day_l = events_days[0].getDate();
+    month_l = events_days[0].getMonth()+1;
+    year_l = events_days[0].getFullYear();
+    if(month_l == 13){
+      month_l = 1;
+      year_l +=1;
+    }
+    string_l = String(year_l)+"-"+String(month_l)+"-"+String(day_l)+"-"+"0000";
+
+    day_h = events_days[events_days.length-1].getDate();
+    month_h = events_days[events_days.length-1].getMonth()+1;
+    year_h = events_days[events_days.length-1].getFullYear();
+    if(month_h == 13){
+      month_h = 1;
+      year_h +=1;
+    }
+    string_h = String(year_h)+"-"+String(month_h)+"-"+String(day_h)+"-"+"2359";
+
+    low_h = parseDays(string_l);
+    high_h = parseDays(string_h);
+    ticks = 24;
   }
   
 
@@ -92,7 +111,10 @@ function update_histogram(data_selected){
       .domain(x_h.domain())
       .thresholds(x_h.ticks(ticks));
 
+  console.log(data_selected);
+
   var bins = histogram(data_selected);
+  console.log(bins);
 
   y_h.domain([0, d3.max(bins, function(d) { return d.length; })]);
 
