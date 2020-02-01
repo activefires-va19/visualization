@@ -21,20 +21,7 @@ orchestrator.addListener('dataReady', function (e) {
     function evalData() {
         return orchestrator.getDataFilteredByParallel();
       }
-    d3.json("./data/map.js", function (data) {
-
-        map_countries = ["Albania", "Algeria", "Austria", "Belarus",
-            "Belgium", "Bosnia and Herzegovina", "Bulgaria", "Bulgaria", "Croatia", "Cyprus",
-            "Czech Republic", "England", "France", "Germany",
-            "Greece", "Hungary", "Italy", "Kosovo",
-            "Moldova", "Montenegro", "Macedonia",
-            "Poland", "Portugal", "Romania", "Serbia", "Slovenia", "Slovakia",
-            "Spain", "Switzerland",
-            "Tunisia", "Turkey",
-            "Ukraine", "United Kingdom"];
-
-        data.features = data.features.filter(function (d) { return map_countries.includes(d.properties.name) })
-
+    d3.json("./data/map.json", function (data) {
         //Drawing our map
         svg_map.append("g")
             .selectAll("path")
@@ -66,6 +53,14 @@ orchestrator.addListener('dataReady', function (e) {
         });
 
         orchestrator.addListener('parallelBrushing', function (e) {
+           updatePointsEntries();
+        });
+
+        orchestrator.addListener('updatedDataFiltering', function (e) {
+            updatePointsEntries();
+         });
+
+        function updatePointsEntries(){
             modifiedData = evalData();
             var u = svg_map.select(".circles_container").selectAll("circle").data(modifiedData);
             u.exit().remove();
@@ -86,6 +81,6 @@ orchestrator.addListener('dataReady', function (e) {
                 })
                 .attr("stroke-width", 3)
                 .attr("fill-opacity", .4);
-        });
+        }
     })
 });
