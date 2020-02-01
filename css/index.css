@@ -1,3 +1,27 @@
+.header {
+  border: 1px solid#e7e7e7;
+  background-color:#f3f3f3;
+  margin-bottom: 5px;
+  height: 50px;
+}
+
+.vl {
+  float: left;
+  border-left: 44px solid black;
+  height: 50px;
+}
+
+#title {
+  font-family: 'Roboto Slab';
+  margin-left: 10px;
+  display: inline
+}
+
+.title_container {
+width: 250px;
+margin-top: 15px;
+height: 50px;
+}
 
 .container {
   width: 1750px;
