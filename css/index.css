@@ -1,27 +1,56 @@
-.grid-container {
-position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  display: grid;
-  grid-template-columns: 1fr 0.7fr 0.8fr 1.2fr 1.3fr;
-  grid-template-rows: 0.2fr 1.4fr 1.4fr;
-  grid-template-areas: "header_area header_area header_area header_area header_area" "map_area map_area parallel_area parallel_area parallel_area" "scatterplot_area scatterplot_area box_area pie_area histo_area";
+
+.container {
+  width: 1750px;
+  height: 800px;
 }
-
-.header_area { 
-background-color: #000000;
-grid-area: header_area;}
-
 .map_area { 
-grid-area: map_area;
-}
+  float: left;
+  width: 600px;
+  height: 400px;
+  }
+  
+  .parallel_area { 
+    float: left;
+    margin-left: 20px;
+    width: 900px;
+    height: 400px;
+  }
 
-.parallel_area { 
-    grid-area: parallel_area ;
-}
+  .scatterplot_area {
+    margin-top: 10px;
+    float: left;
+    width: 600px;
+    height: 400px;
+  }
 
+  .box_area {
+    margin-left: 13px;
+    margin-top: 10px;
+    float: left;
+    width: 150px;
+    height: 400px;
+  }
+
+  .pie_area {
+    margin-left: 10px;
+    margin-top: 10px;
+    float: left;
+    width: 400px;
+    height: 400px;
+  }
+
+  .histo_area {
+    margin-left: 10px;
+    margin-top: 10px;
+    float: left;
+    width: 500px;
+    height: 400px;
+  }
+
+  .subcontainer2 {
+    margin-top: 10px;
+    float: left;
+  }
 body {
   min-width: 760px;
 }
@@ -41,36 +70,6 @@ fill-opacity: .3;
 stroke: #fff;
 shape-rendering: crispEdges;
 }
-
-.histo_area { 
-    grid-area: histo_area;
-    height: 100%;
-}
-
-.box_area {
-display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  grid-template-rows: 1fr 1fr 1fr;
-  grid-template-areas: "box1 box1 box1" "box2 box2 box2" "box3 box3 box3";
-  grid-area: box_area;
-  height: 100%;
-}
-
-.box1 { grid-area: box1; }
-
-.box2 { grid-area: box2; }
-
-.box3 { grid-area: box3; }
-
-.pie_area { grid-area: pie_area;
-height: 100%;
-background-color: blue; }
-
-.scatterplot_area { grid-area: scatterplot_area;
-height: 100%;}
-
-.text_area { grid-area: text_area;
-background-color: gray;}
 
 .legend text{
     font-size: 13px;

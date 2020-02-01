@@ -1,6 +1,6 @@
 var margin_parallel = { top: 30, right: 10, bottom: 10, left: 0 },
   width_parallel = 920 - margin_parallel.left - margin_parallel.right,
-  height_parallel = 450 - margin_parallel.top - margin_parallel.bottom;
+  height_parallel = 420 - margin_parallel.top - margin_parallel.bottom;
 
 var svg_parallel = d3.select(".parallel_area").append("svg")
   .attr("width", width_parallel + margin_parallel.left + margin_parallel.right)
