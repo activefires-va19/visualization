@@ -1,4 +1,4 @@
-var margin_box_b = { top: 10, right: 30, bottom: 30, left: 50 },
+var margin_box_b = { top: 10, right: 60, bottom: 30, left: 50 },
     width_box_b = 180 - margin_box_b.left - margin_box_b.right,
     height_box_b = 130 - margin_box_b.top - margin_box_b.bottom;
 
