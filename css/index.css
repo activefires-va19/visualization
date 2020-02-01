@@ -64,7 +64,7 @@ display: grid;
 
 .pie_area { grid-area: pie_area;
 height: 100%;
-background-color: blue; }
+}
 
 .scatterplot_area { grid-area: scatterplot_area;
 height: 100%;}
@@ -94,4 +94,8 @@ background-color: gray;}
   opacity: 1 !important;
   stroke: black;
   stroke-width: 1px;
+}
+
+.pie_label{
+  font-size: 10px;
 }
