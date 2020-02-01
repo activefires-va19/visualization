@@ -110,6 +110,36 @@ stroke: #fff;
 shape-rendering: crispEdges;
 }
 
+.histo_area { 
+    grid-area: histo_area;
+    height: 100%;
+}
+
+.box_area {
+display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr;
+  grid-template-areas: "box1 box1 box1" "box2 box2 box2" "box3 box3 box3";
+  grid-area: box_area;
+  height: 100%;
+}
+
+.box1 { grid-area: box1; }
+
+.box2 { grid-area: box2; }
+
+.box3 { grid-area: box3; }
+
+.pie_area { grid-area: pie_area;
+height: 100%;
+}
+
+.scatterplot_area { grid-area: scatterplot_area;
+height: 100%;}
+
+.text_area { grid-area: text_area;
+background-color: gray;}
+
 .legend text{
     font-size: 13px;
     fill: #333;
@@ -132,4 +162,8 @@ shape-rendering: crispEdges;
   opacity: 1 !important;
   stroke: black;
   stroke-width: 1px;
+}
+
+.pie_label{
+  font-size: 10px;
 }
