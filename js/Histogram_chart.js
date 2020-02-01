@@ -80,7 +80,6 @@ orchestrator.addListener('dataReady', function (e) {
 
     events_days = [];
     events_hour = [];
-    console.log(events_hour.length);
     var today = new Date();
     var dd = String(today.getDate()).padStart(2, '0');
     var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
@@ -130,7 +129,7 @@ orchestrator.addListener('dataReady', function (e) {
       .thresholds(x_h.ticks(ticks));
 
     var bins = histogram(selected_set);
-    console.log(bins)
+
     y_h.domain([0, d3.max(bins, function (d) { return d.length; })]);
 
     svg_h.select(".x-axis").transition().duration(1).call(d3.axisBottom(x_h));
