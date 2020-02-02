@@ -123,6 +123,9 @@ checkboxTerra.addEventListener('change', function () {
     orchestrator.triggerFilterEvent();
 });
 
+
+
+
 var checkboxAqua = document.querySelector("input[name='aqua']");
 checkboxAqua.checked = true;
 checkboxAqua.addEventListener('change', function () {
@@ -180,4 +183,53 @@ function setWeekSelectorMinMax(min, max) {
     weekSelector.min = min[0] + '-W' + minWeekText;
     weekSelector.max = max[0] + '-W' + maxWeekText;
     weekSelector.value = weekSelector.max;
+}
+
+orchestrator.addListener("dataReady", function(e){
+    data = orchestrator.data;
+    update_statistics(data);
+});
+
+orchestrator.addListener("weekChanged", function(e){
+    data = orchestrator.data;
+    update_statistics(data);
+});
+
+function update_statistics(data){
+    tot = data.length;
+    acqua_n = 0;
+    terra_n = 0;
+
+    day_n = 0;
+    night_n = 0;
+
+    for(i = 0; i < data.length; i++){
+        if(data[i]["satellite"] == "A"){
+            acqua_n += 1;
+        }
+        else{
+            terra_n += 1;
+        }
+
+        if(data[i]["daynight"] == "D"){
+            day_n += 1;
+        }
+        else{
+            night_n += 1;
+        }
+    }
+
+    acqua_p = Math.floor( (acqua_n/tot)*100);
+    terra_p = Math.floor( (terra_n/tot)*100);
+    day_p = Math.floor( (day_n/tot)*100);
+    night_p = Math.floor( (night_n/tot)*100);
+
+    if(acqua_p + terra_p < 100) acqua_p += 1;
+    if(day_p + night_p < 100) day_p += 1;
+
+
+    d3.select("#terra_text").html("Terra ("+String(terra_p)+"%)");
+    d3.select("#acqua_text").html("Acqua ("+String(acqua_p)+"%) &nbsp &nbsp");
+    d3.select("#day_text").html("Day ("+String(day_p)+"%)");
+    d3.select("#night_text").html("Night ("+String(night_p)+"%)&nbsp &nbsp");
 }

@@ -13,7 +13,7 @@ var svg_b = d3.select(".pie_area")
 
 orchestrator.addListener('dataReady', function (e) {
 
-    data = data = evalData();;
+    data = data = evalData();
 
     dict = {};
     for (i = 0; i < data.length; i++) {

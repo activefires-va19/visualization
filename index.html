@@ -16,7 +16,7 @@
 
 <body>
   <div class='header'>
-    <table style="width:50%">
+    <table style="width:60%">
       <tr>
         <th>
           <span class="title_container">
@@ -25,13 +25,41 @@
         </th>
         <th>
           <span class="satellite_filter">
-            Satellite:
-            <input type="checkbox" name="terra" value="terra">Terra
-            <input type="checkbox" name="aqua" value="aqua">Aqua &nbsp &nbsp 
-            Day-time
-            <input type="checkbox" name="day" value="day">Day
-            <input type="checkbox" name="night" value="night">Night &nbsp &nbsp &nbsp
-            <input type="week" name="year_week">
+            <table>
+              <th>
+                <p>Satellite:</p>
+              </th>
+              <th>
+                <input type="checkbox" name="terra" value="terra">
+              </th>
+              <th id = "terra_text">
+                Terra
+              </th>
+              <th>
+                <input type="checkbox" name="aqua" value="aqua">
+              </th>
+              <th id = "acqua_text">
+                Aqua &nbsp &nbsp 
+              </th>
+              <th>
+                Day-time
+              </th>
+              <th>
+                <input type="checkbox" name="day" value="day">
+              </th>
+              <th id = "day_text">
+                Day
+              </th>
+              <th>
+                <input type="checkbox" name="night" value="night">
+              </th>
+              <th id = "night_text">
+                Night &nbsp &nbsp &nbsp
+              </th>
+              <th>
+                <input type="week" name="year_week">
+              </th>
+            </table>
           </span>
         </th>
       </tr>
