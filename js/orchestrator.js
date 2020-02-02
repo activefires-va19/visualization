@@ -98,7 +98,6 @@ Orchestrator.prototype.triggerFilterEvent = function () {
     for (i = 0; i < this.data.length; i++) {
         this.filteredByParallel.push(this.data[i]);
     }
-    this.notifyWeekChanged();
     this.listenersContainer.dispatchEvent(new Event('updatedDataFiltering'));
 }
 
