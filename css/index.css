@@ -17,8 +17,12 @@
   display: inline
 }
 
+
+#title_table {
+  padding-top: 10px;
+}
 .title_container {
-  width: 250px;
+  width: 450px;
   margin-top: 15px;
   height: 50px;
 }
@@ -26,8 +30,12 @@
 .satellite_filter {
   position: static;
   left: 130px;
+  font-family: 'Roboto Slab';
 }
 
+th {
+  font-weight: normal;
+}
 .container {
   width: 1700px;
   height: 600px;
