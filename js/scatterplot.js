@@ -45,6 +45,7 @@ orchestrator.addListener('dataReady', function (e) {
     .range([0, width_scatter]);
   svg_scatter.append("g")
     .attr("transform", "translate(0," + height_scatter + ")")
+    .attr("class", 'scatterplot_x_axis')
     .call(d3.axisBottom(x));
 
   svg_scatter.append("text")
@@ -58,7 +59,7 @@ orchestrator.addListener('dataReady', function (e) {
   var y = d3.scaleLinear()
     .domain([0, max_y + 5])
     .range([height_scatter, 0]);
-  svg_scatter.append("g")
+  svg_scatter.append("g").attr("class", 'scatterplot_y_axis')
     .call(d3.axisLeft(y));
 
   // Color scale: give me a specie name, I return a color
@@ -164,7 +165,40 @@ orchestrator.addListener('dataReady', function (e) {
     update_graph();
   });
 
-  function update_graph(){
+  orchestrator.addListener('weekChanged', function (e) {
+    var max_x, min_x, max_y, min_y;
+    for (i = 0; i < data.length; i++) {
+      pca1 = parseFloat(data[i].PCA_component1);
+      pca2 = parseFloat(data[i].PCA_component2);
+      if (i == 0) {
+        max_x = pca1;
+        min_x = pca1;
+        max_y = pca2;
+        min_y = pca2;
+      }
+      else {
+        if (pca1 > max_x) max_x = pca1;
+        if (pca2 > max_y) max_y = pca2;
+        if (pca1 < min_x) min_x = pca1;
+        if (pca2 < min_y) min_y = pca2;
+      }
+    }
+
+    var x = d3.scaleLinear()
+      .domain([0, max_x + 5])
+      .range([0, width_scatter]);
+    svg_scatter.select(".scatterplot_x_axis")
+      .attr("transform", "translate(0," + height_scatter + ")").transition().duration(100)
+      .call(d3.axisBottom(x));
+
+    var y = d3.scaleLinear()
+      .domain([0, max_y + 5])
+      .range([height_scatter, 0]);
+    svg_scatter.select(".scatterplot_y_axis").transition().duration(100)
+      .call(d3.axisLeft(y));
+  });
+
+  function update_graph() {
     modifiedData = evalData();
     var u = svg_scatter.select('.circle_container').selectAll("circle").data(modifiedData);
     u.exit().remove();
