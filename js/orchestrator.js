@@ -69,19 +69,17 @@ Orchestrator.prototype.getDataFilteredByParallel = function () {
 }
 
 Orchestrator.prototype.triggerFilterEvent = function () {
-    console.log("ok")
     this.data.splice(0, this.data.length);
     for (i = 0; i < this.dataWeekly.length; i++) {
-        if ((this.dataWeekly[i].satellite == 'T' && this.terra) || (this.dataWeekly[i].satellite == 'A' && this.aqua) 
-        && (this.dataWeekly[i].daynight == 'D' && this.day) || (this.dataWeekly[i].daynight == 'N' && this.night)) this.data.push(this.dataWeekly[i]);
+        if (((this.dataWeekly[i].satellite == 'T' && this.terra) || (this.dataWeekly[i].satellite == 'A' && this.aqua))
+        && ((this.dataWeekly[i].daynight == 'D' && this.day) || (this.dataWeekly[i].daynight == 'N' && this.night))) this.data.push(this.dataWeekly[i]);
     }
-    console.log(this.data.length);
     if (this.filteredByParallel == undefined) this.filteredByParallel = [];
     else this.filteredByParallel.splice(0, this.filteredByParallel.length);
     for (i = 0; i < this.data.length; i++) {
         if (this.filteringByParallel != undefined && this.filteringByParallel(this.data[i])) this.filteredByParallel.push(this.data[i]);
     }
-    this.listenersContainer.dispatchEvent(new Event('updatedData'));
+    this.listenersContainer.dispatchEvent(new Event('updatedDataFiltering'));
 }
 
 

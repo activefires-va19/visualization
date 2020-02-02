@@ -85,6 +85,11 @@ orchestrator.addListener('dataReady', function (e) {
         update();
     });
 
+    orchestrator.addListener('updatedDataFiltering', function (e) {
+        update();
+    });
+    
+
     function update() {
         data = evalData();
         var points_brightness_31k = [];

@@ -86,6 +86,10 @@ orchestrator.addListener('dataReady', function (e) {
         update();
     });
 
+    orchestrator.addListener('updatedDataFiltering', function (e) {
+        update();
+    });
+
     function update() {
         data = evalData();
         var points_frp = [];
@@ -95,10 +99,10 @@ orchestrator.addListener('dataReady', function (e) {
 
         data_len = points_frp.length;
         if (data_len == 0) {
-            svg_box_b2.select(".y_axis").style('display', "none");
-            svg_box_b2.select('.box_line_vertical').style('display', "none");
-            svg_box_b2.select('.box_rect').style('display', "none");
-            svg_box_b2.selectAll('.box_line_horizontal').style('display', "none");
+            svg_box_b3.select(".y_axis").style('display', "none");
+            svg_box_b3.select('.box_line_vertical').style('display', "none");
+            svg_box_b3.select('.box_rect').style('display', "none");
+            svg_box_b3.selectAll('.box_line_horizontal').style('display', "none");
             return;
         }
 
@@ -140,7 +144,8 @@ orchestrator.addListener('dataReady', function (e) {
             .attr("x2", center3)
             .attr("y1", y3(min3))
             .attr("y2", y3(max3))
-            .attr("stroke", "black");
+            .attr("stroke", "black")
+            .style('display', null);
 
         svg_box_b3.select('.box_rect')
             .attr("x", center3 - width3 / 2)
@@ -148,7 +153,8 @@ orchestrator.addListener('dataReady', function (e) {
             .attr("height", (y3(first_quantile3) - y3(third_quantile3)))
             .attr("width", width3)
             .attr("stroke", "black")
-            .style("fill", "#6fb1f3");
+            .style("fill", "#6fb1f3")
+            .style('display', null);
 
         svg_box_b3.selectAll('.box_line_horizontal')
             .data([min3, median3, max3])
@@ -156,7 +162,8 @@ orchestrator.addListener('dataReady', function (e) {
             .attr("x2", center3 + width3 / 2)
             .attr("y1", function (d) { return (y3(d)) })
             .attr("y2", function (d) { return (y3(d)) })
-            .attr("stroke", "black");
+            .attr("stroke", "black")
+            .style('display', null);
     }
     function evalData() {
         return orchestrator.getDataFilteredByParallel();

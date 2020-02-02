@@ -157,6 +157,14 @@ orchestrator.addListener('dataReady', function (e) {
     .text("Y1");
 
   orchestrator.addListener('parallelBrushing', function (e) {
+    update_graph();
+  });
+
+  orchestrator.addListener('updatedDataFiltering', function (e) {
+    update_graph();
+  });
+
+  function update_graph(){
     modifiedData = evalData();
     var u = svg_scatter.select('.circle_container').selectAll("circle").data(modifiedData);
     u.exit().remove();
@@ -177,5 +185,5 @@ orchestrator.addListener('dataReady', function (e) {
         if (filteringByScatterplot(d)) return 'selected'
         else return '';
       });
-  });
+  }
 });

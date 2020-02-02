@@ -157,6 +157,10 @@ orchestrator.addListener('dataReady', function (e) {
     update_histogram(selected_h);
   });
 
+  orchestrator.addListener('updatedDataFiltering', function (e) {
+    update_histogram(selected_h);
+  });
+
   d3.select("#hours").on("click", function () {
     update_histogram(1);
   });

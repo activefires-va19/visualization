@@ -8,19 +8,21 @@ var svg_parallel = d3.select(".parallel_area").append("svg")
   .append("g")
   .attr("transform", "translate(" + margin_parallel.left + "," + margin_parallel.top + ")");
 
-function parse_hour_p(input){
-    h = input.substring(0, 2);
-    mm = input.substring(2, 4);
-  
-    date = new Date();
-    date.setHours(h);
-    date.setMinutes(mm);
-  
-    return date;
-}
+function parse_hour_p(input) {
+  h = input.substring(0, 2);
+  mm = input.substring(2, 4);
 
-orchestrator.addListener('dataReady', function (e) {
-  data = orchestrator.data;
+  date = new Date();
+  date.setHours(h);
+  date.setMinutes(mm);
+
+  return date;
+}
+var background;
+var foreground;
+
+function create_graph() {
+  data = evalData();
   dimensions = [
     {
       name: "Country",
@@ -49,8 +51,6 @@ orchestrator.addListener('dataReady', function (e) {
 
   var y = {};
   var names = [];
-  var background;
-  var foreground;
   for (i in dimensions) {
     k = dimensions[i].key;
     names.push(dimensions[i].name);
@@ -120,7 +120,8 @@ orchestrator.addListener('dataReady', function (e) {
     .selectAll("path")
     .data(data)
     .enter().append("path")
-    .attr("d", path);
+    .attr("d", path)
+    .attr("class", "path_background");
 
   foreground = svg_parallel.append("g")
     .attr("class", "foreground")
@@ -128,7 +129,9 @@ orchestrator.addListener('dataReady', function (e) {
     .data(data)
     .enter().append("path")
     .attr("d", path)
-    .attr("stroke", "steelblue");
+    .attr("stroke", "steelblue")
+    .attr("class", "path_foreground")
+    .style("stroke", _chooseColorByScatterplot);;
 
   var g = svg_parallel.selectAll("axis")
     .data(dimensions)
@@ -229,13 +232,35 @@ orchestrator.addListener('dataReady', function (e) {
     orchestrator.notifyParallelBrushing();
   }
 
-  orchestrator.addListener('scatterplotBrushing', function (e) {
-    foreground.style("stroke", function (d) {
-      value = orchestrator.filteringByScatterplot(d);
-      if (value) {
-        return 'red';
-      }
-      return "steelblue";
-    });
-  });
+  function evalData() {
+    return orchestrator.getDataFilteredByParallel();
+  }
+}
+orchestrator.addListener('dataReady', function (e) {
+  create_graph();
 });
+
+orchestrator.addListener('scatterplotBrushing', function (e) {
+  foreground.style("stroke", _chooseColorByScatterplot);
+});
+
+
+orchestrator.addListener('updatedDataFiltering', function (e) {
+  d3.select(".parallel_area").select("svg").remove();
+  svg_parallel = d3.select(".parallel_area").append("svg")
+    .attr("width", width_parallel + margin_parallel.left + margin_parallel.right)
+    .attr("height", height_parallel + margin_parallel.top + margin_parallel.bottom)
+    .append("g")
+    .attr("transform", "translate(" + margin_parallel.left + "," + margin_parallel.top + ")");
+  create_graph();
+  
+});
+
+function _chooseColorByScatterplot(d) {
+  if (orchestrator.filteringByScatterplot == undefined)   return "steelblue";
+  value = orchestrator.filteringByScatterplot(d);
+  if (value) {
+    return 'red';
+  }
+  return "steelblue";
+}

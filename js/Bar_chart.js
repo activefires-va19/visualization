@@ -168,4 +168,9 @@ orchestrator.addListener('dataReady', function (e) {
         update_bar();
     });
     
+
+    orchestrator.addListener('updatedDataFiltering', function (e) {
+        update_bar();
+      });
+
 });
