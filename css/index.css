@@ -39,61 +39,61 @@ height: 50px;
   border: 2px solid gray;
   }
   
-  .parallel_area { 
-    float: left;
-    margin-left: 10px;
-    width: 900px;
-    height: 400px;
-    border: 2px solid gray;
-  }
+.parallel_area { 
+  float: left;
+  margin-left: 10px;
+  width: 900px;
+  height: 400px;
+  border: 2px solid gray;
+}
 
-  .scatterplot_area {
-    padding-top: 10px;
-    float: left;
-    width: 600px;
-    height: 400px;
-    border: 2px solid gray;
-  }
+.scatterplot_area {
+  padding-top: 10px;
+  float: left;
+  width: 600px;
+  height: 400px;
+  border: 2px solid gray;
+}
 
-  .box_area {
-    margin-left: 10px;
-    padding-top: 10px;
-    padding-left: 5px;
-    float: left;
-    width: 150px;
-    height: 400px;
-    border: 2px solid gray;
-    align-content: center;
-  }
+.box_area {
+  margin-left: 10px;
+  padding-top: 10px;
+  padding-left: 5px;
+  float: left;
+  width: 150px;
+  height: 400px;
+  border: 2px solid gray;
+  align-content: center;
+}
 
-  .pie_area {
-    margin-left: 10px;
-    padding-top: 10px;
-    float: left;
-    width: 400px;
-    height: 400px;
-    border: 2px solid gray;
-  }
+.pie_area {
+  margin-left: 10px;
+  padding-top: 10px;
+  float: left;
+  width: 400px;
+  height: 400px;
+  border: 2px solid gray;
+}
 
-  .histo_area {
-    padding-top: 0px;
-    margin-left: 10px;
-    float: left;
-    width: 450px;
-    height: 400px;
-    border: 2px solid gray;
-  }
+.histo_area {
+  padding-top: 0px;
+  margin-left: 10px;
+  float: left;
+  width: 450px;
+  height: 400px;
+  border: 2px solid gray;
+}
 
-  .subcontainer2 {
-    margin-top: 10px;
-    float: left;
-  }
+.subcontainer2 {
+  margin-top: 10px;
+  float: left;
+}
 
-  .button_histo_area{
-    float: right;
-    margin-right: 4px;
-    margin-top: 4px;
-  }
+.button_histo_area{
+  float: right;
+  margin-right: 4px;
+  margin-top: 4px;
+}
 
 body {
   min-width: 760px;
