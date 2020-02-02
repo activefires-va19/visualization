@@ -1,6 +1,6 @@
 var margin_map = { top: 10, right: 10, bottom: 10, left: 10 },
-    width_map = 600 - margin_map.left - margin_map.right,
-    height_map = 400 - margin_map.top - margin_map.bottom;
+    width_map = 500 - margin_map.left - margin_map.right,
+    height_map = 320 - margin_map.top - margin_map.bottom;
 
 var svg_map = d3.select(".map_area")
     .append("svg")

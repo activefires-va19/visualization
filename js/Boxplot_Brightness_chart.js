@@ -1,6 +1,6 @@
 var margin_box_b = { top: 10, right: 60, bottom: 30, left: 50 },
-    width_box_b = 180 - margin_box_b.left - margin_box_b.right,
-    height_box_b = 130 - margin_box_b.top - margin_box_b.bottom;
+    width_box_b = 200 - margin_box_b.left - margin_box_b.right,
+    height_box_b = 105 - margin_box_b.top - margin_box_b.bottom;
 
 var svg_box_b1 = d3.select(".box1")
     .append("svg")
