@@ -1,5 +1,5 @@
 var margin_parallel = { top: 30, right: 10, bottom: 10, left: 0 },
-  width_parallel = 920 - margin_parallel.left - margin_parallel.right,
+  width_parallel = 950 - margin_parallel.left - margin_parallel.right,
   height_parallel = 400 - margin_parallel.top - margin_parallel.bottom;
 
 var svg_parallel = d3.select(".parallel_area").append("svg")
@@ -33,21 +33,26 @@ function create_graph() {
       key: "confidence"
     },
     {
-      name: "Brightness 31k",
-      key: "bright_t31"
+      name: "Brightness 21 (K)",
+      key: "brightness"
     },
     {
-      name: "Brightness",
-      key: "brightness"
+      name: "Brightness 31 (K)",
+      key: "bright_t31"
     },
     {
       name: "Time",
       key: "acq_time"
     },
     {
+      name: "Area (px)",
+      key: "area"
+    },
+    {
       name: "Frp",
       key: "frp"
-    }];
+    },
+    ];
 
   var y = {};
   var names = [];
