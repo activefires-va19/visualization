@@ -15,8 +15,21 @@ Orchestrator = function () {
 Orchestrator.prototype.loadData = function () {
     _obj = this;
     d3.csv("./data/out_modis_20200129.csv", function (loadedData) {
+        var max_week = undefined;
+        var min_week = undefined;
         for (i = 0; i < loadedData.length; i++) {
-            day = new Date(loadedData[i].acq_date).getDay();
+            date = new Date(loadedData[i].acq_date);
+            day = date.getDay();
+            week_year = getWeekNumber(date);
+            if (max_week == undefined) {
+                max_week = week_year;
+                min_week = week_year;
+            } else {
+                if (week_year[0] < min_week[0]) min_week = week_year;
+                else if (week_year[0] == min_week[0] && week_year[1] < min_week[1]) min_week = week_year;
+                if (week_year[0] > max_week[0]) max_week = week_year;
+                else if (week_year[0] == max_week[0] && week_year[1] > max_week[1]) max_week = week_year;
+            }
             if (day == 0) dayOfWeek = 'Monday';
             else if (day == 1) dayOfWeek = 'Tuesday';
             else if (day == 2) dayOfWeek = 'Wednesday';
@@ -25,11 +38,21 @@ Orchestrator.prototype.loadData = function () {
             else if (day == 5) dayOfWeek = 'Saturday';
             else dayOfWeek = 'Sunday';
             loadedData[i].dayOfWeek = dayOfWeek;
-            loadedData[i].area = parseFloat(loadedData[i].scan)*parseFloat(loadedData[i].track);
+            loadedData[i].area = parseFloat(loadedData[i].scan) * parseFloat(loadedData[i].track);
             _obj.dataOriginal.push(loadedData[i])
-            _obj.data.push(loadedData[i])
-            _obj.dataWeekly.push(loadedData[i])
         }
+        for (i = 0; i < loadedData.length; i++) {
+            foundWeek = getWeekNumber(new Date(loadedData[i].acq_date));
+            if (max_week[0] == foundWeek[0] && max_week[1] == foundWeek[1]) {
+                _obj.data.push(loadedData[i])
+                _obj.dataWeekly.push(loadedData[i])
+            }
+        }
+        setWeekSelectorMinMax(min_week, max_week);
+        var weekSelector = document.querySelector("input[name='year_week']");
+        weekSelector.addEventListener('change', function () {
+            orchestrator.triggerWeekFilterEvent(weekSelector.valueAsDate);
+        });
         loadedData.columns.push("dayOfWeek");
         loadedData.columns.push("area");
         _obj.dataLoaded = true;
@@ -55,12 +78,8 @@ Orchestrator.prototype.notifyParallelBrushing = function () {
     this.listenersContainer.dispatchEvent(new Event('parallelBrushing'));
 }
 
-Orchestrator.prototype.notifyOtherHighlight = function () {
-    this.listenersContainer.dispatch(new Event('otherHighlight'));
-}
-
-Orchestrator.prototype.notifyDataChanged = function () {
-    this.listenersContainer.dispatch(new Event('dataChanged'));
+Orchestrator.prototype.notifyWeekChanged = function () {
+    this.listenersContainer.dispatchEvent(new Event('weekChanged'));
 }
 
 Orchestrator.prototype.getDataFilteredByParallel = function () {
@@ -72,44 +91,82 @@ Orchestrator.prototype.triggerFilterEvent = function () {
     this.data.splice(0, this.data.length);
     for (i = 0; i < this.dataWeekly.length; i++) {
         if (((this.dataWeekly[i].satellite == 'T' && this.terra) || (this.dataWeekly[i].satellite == 'A' && this.aqua))
-        && ((this.dataWeekly[i].daynight == 'D' && this.day) || (this.dataWeekly[i].daynight == 'N' && this.night))) this.data.push(this.dataWeekly[i]);
+            && ((this.dataWeekly[i].daynight == 'D' && this.day) || (this.dataWeekly[i].daynight == 'N' && this.night))) this.data.push(this.dataWeekly[i]);
     }
     if (this.filteredByParallel == undefined) this.filteredByParallel = [];
     else this.filteredByParallel.splice(0, this.filteredByParallel.length);
     for (i = 0; i < this.data.length; i++) {
         this.filteredByParallel.push(this.data[i]);
     }
+    this.notifyWeekChanged();
     this.listenersContainer.dispatchEvent(new Event('updatedDataFiltering'));
 }
 
+Orchestrator.prototype.triggerWeekFilterEvent = function (selectedWeek) {
+    selectedWeek = getWeekNumber(selectedWeek);
+    this.dataWeekly.splice(0, this.dataWeekly.length);
+    for (i = 0; i < this.dataOriginal.length; i++) {
+        d = this.dataOriginal[i];
+        foundWeek = getWeekNumber(new Date(d.acq_date));
+        if (selectedWeek[0] == foundWeek[0] && selectedWeek[1] == foundWeek[1]) this.dataWeekly.push(d);
+    }
+    this.triggerFilterEvent();
+}
 
 var orchestrator = new Orchestrator();
 orchestrator.loadData();
 
 var checkboxTerra = document.querySelector("input[name='terra']");
-checkboxTerra.checked=true;
-checkboxTerra.addEventListener( 'change', function() {
+checkboxTerra.checked = true;
+checkboxTerra.addEventListener('change', function () {
     orchestrator.terra = this.checked;
     orchestrator.triggerFilterEvent();
 });
 
 var checkboxAqua = document.querySelector("input[name='aqua']");
-checkboxAqua.checked=true;
-checkboxAqua.addEventListener( 'change', function() {
+checkboxAqua.checked = true;
+checkboxAqua.addEventListener('change', function () {
     orchestrator.aqua = this.checked;
     orchestrator.triggerFilterEvent();
 });
 
 var checkboxDay = document.querySelector("input[name='day']");
-checkboxDay.checked=true;
-checkboxDay.addEventListener( 'change', function() {
+checkboxDay.checked = true;
+checkboxDay.addEventListener('change', function () {
     orchestrator.day = this.checked;
     orchestrator.triggerFilterEvent();
 });
 
 var checkboxNight = document.querySelector("input[name='night']");
-checkboxNight.checked=true;
-checkboxNight.addEventListener( 'change', function() {
+checkboxNight.checked = true;
+checkboxNight.addEventListener('change', function () {
     orchestrator.night = this.checked;
     orchestrator.triggerFilterEvent();
 });
+
+function getWeekNumber(d) {
+    // Copy date so don't modify original
+    d = new Date(Date.UTC(d.getFullYear(), d.getMonth(), d.getDate()));
+    // Set to nearest Thursday: current date + 4 - current day number
+    // Make Sunday's day number 7
+    d.setUTCDate(d.getUTCDate() + 4 - (d.getUTCDay() || 7));
+    // Get first day of year
+    var yearStart = new Date(Date.UTC(d.getUTCFullYear(), 0, 1));
+    // Calculate full weeks to nearest Thursday
+    var weekNo = Math.ceil((((d - yearStart) / 86400000) + 1) / 7);
+    // Return array of year and week number
+    return [d.getUTCFullYear(), weekNo];
+}
+
+function setWeekSelectorMinMax(min, max) {
+    var weekSelector = document.querySelector("input[name='year_week']");
+    var minWeekText, maxWeekText;
+    if (min[1].toString().length == 1) {
+        minWeekText = "0" + min[1].toString();
+    } else minWeekText = min[1];
+    if (max[1].toString().length == 1) maxWeekText = "0" + max[1].toString();
+    else maxWeekText = max[1];
+    weekSelector.min = min[0] + '-W' + minWeekText;
+    weekSelector.max = max[0] + '-W' + maxWeekText;
+    weekSelector.value = weekSelector.max;
+}
