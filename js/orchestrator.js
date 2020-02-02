@@ -51,7 +51,7 @@ Orchestrator.prototype.loadData = function () {
         setWeekSelectorMinMax(min_week, max_week);
         var weekSelector = document.querySelector("input[name='year_week']");
         weekSelector.addEventListener('change', function () {
-            orchestrator.triggerWeekFilterEvent(weekSelector.valueAsDate);
+            orchestrator.triggerWeekFilterEvent(getDateOfISOWeek(weekSelector.value.split("-W")[1],weekSelector.value.split("-")[0]));
         });
         loadedData.columns.push("dayOfWeek");
         loadedData.columns.push("area");
@@ -156,6 +156,17 @@ function getWeekNumber(d) {
     var weekNo = Math.ceil((((d - yearStart) / 86400000) + 1) / 7);
     // Return array of year and week number
     return [d.getUTCFullYear(), weekNo];
+}
+
+function getDateOfISOWeek(w, y) {
+    var simple = new Date(y, 0, 1 + (w - 1) * 7);
+    var dow = simple.getDay();
+    var ISOweekStart = simple;
+    if (dow <= 4)
+        ISOweekStart.setDate(simple.getDate() - simple.getDay() + 1);
+    else
+        ISOweekStart.setDate(simple.getDate() + 8 - simple.getDay());
+    return ISOweekStart;
 }
 
 function setWeekSelectorMinMax(min, max) {
