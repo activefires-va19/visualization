@@ -7,12 +7,12 @@ var svg_box_b2 = d3.select(".box2")
 
 orchestrator.addListener('dataReady', function (e) {
     data = evalData();
-    var points_brightness_31k = [];
+    var area = [];
     data.forEach(elem => {
-        points_brightness_31k.push(+elem["bright_t31"]);
+        area.push(+elem["area"]);
     });
 
-    var data_sorted2 = points_brightness_31k.sort(d3.ascending);
+    var data_sorted2 = area.sort(d3.ascending);
     var first_quantile2 = d3.quantile(data_sorted2, .25);
     var median2 = d3.quantile(data_sorted2, .5);
     var third_quantile2 = d3.quantile(data_sorted2, .75);
@@ -27,14 +27,14 @@ orchestrator.addListener('dataReady', function (e) {
 
     var low2;
 
-    if (min2 - 10 < 0) {
+    if (min2 - 2 < 0) {
         low2 = 0;
     }
     else {
-        low2 = (min2 - 10);
+        low2 = (min2 - 2);
     }
 
-    var high2 = (max2 + 10);
+    var high2 = (max2 + 2);
 
     var y2 = d3.scaleLinear()
         .domain([low2, high2])
@@ -79,7 +79,7 @@ orchestrator.addListener('dataReady', function (e) {
         .attr("x", 0 - (height_box_b / 2))
         .attr("dy", "1em")
         .style("text-anchor", "middle")
-        .text("Brightness 31k");
+        .text("Area");
 
     orchestrator.addListener('parallelBrushing', function (e) {
         update();
@@ -92,11 +92,11 @@ orchestrator.addListener('dataReady', function (e) {
 
     function update() {
         data = evalData();
-        var points_brightness_31k = [];
+        var area = [];
         data.forEach(elem => {
-            points_brightness_31k.push(+elem["bright_t31"]);
+            area.push(+elem["area"]);
         });
-        var data_len = points_brightness_31k.length;
+        var data_len = area.length;
         if (data_len == 0) {
             svg_box_b2.select(".y_axis").style('display', "none");
             svg_box_b2.select('.box_line_vertical').style('display', "none");
@@ -104,7 +104,7 @@ orchestrator.addListener('dataReady', function (e) {
             svg_box_b2.selectAll('.box_line_horizontal').style('display', "none");
             return;
         }
-        var data_sorted2 = points_brightness_31k.sort(d3.ascending);
+        var data_sorted2 = area.sort(d3.ascending);
         var first_quantile2 = d3.quantile(data_sorted2, .25);
         var median2 = d3.quantile(data_sorted2, .5);
         var third_quantile2 = d3.quantile(data_sorted2, .75);
@@ -119,14 +119,14 @@ orchestrator.addListener('dataReady', function (e) {
     
         var low2;
     
-        if (min2 - 10 < 0) {
+        if (min2 - 2 < 0) {
             low2 = 0;
         }
         else {
-            low2 = (min2 - 10);
+            low2 = (min2 - 2);
         }
     
-        var high2 = (max2 + 10);
+        var high2 = (max2 + 2);
     
         var y2 = d3.scaleLinear()
             .domain([low2, high2])
