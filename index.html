@@ -6,10 +6,8 @@
   <script src="https://d3js.org/d3.v4.js"></script>
   <script src="https://d3js.org/d3-geo-projection.v2.min.js"></script>
   <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
-  <script
-  src="https://code.jquery.com/jquery-2.2.4.min.js"
-  integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
-  crossorigin="anonymous"></script>
+  <script src="https://code.jquery.com/jquery-2.2.4.min.js"
+    integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
   <link rel="stylesheet" href="./css/index.css">
   <link href='https://fonts.googleapis.com/css?family=Roboto Slab' rel='stylesheet'>
 </head>
@@ -25,41 +23,13 @@
         </th>
         <th>
           <span class="satellite_filter">
-            <table>
-              <th>
-                <p>Satellite:</p>
-              </th>
-              <th>
-                <input type="checkbox" name="terra" value="terra">
-              </th>
-              <th id = "terra_text">
-                Terra
-              </th>
-              <th>
-                <input type="checkbox" name="aqua" value="aqua">
-              </th>
-              <th id = "acqua_text">
-                Aqua &nbsp &nbsp 
-              </th>
-              <th>
-                Day-time
-              </th>
-              <th>
-                <input type="checkbox" name="day" value="day">
-              </th>
-              <th id = "day_text">
-                Day
-              </th>
-              <th>
-                <input type="checkbox" name="night" value="night">
-              </th>
-              <th id = "night_text">
-                Night &nbsp &nbsp &nbsp
-              </th>
-              <th>
-                <input type="week" name="year_week">
-              </th>
-            </table>
+            <b>Satellite:</b>
+            <input type="checkbox" name="terra" value="terra"><p id="terra_text" style="display:inline;">Terra</p>
+            <input type="checkbox" name="aqua" value="aqua"><p id="acqua_text" style="display:inline;">Aqua </p>&nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp
+            <b>Day-time:</b>
+            <input type="checkbox" name="day" value="day"><p id="day_text" style="display:inline;">Day</p>
+            <input type="checkbox" name="night" value="night"><p id="night_text" style="display:inline;">Night</p> &nbsp &nbsp &nbsp  &nbsp &nbsp &nbsp
+            <input type="week" name="year_week">
           </span>
         </th>
       </tr>
@@ -70,28 +40,28 @@
       <div class="map_area"></div>
       <div class="parallel_area"></div>
       <div class="box_area">
-      
-        <div class='button_box_area'>   
-          <button class = "button_box" id = "c21" type = "radio"> 21k </button>
-          <button class = "button_box" id = "c31" type = "radio"> 31k </button>
+
+        <div class='button_box_area'>
+          <button class="button_box" id="c21" type="radio"> 21k </button>
+          <button class="button_box" id="c31" type="radio"> 31k </button>
         </div>
-      
+
         <div class="box1"></div>
-     
+
         <div class="box2"></div>
-      
+
         <div class="box3"></div>
-      
-  </div>
+
+      </div>
     </div>
     <div class='subcontainer2'>
       <div class="scatterplot_area"></div>
       <div class="pie_area"></div>
       <div class="histo_area">
-        <div class='button_histo_area'>        
-          <button id = "hours" type = "radio"> 0-24 </button>
-          <button id = "week" type = "radio"> Week </button>
-        </div>  
+        <div class='button_histo_area'>
+          <button id="hours" type="radio"> 0-24 </button>
+          <button id="week" type="radio"> Week </button>
+        </div>
       </div>
     </div>
   </div>

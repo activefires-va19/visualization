@@ -1,8 +1,8 @@
 .header {
   border: 1px solid#e7e7e7;
   background-color:#f3f3f3;
-  margin-bottom: 5px;
-  height: 50px;
+  margin: 3px;
+  height: 5%;
 }
 
 .subcontainer1 {
@@ -19,17 +19,15 @@
 #title {
   font-family: 'Roboto Slab';
   margin-left: 10px;
-  display: inline
+  display: inline;
 }
 
 
 #title_table {
-  padding-top: 10px;
+  padding-top: 0.5%;
 }
 .title_container {
   width: 450px;
-  margin-top: 15px;
-  height: 50px;
 }
 
 .satellite_filter {
@@ -43,7 +41,7 @@ th {
 }
 .container {
   width: 100%;
-  height: 94%;
+  height: 93%;
 }
 .map_area { 
   margin-left: 10px;
