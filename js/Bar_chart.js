@@ -1,5 +1,5 @@
 
-var margin_b = { top: 20, right: 20, bottom: 30, left: 70},
+var margin_b = { top: 20, right: 20, bottom: 30, left: 100},
 width_b = Math.round(clientWidth*0.25),
 height_b = Math.round(clientHeight*0.32);
 
@@ -50,8 +50,10 @@ orchestrator.addListener('dataReady', function (e) {
         .attr("transform", "translate(0," + height_b + ")")
         .call(d3.axisBottom(x_b))
         .selectAll("text")
-        .attr("transform", "translate(-10,0)rotate(-45)")
-        .style("text-anchor", "end");
+        .attr("transform", "translate(2,0)")
+        .style("text-anchor", "middle")
+        .style("font-size","9px");
+
 
     var y_b = d3.scaleBand()
         .range([0, height_b])
@@ -63,8 +65,9 @@ orchestrator.addListener('dataReady', function (e) {
         .call(d3.axisLeft(y_b))
         .selectAll("text")
         .attr("class", "text_bar")
-        .attr("transform", "translate(-10,0)rotate(-60)")
-        .style("text-anchor", "end");
+        .attr("transform", "rotate(-30)")
+        .style("text-anchor", "end")
+        .style("font-size","9px");
 
 
     svg_b.selectAll("rect")
@@ -128,15 +131,16 @@ orchestrator.addListener('dataReady', function (e) {
         svg_b.select(".x-axis_b").transition().duration(1)
             .call(d3.axisBottom(x_b))
             .selectAll("text")
-            .attr("transform", "translate(-10,0)rotate(-45)")
+            //.attr("transform", "translate(-10,0)rotate(-45)")
             .style("text-anchor", "end");
 
         svg_b.select(".y-axis_b").transition().duration(1)
             .call(d3.axisLeft(y_b))
             .selectAll("text")
             .attr("class", "text_bar")
-            .attr("transform", "translate(-10,0)rotate(-60)")
-            .style("text-anchor", "end");
+            .attr("transform", "rotate(-30)")
+            .style("text-anchor", "end")
+            .style("font-size","9px");
 
         var v = svg_b.selectAll(".bar_rect").data(t10);
         v.exit().remove();

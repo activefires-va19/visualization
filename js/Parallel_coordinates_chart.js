@@ -1,4 +1,4 @@
-var margin_parallel = { top: 20, right: 30, bottom: 10, left: 20 },
+var margin_parallel = { top: 30, right: 30, bottom: 10, left: 20 },
   width_parallel = Math.round(clientWidth*0.55),
   height_parallel = Math.round(clientHeight*0.40);
 

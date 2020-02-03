@@ -1,6 +1,6 @@
-var margin_h = { top: 0, right: 30, bottom: 20, left: 50 },
+var margin_h = { top: 10, right: 30, bottom: 20, left: 50 },
   width_h = Math.round(clientWidth*0.25),
-  height_h = Math.round(clientHeight*0.32);
+  height_h = Math.round(clientHeight*0.31);
 
 var svg_h = d3.select(".histo_area")
   .append("svg")
