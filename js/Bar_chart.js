@@ -1,7 +1,7 @@
 
 var margin_b = { top: 20, right: 20, bottom: 30, left: 70},
-    width_b = 485 - margin_b.left - margin_b.right,
-    height_b = 350 - margin_b.top - margin_b.bottom;
+width_b = Math.round(clientWidth*0.25),
+height_b = Math.round(clientHeight*0.32);
 
 var svg_b = d3.select(".pie_area")
     .append("svg")
