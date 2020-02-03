@@ -1,12 +1,12 @@
 
 var margin_b = { top: 20, right: 20, bottom: 30, left: 70},
     width_b = 485 - margin_b.left - margin_b.right,
-    height_b = 300 - margin_b.top - margin_b.bottom;
+    height_b = 350 - margin_b.top - margin_b.bottom;
 
 var svg_b = d3.select(".pie_area")
     .append("svg")
-    .attr("width", width_b + margin_b.left + margin_b.right)
-    .attr("height", height_b + margin_b.top + margin_b.bottom)
+    .attr("width", '100%')
+    .attr("height", '100%')
     .append("g")
     .attr("transform",
         "translate(" + margin_b.left + "," + margin_b.top + ")");

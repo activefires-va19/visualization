@@ -4,8 +4,8 @@ var margin_map = { top: 10, right: 10, bottom: 10, left: 10 },
 
 var svg_map = d3.select(".map_area")
     .append("svg")
-    .attr("width", width_map + margin_map.left + margin_map.right)
-    .attr("height", height_map + margin_map.top + margin_map.bottom)
+    .attr("width", '100%')
+    .attr("height", '100%')
     .append("g")
     .attr("transform", "translate(" + margin_map.left + "," + margin_map.top + ")");
 

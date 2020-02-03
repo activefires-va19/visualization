@@ -1,11 +1,11 @@
 var margin_h = { top: 0, right: 30, bottom: 20, left: 50 },
   width_h = 485 - margin_h.left - margin_h.right,
-  height_h = 300 - margin_h.top - margin_h.bottom;
+  height_h = 350 - margin_h.top - margin_h.bottom;
 
 var svg_h = d3.select(".histo_area")
   .append("svg")
-  .attr("width", width_h + margin_h.left + margin_h.right)
-  .attr("height", height_h + margin_h.top + margin_h.bottom)
+  .attr("width", '100%')
+  .attr("height", '94%')
   .append("g")
   .attr("transform", "translate(" + margin_h.left + "," + margin_h.top + ")");
 

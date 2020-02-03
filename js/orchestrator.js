@@ -113,3 +113,6 @@ checkboxNight.addEventListener( 'change', function() {
     orchestrator.night = this.checked;
     orchestrator.triggerFilterEvent();
 });
+
+clientWidth = document.documentElement.clientWidth;
+clientHeight = document.documentElement.clientHeight;
