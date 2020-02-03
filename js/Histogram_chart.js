@@ -69,7 +69,7 @@ orchestrator.addListener('dataReady', function (e) {
     .attr("transform", function (d) { return "translate(" + x_h(d.x0) + "," + y_h(d.length) + ")"; })
     .attr("width", function (d) { return x_h(d.x1) - x_h(d.x0) - 1; })
     .attr("height", function (d) { return height_h - y_h(d.length); })
-    .style("fill", "#6fb1f3")
+    .style("fill", "#80b1d3")
 
   function update_histogram(num) {
 
@@ -149,7 +149,7 @@ orchestrator.addListener('dataReady', function (e) {
       .attr("transform", function (d) { return "translate(" + x_h(d.x0) + "," + y_h(d.length) + ")"; })
       .attr("width", function (d) { return x_h(d.x1) - x_h(d.x0) - 1; })
       .attr("height", function (d) { return height_h - y_h(d.length); })
-      .style("fill", "#6fb1f3")
+      .style("fill", "#80b1d3")
       .style('opacity', 1);
   }
 

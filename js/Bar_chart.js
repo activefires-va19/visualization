@@ -76,7 +76,7 @@ orchestrator.addListener('dataReady', function (e) {
         .attr("y", function (d) { return y_b(d[0]); })
         .attr("width", function (d) { return x_b(d[1]); })
         .attr("height", y_b.bandwidth())
-        .attr("fill", "#6fb1f3")
+        .attr("fill", "#fdb462")
 
     function update_bar() {
         data = evalData();
@@ -148,7 +148,7 @@ orchestrator.addListener('dataReady', function (e) {
             .attr("y", function (d) { return y_b(d[0]); })
             .attr("width", function (d) { return x_b(d[1]); })
             .attr("height", y_b.bandwidth())
-            .attr("fill", "#6fb1f3")
+            .attr("fill", "#fdb462")
             .style('opacity', 0);
         
         svg_b.selectAll(".bar_rect").data(t10).transition().duration(200)
@@ -156,7 +156,7 @@ orchestrator.addListener('dataReady', function (e) {
             .attr("y", function (d) { return y_b(d[0]); })
             .attr("width", function (d) { return x_b(d[1]); })
             .attr("height", y_b.bandwidth())
-            .attr("fill", "#6fb1f3")
+            .attr("fill", "#fdb462")
             .style('opacity', 1);
     }
 

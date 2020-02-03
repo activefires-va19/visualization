@@ -60,7 +60,7 @@ orchestrator.addListener('dataReady', function (e) {
         .attr("height", (y3(first_quantile3) - y3(third_quantile3)))
         .attr("width", width3)
         .attr("stroke", "black")
-        .style("fill", "#6fb1f3");
+        .style("fill", "#bebada");
 
     svg_box_b3.selectAll("wings")
         .data([min3, median3, max3])
@@ -153,7 +153,7 @@ orchestrator.addListener('dataReady', function (e) {
             .attr("height", (y3(first_quantile3) - y3(third_quantile3)))
             .attr("width", width3)
             .attr("stroke", "black")
-            .style("fill", "#6fb1f3")
+            .style("fill", "#bebada")
             .style('display', null);
 
         svg_box_b3.selectAll('.box_line_horizontal')

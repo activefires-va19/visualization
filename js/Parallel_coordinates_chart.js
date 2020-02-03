@@ -262,10 +262,10 @@ orchestrator.addListener('updatedDataFiltering', function (e) {
 });
 
 function _chooseColorByScatterplot(d) {
-  if (orchestrator.filteringByScatterplot == undefined)   return "steelblue";
+  if (orchestrator.filteringByScatterplot == undefined)   return "#8dd3c7";
   value = orchestrator.filteringByScatterplot(d);
   if (value) {
-    return 'red';
+    return '#fb8072';
   }
-  return "steelblue";
+  return "#8dd3c7";
 }
