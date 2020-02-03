@@ -1,10 +1,10 @@
-var margin_parallel = { top: 30, right: 10, bottom: 10, left: 0 },
-  width_parallel = 950 - margin_parallel.left - margin_parallel.right,
-  height_parallel = 400 - margin_parallel.top - margin_parallel.bottom;
+var margin_parallel = { top: 20, right: 30, bottom: 10, left: 20 },
+  width_parallel = Math.round(clientWidth*0.55),
+  height_parallel = Math.round(clientHeight*0.40);
 
 var svg_parallel = d3.select(".parallel_area").append("svg")
-  .attr("width", width_parallel + margin_parallel.left + margin_parallel.right)
-  .attr("height", height_parallel + margin_parallel.top + margin_parallel.bottom)
+  .attr("width", '100%')
+  .attr("height", '100%')
   .append("g")
   .attr("transform", "translate(" + margin_parallel.left + "," + margin_parallel.top + ")");
 

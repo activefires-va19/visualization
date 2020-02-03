@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <meta charset="utf-8">
-<title>Firms visualization</title>
+<title>Active Fire VA</title>
 
 <head>
   <script src="https://d3js.org/d3.v4.js"></script>
@@ -16,11 +16,11 @@
 
 <body>
   <div class='header'>
-    <table style="width:60%">
+    <table style="width:80%" id="title_table">
       <tr>
         <th>
           <span class="title_container">
-            <p id='title'> <b>Forest Fire Monitoring Project</b></p><br>
+            <p id='title'> <b>Active Fires Monitoring Project</b></p><br>
           </span>
         </th>
         <th>
@@ -69,23 +69,23 @@
     <div class='subcontainer1'>
       <div class="map_area"></div>
       <div class="parallel_area"></div>
+      <div class="box_area">
+      
+        <div class='button_box_area'>   
+          <button class = "button_box" id = "c21" type = "radio"> 21k </button>
+          <button class = "button_box" id = "c31" type = "radio"> 31k </button>
+        </div>
+      
+        <div class="box1"></div>
+     
+        <div class="box2"></div>
+      
+        <div class="box3"></div>
+      
+  </div>
     </div>
     <div class='subcontainer2'>
       <div class="scatterplot_area"></div>
-      <div class="box_area">
-      
-            <div class='button_box_area'>   
-              <button class = "button_box" id = "c21" type = "radio"> 21k </button>
-              <button class = "button_box" id = "c31" type = "radio"> 31k </button>
-            </div>
-          
-            <div class="box1"></div>
-         
-            <div class="box2"></div>
-          
-            <div class="box3"></div>
-          
-      </div>
       <div class="pie_area"></div>
       <div class="histo_area">
         <div class='button_histo_area'>        

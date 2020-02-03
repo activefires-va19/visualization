@@ -1,11 +1,11 @@
 var margin_map = { top: 10, right: 10, bottom: 10, left: 10 },
-    width_map = 600 - margin_map.left - margin_map.right,
-    height_map = 400 - margin_map.top - margin_map.bottom;
+width_map = Math.round(clientWidth*0.25),
+height_map = Math.round(clientHeight*0.32);
 
 var svg_map = d3.select(".map_area")
     .append("svg")
-    .attr("width", width_map + margin_map.left + margin_map.right)
-    .attr("height", height_map + margin_map.top + margin_map.bottom)
+    .attr("width", '100%')
+    .attr("height", '100%')
     .append("g")
     .attr("transform", "translate(" + margin_map.left + "," + margin_map.top + ")");
 

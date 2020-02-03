@@ -5,10 +5,15 @@
   height: 50px;
 }
 
-.vl {
+.subcontainer1 {
+  width: 100%;
+  height: 50%
+}
+
+.subcontainer2 {
   float: left;
-  border-left: 44px solid black;
-  height: 50px;
+  width: 100%;
+  height: 43%
 }
 
 #title {
@@ -17,8 +22,12 @@
   display: inline
 }
 
+
+#title_table {
+  padding-top: 10px;
+}
 .title_container {
-  width: 250px;
+  width: 450px;
   margin-top: 15px;
   height: 50px;
 }
@@ -26,73 +35,88 @@
 .satellite_filter {
   position: static;
   left: 130px;
+  font-family: 'Roboto Slab';
 }
 
+th {
+  font-weight: normal;
+}
 .container {
-  width: 1750px;
-  height: 800px;
+  width: 100%;
+  height: 94%;
 }
 .map_area { 
+  margin-left: 10px;
   float: left;
-  width: 600px;
-  height: 400px;
+  margin-bottom: 10px;
+  width: 30%;
+  height: 100%;
   border: 2px solid gray;
 }
   
 .parallel_area { 
   float: left;
   margin-left: 10px;
-  width: 900px;
-  height: 400px;
+  width: 54%;
+  height: 100%;
   border: 2px solid gray;
 }
 
 .scatterplot_area {
-  padding-top: 10px;
+  margin-left: 10px;
   float: left;
-  width: 600px;
-  height: 400px;
+  width: 30%;
+  height: 100%;
   border: 2px solid gray;
 }
 
 .box_area {
   margin-left: 10px;
-  padding-top: 0px;
   padding-left: 5px;
   float: left;
-  width: 150px;
-  height: 410px;
+  width: 10%;
+  height: 100%;
   border: 2px solid gray;
   align-content: center;
 }
 
+.box1 {
+  width: 100%;
+  height: 33%;
+}
+
+.box2 {
+  width: 100%;
+  height: 33%;
+}
+
+.box3 {
+  width: 100%;
+  height: 33%;
+}
+
 .pie_area {
   margin-left: 10px;
-  padding-top: 10px;
   float: left;
-  width: 400px;
-  height: 400px;
+  width: 34%;
+  height: 100%;
   border: 2px solid gray;
 }
 
 .histo_area {
-  padding-top: 0px;
   margin-left: 10px;
   float: left;
-  width: 450px;
-  height: 410px;
+  width: 30%;
+  height: 100%;
   border: 2px solid gray;
 }
 
-.subcontainer2 {
-  margin-top: 10px;
-  float: left;
-}
 
 .button_histo_area{
   float: right;
   margin-right: 4px;
   margin-top: 4px;
+  height: 5%;
 }
 
 .button_box{
@@ -105,8 +129,10 @@
   margin-top: 4px;
 }
 
-body {
-  min-width: 760px;
+html, body {
+  margin: 0;
+  height: 100%;
+  width: 100;
 }
 
 .background path {
@@ -155,5 +181,5 @@ body {
 }
 
 .text_bar{
-  font-size: 8px;
+  font-size: 10px;
 }

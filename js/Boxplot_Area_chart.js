@@ -1,7 +1,7 @@
 var svg_box_b2 = d3.select(".box2")
     .append("svg")
-    .attr("width", width_box_b + margin_box_b.left + margin_box_b.right)
-    .attr("height", height_box_b + margin_box_b.top + margin_box_b.bottom)
+    .attr("width", '100%')
+    .attr("height", '100%')
     .append("g")
     .attr("transform", "translate(" + margin_box_b.left + "," + margin_box_b.top + ")");
 

@@ -146,6 +146,8 @@ checkboxNight.addEventListener('change', function () {
     orchestrator.triggerFilterEvent();
 });
 
+clientWidth = document.documentElement.clientWidth;
+clientHeight = document.documentElement.clientHeight;
 function getWeekNumber(d) {
     // Copy date so don't modify original
     d = new Date(Date.UTC(d.getFullYear(), d.getMonth(), d.getDate()));
