@@ -132,7 +132,7 @@ orchestrator.addListener('dataReady', function (e) {
 
     svg_h.select(".x-axis").call(d3.axisBottom(x_h));
 
-    svg_h.select(".y-axis").call(d3.axisLeft(y_h));
+    svg_h.select(".y-axis").transition().duration(50).call(d3.axisLeft(y_h));
 
     var u = svg_h.selectAll(".histo_bars").data(bins);
     u.exit().remove();
