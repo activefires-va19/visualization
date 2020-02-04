@@ -134,7 +134,6 @@ function create_graph() {
     .data(data)
     .enter().append("path")
     .attr("d", path)
-    .attr("stroke", "steelblue")
     .attr("class", "path_foreground")
     .style("stroke", _chooseColorByScatterplot);;
 
@@ -262,10 +261,10 @@ orchestrator.addListener('updatedDataFiltering', function (e) {
 });
 
 function _chooseColorByScatterplot(d) {
-  if (orchestrator.filteringByScatterplot == undefined)   return "#8dd3c7";
+  if (orchestrator.filteringByScatterplot == undefined)   return "#4daf4a";
   value = orchestrator.filteringByScatterplot(d);
   if (value) {
-    return '#fb8072';
+    return '#e41a1c';
   }
-  return "#8dd3c7";
+  return "#4daf4a";
 }
