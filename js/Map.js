@@ -34,7 +34,7 @@ orchestrator.addListener('dataReady', function (e) {
             .data(data.features)
             .enter()
             .append("path")
-            .attr("fill", "#bebada")
+            .attr("fill", "#80b1d3")
             .attr("class", "map_path")
             .attr("d", d3.geoPath().projection(projection))
             .style("stroke", "black")
@@ -47,16 +47,16 @@ orchestrator.addListener('dataReady', function (e) {
             .attr("cx", function (d) { return projection([+d["longitude"], +d["latitude"]])[0]; })
             .attr("cy", function (d) { return projection([+d["longitude"], +d["latitude"]])[1]; })
             .attr("r", 1)
-            .style("fill", "#8dd3c7")
-            .attr("stroke", "#8dd3c7")
+            .style("fill", "#4daf4a")
+            .attr("stroke", "#4daf4a")
             .attr("stroke-width", 3)
             .attr("fill-opacity", .4);
 
         svg_map.call(zoom);
         orchestrator.addListener('scatterplotBrushing', function (e) {
             svg_map.select(".circles_container").selectAll("circle").data(evalData()).transition().duration(130).attr('stroke', function (d) {
-                if (orchestrator.filteringByScatterplot(d)) return '#fb8072'
-                else return "#8dd3c7";
+                if (orchestrator.filteringByScatterplot(d)) return '#e41a1c'
+                else return "#4daf4a";
             });
         });
 
@@ -83,10 +83,10 @@ orchestrator.addListener('dataReady', function (e) {
                 .attr("cx", function (d) { return projection([+d["longitude"], +d["latitude"]])[0]; })
                 .attr("cy", function (d) { return projection([+d["longitude"], +d["latitude"]])[1]; })
                 .attr("r", 1)
-                .style("fill", "#8dd3c7")
+                .style("fill", "#4daf4a")
                 .attr('stroke', function (d) {
-                    if (orchestrator.filteringByScatterplot(d)) return '#fb8072'
-                    else return "#8dd3c7";
+                    if (orchestrator.filteringByScatterplot(d)) return '#e41a1c'
+                    else return "#4daf4a";
                 })
                 .attr("stroke-width", 3)
                 .attr("fill-opacity", .4);
