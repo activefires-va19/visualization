@@ -109,6 +109,7 @@ Orchestrator.prototype.triggerWeekFilterEvent = function (selectedWeek) {
         foundWeek = getWeekNumber(new Date(d.acq_date));
         if (selectedWeek[0] == foundWeek[0] && selectedWeek[1] == foundWeek[1]) this.dataWeekly.push(d);
     }
+    this.notifyWeekChanged();
     this.triggerFilterEvent();
 }
 
@@ -192,7 +193,7 @@ orchestrator.addListener("dataReady", function(e){
 });
 
 orchestrator.addListener("weekChanged", function(e){
-    data = orchestrator.data;
+    data = orchestrator.dataWeekly;
     update_statistics(data);
 });
 
@@ -230,7 +231,7 @@ function update_statistics(data){
 
 
     d3.select("#terra_text").html("Terra ("+String(terra_p)+"%)");
-    d3.select("#acqua_text").html("Acqua ("+String(acqua_p)+"%) &nbsp &nbsp");
+    d3.select("#aqua_text").html("Aqua ("+String(acqua_p)+"%) &nbsp &nbsp");
     d3.select("#day_text").html("Day ("+String(day_p)+"%)");
     d3.select("#night_text").html("Night ("+String(night_p)+"%)&nbsp &nbsp");
 }
