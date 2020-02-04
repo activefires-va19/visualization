@@ -34,7 +34,7 @@ orchestrator.addListener('dataReady', function (e) {
             .data(data.features)
             .enter()
             .append("path")
-            .attr("fill", "#80b1d3")
+            .attr("fill", "#a6cee3")
             .attr("class", "map_path")
             .attr("d", d3.geoPath().projection(projection))
             .style("stroke", "black")
@@ -46,15 +46,19 @@ orchestrator.addListener('dataReady', function (e) {
             .append("circle")
             .attr("cx", function (d) { return projection([+d["longitude"], +d["latitude"]])[0]; })
             .attr("cy", function (d) { return projection([+d["longitude"], +d["latitude"]])[1]; })
-            .attr("r", 1)
+            .attr("r", 1.7)
             .style("fill", "#4daf4a")
             .attr("stroke", "#4daf4a")
             .attr("stroke-width", 3)
-            .attr("fill-opacity", .4);
+            .style("opacity", .6);
 
         svg_map.call(zoom);
+        svg_map.call(zoom.transform, d3.zoomIdentity.scale(1.1))
         orchestrator.addListener('scatterplotBrushing', function (e) {
             svg_map.select(".circles_container").selectAll("circle").data(evalData()).transition().duration(130).attr('stroke', function (d) {
+                if (orchestrator.filteringByScatterplot(d)) return '#e41a1c'
+                else return "#4daf4a";
+            }).style('fill', function (d) {
                 if (orchestrator.filteringByScatterplot(d)) return '#e41a1c'
                 else return "#4daf4a";
             });
@@ -76,20 +80,22 @@ orchestrator.addListener('dataReady', function (e) {
                 .attr("cx", function (d) { return projection([+d["longitude"], +d["latitude"]])[0]; })
                 .attr("cy", function (d) { return projection([+d["longitude"], +d["latitude"]])[1]; })
                 .attr('transform', last_zoom_transform)
-                .attr("r", 0);
+                .attr("r", 0)
+                .style("opacity", .6);
 
             svg_map.select(".circles_container").selectAll("circle").data(modifiedData).transition().duration(200)
-                .attr("r", 1)
+                .attr("r", 1.7)
                 .attr("cx", function (d) { return projection([+d["longitude"], +d["latitude"]])[0]; })
                 .attr("cy", function (d) { return projection([+d["longitude"], +d["latitude"]])[1]; })
-                .attr("r", 1)
-                .style("fill", "#4daf4a")
+                .style('fill', function (d) {
+                    if (orchestrator.filteringByScatterplot(d)) return '#e41a1c'
+                    else return "#4daf4a";
+                })
                 .attr('stroke', function (d) {
                     if (orchestrator.filteringByScatterplot(d)) return '#e41a1c'
                     else return "#4daf4a";
                 })
                 .attr("stroke-width", 3)
-                .attr("fill-opacity", .4);
         }
     });
     function zoomed() {
