@@ -1,6 +1,6 @@
 var margin_parallel = { top: 30, right: 30, bottom: 10, left: 20 },
-  width_parallel = Math.round(clientWidth*0.55),
-  height_parallel = Math.round(clientHeight*0.40);
+  width_parallel = Math.round(clientWidth * 0.55),
+  height_parallel = Math.round(clientHeight * 0.40);
 
 var svg_parallel = d3.select(".parallel_area").append("svg")
   .attr("width", '100%')
@@ -41,18 +41,23 @@ function create_graph() {
       key: "bright_t31"
     },
     {
-      name: "Time",
-      key: "acq_time"
+      name: "Frp",
+      key: "frp"
     },
+
     {
       name: "Area (px)",
       key: "area"
     },
     {
-      name: "Frp",
-      key: "frp"
+      name: "Latitude",
+      key: "latitude"
     },
-    ];
+    {
+      name: "Time",
+      key: "acq_time"
+    },
+  ];
 
   var y = {};
   var names = [];
@@ -257,11 +262,11 @@ orchestrator.addListener('updatedDataFiltering', function (e) {
     .append("g")
     .attr("transform", "translate(" + margin_parallel.left + "," + margin_parallel.top + ")");
   create_graph();
-  
+
 });
 
 function _chooseColorByScatterplot(d) {
-  if (orchestrator.filteringByScatterplot == undefined)   return "#4daf4a";
+  if (orchestrator.filteringByScatterplot == undefined) return "#4daf4a";
   value = orchestrator.filteringByScatterplot(d);
   if (value) {
     return '#e41a1c';
