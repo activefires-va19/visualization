@@ -1,11 +1,12 @@
 var margin_h = { top: 10, right: 30, bottom: 20, left: 50 },
-  width_h = Math.round(clientWidth*0.25),
-  height_h = Math.round(clientHeight*0.31);
+  width_h = Math.round(clientWidth * 0.25),
+  height_h = Math.round(clientHeight * 0.31);
 
 var svg_h = d3.select(".histo_area")
   .append("svg")
   .attr("width", '100%')
   .attr("height", '94%')
+  .attr("class", "histo")
   .append("g")
   .attr("transform", "translate(" + margin_h.left + "," + margin_h.top + ")");
 
@@ -18,20 +19,18 @@ var selected_h = 1;
 
 function parse_hour_h(e) {
   var today = new Date();
-  
-  hh = e.substring(0, 2);
-  mm = e.substring(2, 4);
-  today.setHours(hh);
-  today.setMinutes(mm);
 
-  return today;
+  var dd = String(today.getDate()).padStart(2, '0');
+  var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0
+  var yyyy = today.getFullYear();
+  return new Date(mm + '/' + dd + '/' + yyyy + " " + e.substring(0, 2) + ":" + e.substring(2, 4));
 }
 
 orchestrator.addListener('dataReady', function (e) {
   data = evalData();
   data.forEach(e => {
     events_hour.push(parse_hour_h(e["acq_time"]));
-    events_days.push(parseDays(e["acq_date"] + "-"+e['acq_time']));
+    events_days.push(parseDays(e["acq_date"] + "-" + e['acq_time']));
   });
 
   events_days.sort(function (a, b) { return a.getTime() - b.getTime() });
@@ -47,7 +46,7 @@ orchestrator.addListener('dataReady', function (e) {
   svg_h.append("g")
     .attr("class", "x-axis")
     .attr("transform", "translate(0," + height_h + ")")
-    .style("font-size","9px")
+    .style("font-size", "9px")
     .call(d3.axisBottom(x_h));
 
   var histogram = d3.histogram()
@@ -73,6 +72,9 @@ orchestrator.addListener('dataReady', function (e) {
     .attr("width", function (d) { return x_h(d.x1) - x_h(d.x0) - 1; })
     .attr("height", function (d) { return height_h - y_h(d.length); })
     .style("fill", "#80b1d3")
+
+  elem_to_fix = document.getElementsByClassName('histo')[0].getElementsByClassName('x-axis')[0].getElementsByClassName('tick')[0].getElementsByTagName('text')[0];
+  if (!elem_to_fix.innerHTML.match(/^\d/)) elem_to_fix.innerHTML = '00 AM'
 
   function update_histogram(num) {
 
@@ -128,9 +130,9 @@ orchestrator.addListener('dataReady', function (e) {
     var bins = histogram(selected_set);
     y_h.domain([0, d3.max(bins, function (d) { return d.length; })]);
 
-    svg_h.select(".x-axis").transition().duration(1).call(d3.axisBottom(x_h));
+    svg_h.select(".x-axis").call(d3.axisBottom(x_h));
 
-    svg_h.select(".y-axis").transition().duration(1).call(d3.axisLeft(y_h));
+    svg_h.select(".y-axis").call(d3.axisLeft(y_h));
 
     var u = svg_h.selectAll(".histo_bars").data(bins);
     u.exit().remove();
@@ -154,6 +156,8 @@ orchestrator.addListener('dataReady', function (e) {
       .attr("height", function (d) { return height_h - y_h(d.length); })
       .style("fill", "#80b1d3")
       .style('opacity', 1);
+      elem_to_fix = document.getElementsByClassName('histo')[0].getElementsByClassName('x-axis')[0].getElementsByClassName('tick')[0].getElementsByTagName('text')[0];
+      if (num == 1 && !elem_to_fix.innerHTML.match(/^\d/)) elem_to_fix.innerHTML = '00 AM'
   }
 
   orchestrator.addListener('parallelBrushing', function (e) {
