@@ -169,10 +169,14 @@ orchestrator.addListener('dataReady', function (e) {
   });
 
   d3.select("#hours").on("click", function () {
+    document.getElementById("hours").disabled = true;
+        document.getElementById("week").disabled = false;
     update_histogram(1);
   });
 
   d3.select("#week").on("click", function () {
+    document.getElementById("hours").disabled = false;
+    document.getElementById("week").disabled = true;
     update_histogram(2);
   });
 

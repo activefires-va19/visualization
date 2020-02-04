@@ -197,10 +197,15 @@ orchestrator.addListener('dataReady', function (e) {
     }
 
     d3.select("#c21").on("click", function () {
+        document.getElementById("c21").disabled = true;
+        document.getElementById("c31").disabled = false;
         update(1);
+        
     });
 
     d3.select("#c31").on("click", function () {
+        document.getElementById("c21").disabled = false;
+        document.getElementById("c31").disabled = true;
         update(2);
     });
 
