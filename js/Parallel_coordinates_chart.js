@@ -61,6 +61,8 @@ function create_graph() {
 
   var y = {};
   var names = [];
+  var bright_min = 99999999;
+  var bright_max = -1;
   for (i in dimensions) {
     k = dimensions[i].key;
     names.push(dimensions[i].name);
@@ -83,12 +85,25 @@ function create_graph() {
       var high = parse_hour_p("2359");
       y[k] = d3.scaleTime().domain([low, high]).range([height_parallel, 0]);
     }
-    else {
+    else if (k == "confidence") {
+      y[k] = d3.scaleLinear().domain([0, 100]).range([height_parallel, 0]);
+    }
+    else if (k != "brightness" && k != "bright_t31") {
       y[k] = d3.scaleLinear()
         .domain(d3.extent(data, function (d) { return +d[k]; }))
         .range([height_parallel, 0]);
     }
   }
+  for (j = 0; j < data.length; j++) {
+    if (+data[j]["brightness"] < bright_min) bright_min = +data[j]["brightness"];
+    if (+data[j]["bright_t31"] < bright_min) bright_min = +data[j]["bright_t31"];
+
+    if (+data[j]["brightness"] > bright_max) bright_max = +data[j]["brightness"];
+    if (+data[j]["bright_t31"] > bright_max) bright_max = +data[j]["bright_t31"];
+  }
+
+  y["brightness"] = d3.scaleLinear().domain([bright_min, bright_max]).range([height_parallel, 0]);
+  y["bright_t31"] = d3.scaleLinear().domain([bright_min, bright_max]).range([height_parallel, 0]);
 
   x = d3.scalePoint()
     .range([0, width_parallel])
