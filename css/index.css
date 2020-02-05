@@ -105,7 +105,7 @@ th {
 
 .box2 {
   width: 100%;
-  height: 33%;
+  height: 30%;
 }
 
 .box3 {
@@ -200,4 +200,30 @@ html, body {
 
 .text_bar{
   font-size: 10px;
+}
+
+.boxplot1 {
+  width: 100%;
+  height: 100%;
+  margin-bottom: 2%;
+}
+
+
+.boxplot2 {
+  width: 100%;
+  height: 100%;
+  margin-bottom: 2%;
+  margin-top: 6%;
+}
+
+.boxplot3 {
+  width: 100%;
+  height: 100%;
+  margin-top: 6%;
+}
+
+hr {
+  border: 1px solid #989898;
+  margin-right: 5px;
+  opacity: 0.7;
 }

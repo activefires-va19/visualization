@@ -1,4 +1,4 @@
-var svg_box_b3 = d3.select(".box3")
+var svg_box_b3 = d3.select(".boxplot3")
     .append("svg")
     .attr("width", '100%')
     .attr("height", '100%')

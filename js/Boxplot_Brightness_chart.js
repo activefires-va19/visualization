@@ -1,7 +1,7 @@
 var margin_box_b = { top: 10, right: 60, bottom: 30, left: 50 },
 width_box_b = Math.round(clientWidth*0.01),
 height_box_b = Math.round(clientHeight*0.1);
-var svg_box_b1 = d3.select(".box1")
+var svg_box_b1 = d3.select(".boxplot1")
     .append("svg")
     .attr("width", '100%')
     .attr("height", '100%')
