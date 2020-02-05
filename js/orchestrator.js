@@ -51,7 +51,7 @@ Orchestrator.prototype.loadData = function () {
         setWeekSelectorMinMax(min_week, max_week);
         var weekSelector = document.querySelector("input[name='year_week']");
         weekSelector.addEventListener('change', function () {
-            orchestrator.triggerWeekFilterEvent(getDateOfISOWeek(weekSelector.value.split("-W")[1],weekSelector.value.split("-")[0]));
+            orchestrator.triggerWeekFilterEvent(getDateOfISOWeek(weekSelector.value.split("-W")[1], weekSelector.value.split("-")[0]));
         });
         loadedData.columns.push("dayOfWeek");
         loadedData.columns.push("area");
@@ -187,17 +187,17 @@ function setWeekSelectorMinMax(min, max) {
     weekSelector.value = weekSelector.max;
 }
 
-orchestrator.addListener("dataReady", function(e){
+orchestrator.addListener("dataReady", function (e) {
     data = orchestrator.data;
     update_statistics(data);
 });
 
-orchestrator.addListener("weekChanged", function(e){
+orchestrator.addListener("weekChanged", function (e) {
     data = orchestrator.dataWeekly;
     update_statistics(data);
 });
 
-function update_statistics(data){
+function update_statistics(data) {
     tot = data.length;
     acqua_n = 0;
     terra_n = 0;
@@ -205,33 +205,33 @@ function update_statistics(data){
     day_n = 0;
     night_n = 0;
 
-    for(i = 0; i < data.length; i++){
-        if(data[i]["satellite"] == "A"){
+    for (i = 0; i < data.length; i++) {
+        if (data[i]["satellite"] == "A") {
             acqua_n += 1;
         }
-        else{
+        else {
             terra_n += 1;
         }
 
-        if(data[i]["daynight"] == "D"){
+        if (data[i]["daynight"] == "D") {
             day_n += 1;
         }
-        else{
+        else {
             night_n += 1;
         }
     }
 
-    acqua_p = Math.floor( (acqua_n/tot)*100);
-    terra_p = Math.floor( (terra_n/tot)*100);
-    day_p = Math.floor( (day_n/tot)*100);
-    night_p = Math.floor( (night_n/tot)*100);
+    acqua_p = Math.floor((acqua_n / tot) * 100);
+    terra_p = Math.floor((terra_n / tot) * 100);
+    day_p = Math.floor((day_n / tot) * 100);
+    night_p = Math.floor((night_n / tot) * 100);
 
-    if(acqua_p + terra_p < 100) acqua_p += 1;
-    if(day_p + night_p < 100) day_p += 1;
+    if (acqua_p + terra_p < 100) acqua_p += 1;
+    if (day_p + night_p < 100) day_p += 1;
 
 
-    d3.select("#terra_text").html("Terra ("+String(terra_p)+"%)");
-    d3.select("#aqua_text").html("Aqua ("+String(acqua_p)+"%) &nbsp &nbsp");
-    d3.select("#day_text").html("Day ("+String(day_p)+"%)");
-    d3.select("#night_text").html("Night ("+String(night_p)+"%)&nbsp &nbsp");
+    d3.select("#terra_text").html("Terra (" + String(terra_p) + "%)");
+    d3.select("#aqua_text").html("Aqua (" + String(acqua_p) + "%) &nbsp &nbsp");
+    d3.select("#day_text").html("Day (" + String(day_p) + "%)");
+    d3.select("#night_text").html("Night (" + String(night_p) + "%)&nbsp &nbsp");
 }

@@ -1,7 +1,7 @@
 
-var margin_b = { top: 20, right: 20, bottom: 30, left: 100},
-width_b = Math.round(clientWidth*0.25),
-height_b = Math.round(clientHeight*0.32);
+var margin_b = { top: 20, right: 20, bottom: 30, left: 100 },
+    width_b = Math.round(clientWidth * 0.25),
+    height_b = Math.round(clientHeight * 0.32);
 
 var svg_b = d3.select(".pie_area")
     .append("svg")
@@ -52,7 +52,7 @@ orchestrator.addListener('dataReady', function (e) {
         .selectAll("text")
         .attr("transform", "translate(2,0)")
         .style("text-anchor", "middle")
-        .style("font-size","9px");
+        .style("font-size", "9px");
 
 
     var y_b = d3.scaleBand()
@@ -67,7 +67,7 @@ orchestrator.addListener('dataReady', function (e) {
         .attr("class", "text_bar")
         .attr("transform", "rotate(-30)")
         .style("text-anchor", "end")
-        .style("font-size","9px");
+        .style("font-size", "9px");
 
 
     svg_b.selectAll("rect")
@@ -103,27 +103,27 @@ orchestrator.addListener('dataReady', function (e) {
             return second[1] - first[1];
         });
 
-        if(items.length > 10){
+        if (items.length > 10) {
             t10 = items.slice(0, 10);
         }
-        else{
+        else {
             t10 = items;
         }
-        
+
         t10_country = [];
         top_elem = 10;
 
-        if(t10.length < 10) top_elem = t10.length;
+        if (t10.length < 10) top_elem = t10.length;
 
         for (i = 0; i < top_elem; i++) {
             t10_country.push(t10[i][0]);
         }
 
-        if(items.length !=0){
+        if (items.length != 0) {
             x_b.domain([0, items[0][1] + 5]);
         }
-        else{
-            x_b.domain([0,  5]);
+        else {
+            x_b.domain([0, 5]);
         }
 
         y_b.domain(t10_country);
@@ -140,7 +140,7 @@ orchestrator.addListener('dataReady', function (e) {
             .attr("class", "text_bar")
             .attr("transform", "rotate(-30)")
             .style("text-anchor", "end")
-            .style("font-size","9px");
+            .style("font-size", "9px");
 
         var v = svg_b.selectAll(".bar_rect").data(t10);
         v.exit().remove();
@@ -154,7 +154,7 @@ orchestrator.addListener('dataReady', function (e) {
             .attr("height", y_b.bandwidth())
             .attr("fill", "#fdb462")
             .style('opacity', 0);
-        
+
         svg_b.selectAll(".bar_rect").data(t10).transition().duration(200)
             .attr("x", x_b(0))
             .attr("y", function (d) { return y_b(d[0]); })
@@ -171,10 +171,10 @@ orchestrator.addListener('dataReady', function (e) {
     orchestrator.addListener('parallelBrushing', function (e) {
         update_bar();
     });
-    
+
 
     orchestrator.addListener('updatedDataFiltering', function (e) {
         update_bar();
-      });
+    });
 
 });

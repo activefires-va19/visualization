@@ -88,7 +88,7 @@ orchestrator.addListener('dataReady', function (e) {
     orchestrator.addListener('updatedDataFiltering', function (e) {
         update();
     });
-    
+
 
     function update() {
         data = evalData();
@@ -111,39 +111,39 @@ orchestrator.addListener('dataReady', function (e) {
         var interQuantileRange2 = third_quantile2 - first_quantile2;
         var min2 = first_quantile2 - 1.5 * interQuantileRange2;
         var max2 = first_quantile2 + 1.5 * interQuantileRange2;
-    
+
         if (min2 < 0) min2 = 0;
-    
+
         var center2 = 50;
         var width2 = 25;
-    
+
         var low2;
-    
+
         if (min2 - 2 < 0) {
             low2 = 0;
         }
         else {
             low2 = (min2 - 2);
         }
-    
+
         var high2 = (max2 + 2);
-    
+
         var y2 = d3.scaleLinear()
             .domain([low2, high2])
             .range([height_box_b, 0]);
-    
+
         var yAxis2 = d3.axisLeft(y2);
-    
-        svg_box_b2.select(".y_axis").style("display",null).call(yAxis2.ticks(6));
-    
+
+        svg_box_b2.select(".y_axis").style("display", null).call(yAxis2.ticks(6));
+
         svg_box_b2.select('.box_line_vertical')
             .attr("x1", center2)
             .attr("x2", center2)
             .attr("y1", y2(min2))
             .attr("y2", y2(max2))
             .attr("stroke", "black")
-            .style("display",null);
-    
+            .style("display", null);
+
         svg_box_b2.select('.box_rect')
             .attr("x", center2 - width2 / 2)
             .attr("y", y2(third_quantile2))
@@ -151,16 +151,16 @@ orchestrator.addListener('dataReady', function (e) {
             .attr("width", width2)
             .attr("stroke", "black")
             .style("fill", "#bebada")
-            .style("display",null);
-    
+            .style("display", null);
+
         svg_box_b2.selectAll('.box_line_horizontal')
-            .data([min2, median2, max2])    
+            .data([min2, median2, max2])
             .attr("x1", center2 - width2 / 2)
             .attr("x2", center2 + width2 / 2)
             .attr("y1", function (d) { return (y2(d)) })
             .attr("y2", function (d) { return (y2(d)) })
             .attr("stroke", "black")
-            .style("display",null);
+            .style("display", null);
     }
     function evalData() {
         return orchestrator.getDataFilteredByParallel();

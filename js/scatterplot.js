@@ -1,7 +1,7 @@
 
 var margin_scatter = { top: 10, right: 30, bottom: 30, left: 60 },
-width_scatter = Math.round(clientWidth*0.23),
-height_scatter = Math.round(clientHeight*0.33);
+  width_scatter = Math.round(clientWidth * 0.23),
+  height_scatter = Math.round(clientHeight * 0.33);
 
 // append the svg object to the body of the page
 var svg_scatter = d3.select(".scatterplot_area")

@@ -156,8 +156,8 @@ orchestrator.addListener('dataReady', function (e) {
       .attr("height", function (d) { return height_h - y_h(d.length); })
       .style("fill", "#80b1d3")
       .style('opacity', 1);
-      elem_to_fix = document.getElementsByClassName('histo')[0].getElementsByClassName('x-axis')[0].getElementsByClassName('tick')[0].getElementsByTagName('text')[0];
-      if (num == 1 && !elem_to_fix.innerHTML.match(/^\d/)) elem_to_fix.innerHTML = '00 AM'
+    elem_to_fix = document.getElementsByClassName('histo')[0].getElementsByClassName('x-axis')[0].getElementsByClassName('tick')[0].getElementsByTagName('text')[0];
+    if (num == 1 && !elem_to_fix.innerHTML.match(/^\d/)) elem_to_fix.innerHTML = '00 AM'
   }
 
   orchestrator.addListener('parallelBrushing', function (e) {
@@ -170,7 +170,7 @@ orchestrator.addListener('dataReady', function (e) {
 
   d3.select("#hours").on("click", function () {
     document.getElementById("hours").disabled = true;
-        document.getElementById("week").disabled = false;
+    document.getElementById("week").disabled = false;
     update_histogram(1);
   });
 

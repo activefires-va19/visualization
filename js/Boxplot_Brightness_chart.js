@@ -1,6 +1,6 @@
 var margin_box_b = { top: 10, right: 60, bottom: 30, left: 50 },
-width_box_b = Math.round(clientWidth*0.01),
-height_box_b = Math.round(clientHeight*0.1);
+    width_box_b = Math.round(clientWidth * 0.01),
+    height_box_b = Math.round(clientHeight * 0.1);
 var svg_box_b1 = d3.select(".boxplot1")
     .append("svg")
     .attr("width", '100%')
@@ -200,7 +200,7 @@ orchestrator.addListener('dataReady', function (e) {
         document.getElementById("c21").disabled = true;
         document.getElementById("c31").disabled = false;
         update(1);
-        
+
     });
 
     d3.select("#c31").on("click", function () {
