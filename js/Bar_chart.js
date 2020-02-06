@@ -17,7 +17,7 @@ orchestrator.addListener('dataReady', function (e) {
 
     dict = {};
     for (i = 0; i < data.length; i++) {
-        key_d = data[i]["Country"];
+        key_d = data[i]["country"];
         if (typeof dict[key_d] != "undefined") {
             dict[key_d] += 1;
         }
@@ -86,7 +86,7 @@ orchestrator.addListener('dataReady', function (e) {
 
         dict = {};
         for (i = 0; i < data.length; i++) {
-            key_d = data[i]["Country"];
+            key_d = data[i]["country"];
             if (typeof dict[key_d] != "undefined") {
                 dict[key_d] += 1;
             }

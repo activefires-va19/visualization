@@ -26,7 +26,7 @@ function create_graph() {
   dimensions = [
     {
       name: "Country",
-      key: "Country"
+      key: "country"
     },
     {
       name: "Confidence",
@@ -66,7 +66,7 @@ function create_graph() {
   for (i in dimensions) {
     k = dimensions[i].key;
     names.push(dimensions[i].name);
-    if (k == "Country") {
+    if (k == "country") {
       countries = [""];
       data.forEach(element => {
         if (!countries.includes(element[k])) {
@@ -112,9 +112,9 @@ function create_graph() {
 
   function scalePointInverse(pos) {
     var xPos = pos;
-    var domain = y["Country"].domain();
-    var range = y["Country"].range();
-    var rangePoints = d3.range(range[0], range[1], y["Country"].step())
+    var domain = y["country"].domain();
+    var range = y["country"].range();
+    var rangePoints = d3.range(range[0], range[1], y["country"].step())
     var inverse = domain[d3.bisect(rangePoints, xPos)];
 
     return inverse;
@@ -195,7 +195,7 @@ function create_graph() {
       if (extents[i][0] == 0 && extents[i][1] == 0) {
         return true;
       }
-      if (p.key == "Country") {
+      if (p.key == "country") {
         ex0 = countries.indexOf(extents[i][0]);
         ex1 = countries.indexOf(extents[i][1]);
         value = countries.indexOf(d[p.key]);
@@ -218,7 +218,7 @@ function create_graph() {
 
     for (i in dimensions) {
       if (d3.event.target == y[dimensions[i].key].brush) {
-        if (dimensions[i].key == "Country") {
+        if (dimensions[i].key == "country") {
           extents[i] = d3.event.selection.map(scalePointInverse, y[dimensions[i].key]);
         }
         else {
