@@ -55,13 +55,7 @@ orchestrator.addListener('dataReady', function (e) {
         svg_map.call(zoom);
         svg_map.call(zoom.transform, d3.zoomIdentity.scale(1.1))
         orchestrator.addListener('scatterplotBrushing', function (e) {
-            svg_map.select(".circles_container").selectAll("circle").data(evalData()).transition().duration(130).attr('stroke', function (d) {
-                if (orchestrator.filteringByScatterplot(d)) return '#e41a1c'
-                else return "#4daf4a";
-            }).style('fill', function (d) {
-                if (orchestrator.filteringByScatterplot(d)) return '#e41a1c'
-                else return "#4daf4a";
-            });
+            svg_map.select(".circles_container").selectAll("circle").data(evalData()).transition().duration(130).attr('stroke', _chooseColorMapByScatterplot).style('fill', _chooseColorMapByScatterplot);
         });
 
         orchestrator.addListener('parallelBrushing', function (e) {
@@ -95,14 +89,8 @@ orchestrator.addListener('dataReady', function (e) {
                 .attr("r", newR)
                 .attr("cx", function (d) { return projection([+d["longitude"], +d["latitude"]])[0]; })
                 .attr("cy", function (d) { return projection([+d["longitude"], +d["latitude"]])[1]; })
-                .style('fill', function (d) {
-                    if (orchestrator.filteringByScatterplot(d)) return '#e41a1c'
-                    else return "#4daf4a";
-                })
-                .attr('stroke', function (d) {
-                    if (orchestrator.filteringByScatterplot(d)) return '#e41a1c'
-                    else return "#4daf4a";
-                })
+                .style('fill', _chooseColorMapByScatterplot)
+                .attr('stroke', _chooseColorMapByScatterplot)
                 .attr("stroke-width", newStroke)
         }
     });
@@ -122,3 +110,9 @@ orchestrator.addListener('dataReady', function (e) {
         .attr("stroke-width", newStroke);
     }
 });
+
+function _chooseColorMapByScatterplot(d){
+    if (orchestrator.filteringByScatterplot == undefined) return "#4daf4a";
+    if (orchestrator.filteringByScatterplot(d)) return '#e41a1c';
+    else return "#4daf4a";
+}
