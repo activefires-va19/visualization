@@ -13,7 +13,7 @@ var svg_scatter = d3.select(".scatterplot_area")
     "translate(" + margin_scatter.left + "," + margin_scatter.top + ")");
 
 orchestrator.addListener('dataReady', function (e) {
-  data = orchestrator.data;
+  data = evalData();
   var max_x, min_x, max_y, min_y;
   for (i = 0; i < data.length; i++) {
     pca1 = parseFloat(data[i].PCA_component1);
@@ -41,7 +41,7 @@ orchestrator.addListener('dataReady', function (e) {
     data[i].dayOfWeek = dayOfWeek;
   }
   var x = d3.scaleLinear()
-    .domain([0, max_x + 5])
+    .domain([0, max_x + 2])
     .range([0, width_scatter]);
   svg_scatter.append("g")
     .attr("transform", "translate(0," + height_scatter + ")")
@@ -57,7 +57,7 @@ orchestrator.addListener('dataReady', function (e) {
 
   // Add Y axis
   var y = d3.scaleLinear()
-    .domain([0, max_y + 5])
+    .domain([0, max_y + 2])
     .range([height_scatter, 0]);
   svg_scatter.append("g").attr("class", 'scatterplot_y_axis')
     .call(d3.axisLeft(y));
@@ -166,6 +166,7 @@ orchestrator.addListener('dataReady', function (e) {
   });
 
   orchestrator.addListener('weekChanged', function (e) {
+    data = evalData();
     var max_x, min_x, max_y, min_y;
     for (i = 0; i < data.length; i++) {
       pca1 = parseFloat(data[i].PCA_component1);
@@ -183,16 +184,15 @@ orchestrator.addListener('dataReady', function (e) {
         if (pca2 < min_y) min_y = pca2;
       }
     }
-
-    var x = d3.scaleLinear()
-      .domain([0, max_x + 5])
+    x = d3.scaleLinear()
+      .domain([0, max_x + 2])
       .range([0, width_scatter]);
     svg_scatter.select(".scatterplot_x_axis")
       .attr("transform", "translate(0," + height_scatter + ")").transition().duration(100)
       .call(d3.axisBottom(x));
 
-    var y = d3.scaleLinear()
-      .domain([0, max_y + 5])
+    y = d3.scaleLinear()
+      .domain([0, max_y + 2])
       .range([height_scatter, 0]);
     svg_scatter.select(".scatterplot_y_axis").transition().duration(100)
       .call(d3.axisLeft(y));
