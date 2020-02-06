@@ -74,9 +74,12 @@ function update_statistics(data) {
     if (acqua_p + terra_p < 100) acqua_p += 1;
     if (day_p + night_p < 100) day_p += 1;
 
-
-    d3.select("#terra_text").html("Terra (" + String(terra_p) + "%)");
-    d3.select("#aqua_text").html("Aqua (" + String(acqua_p) + "%) &nbsp &nbsp");
-    d3.select("#day_text").html("Day (" + String(day_p) + "%)");
-    d3.select("#night_text").html("Night (" + String(night_p) + "%)&nbsp &nbsp");
+    if(!Number.isNaN(terra_p)) d3.select("#terra_text").html("Terra (" + String(terra_p) + "%)");
+    else d3.select("#terra_text").html("Terra");
+    if (!Number.isNaN(acqua_p)) d3.select("#aqua_text").html("Aqua (" + String(acqua_p) + "%) &nbsp &nbsp");
+    else d3.select("#aqua_text").html("Aqua &nbsp &nbsp");
+    if (!Number.isNaN(day_p)) d3.select("#day_text").html("Day (" + String(day_p) + "%)");
+    else d3.select("#day_text").html("Day");
+    if (!Number.isNaN(night_p)) d3.select("#night_text").html("Night (" + String(night_p) + "%)&nbsp &nbsp");
+    else d3.select("#night_text").html("Night &nbsp &nbsp");
 }
