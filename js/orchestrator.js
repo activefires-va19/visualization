@@ -39,7 +39,7 @@ Orchestrator.prototype.loadData = function () {
             else dayOfWeek = 'Sunday';
             loadedData[i].dayOfWeek = dayOfWeek;
             loadedData[i].area = parseFloat(loadedData[i].area)
-            loadedData[i].acq_time = loadedData[i].acq_time.replace(':','');
+            loadedData[i].acq_time = loadedData[i].acq_time.replace(':', '');
             _obj.dataOriginal.push(loadedData[i])
         }
         for (i = 0; i < loadedData.length; i++) {
@@ -79,23 +79,18 @@ Orchestrator.prototype.notifyWeekChanged = function () {
     this.listenersContainer.dispatchEvent(new Event('weekChanged'));
 }
 
+Orchestrator.prototype.notifyUpdatedDataFiltering = function () {
+    this.listenersContainer.dispatchEvent(new Event('updatedDataFiltering'));
+}
+
 Orchestrator.prototype.getDataFilteredByParallel = function () {
     if (this.filteredByParallel == undefined) return this.data;
     else return this.filteredByParallel;
 }
 
 Orchestrator.prototype.triggerFilterEvent = function () {
-    this.data.splice(0, this.data.length);
-    for (i = 0; i < this.dataWeekly.length; i++) {
-        if (((this.dataWeekly[i].satellite == 'T' && this.terra) || (this.dataWeekly[i].satellite == 'A' && this.aqua))
-            && ((this.dataWeekly[i].daynight == 'D' && this.day) || (this.dataWeekly[i].daynight == 'N' && this.night))) this.data.push(this.dataWeekly[i]);
-    }
-    if (this.filteredByParallel == undefined) this.filteredByParallel = [];
-    else this.filteredByParallel.splice(0, this.filteredByParallel.length);
-    for (i = 0; i < this.data.length; i++) {
-        this.filteredByParallel.push(this.data[i]);
-    }
-    this.listenersContainer.dispatchEvent(new Event('updatedDataFiltering'));
+    this._updateDataFromWeek();
+    this.notifyUpdatedDataFiltering();
 }
 
 Orchestrator.prototype.triggerWeekFilterEvent = function (selectedWeek) {
@@ -106,9 +101,22 @@ Orchestrator.prototype.triggerWeekFilterEvent = function (selectedWeek) {
         foundWeek = getWeekNumber(new Date(d.acq_date));
         if (selectedWeek[0] == foundWeek[0] && selectedWeek[1] == foundWeek[1]) this.dataWeekly.push(d);
     }
+    this._updateDataFromWeek();
     this.notifyWeekChanged();
-    this.triggerFilterEvent();
+    this.notifyUpdatedDataFiltering();
 }
 
+Orchestrator.prototype._updateDataFromWeek = function () {
+    this.data.splice(0, this.data.length);
+    for (i = 0; i < this.dataWeekly.length; i++) {
+        if (((this.dataWeekly[i].satellite == 'T' && this.terra) || (this.dataWeekly[i].satellite == 'A' && this.aqua))
+            && ((this.dataWeekly[i].daynight == 'D' && this.day) || (this.dataWeekly[i].daynight == 'N' && this.night))) this.data.push(this.dataWeekly[i]);
+    }
+    if (this.filteredByParallel == undefined) this.filteredByParallel = [];
+    else this.filteredByParallel.splice(0, this.filteredByParallel.length);
+    for (i = 0; i < this.data.length; i++) {
+        this.filteredByParallel.push(this.data[i]);
+    }
+}
 var orchestrator = new Orchestrator();
 orchestrator.loadData();
