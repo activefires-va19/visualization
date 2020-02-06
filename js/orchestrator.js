@@ -14,7 +14,7 @@ Orchestrator = function () {
 }
 Orchestrator.prototype.loadData = function () {
     _obj = this;
-    d3.csv("./data/out_modis_20200129.csv", function (loadedData) {
+    d3.csv("./data/dataset.csv", function (loadedData) {
         var max_week = undefined;
         var min_week = undefined;
         for (i = 0; i < loadedData.length; i++) {
@@ -38,7 +38,8 @@ Orchestrator.prototype.loadData = function () {
             else if (day == 5) dayOfWeek = 'Saturday';
             else dayOfWeek = 'Sunday';
             loadedData[i].dayOfWeek = dayOfWeek;
-            loadedData[i].area = parseFloat(loadedData[i].scan) * parseFloat(loadedData[i].track);
+            loadedData[i].area = parseFloat(loadedData[i].area)
+            loadedData[i].acq_time = loadedData[i].acq_time.replace(':','');
             _obj.dataOriginal.push(loadedData[i])
         }
         for (i = 0; i < loadedData.length; i++) {
