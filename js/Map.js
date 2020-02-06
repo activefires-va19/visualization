@@ -46,7 +46,7 @@ orchestrator.addListener('dataReady', function (e) {
             .append("circle")
             .attr("cx", function (d) { return projection([+d["longitude"], +d["latitude"]])[0]; })
             .attr("cy", function (d) { return projection([+d["longitude"], +d["latitude"]])[1]; })
-            .attr("r", 1.7)
+            .attr("r", 1.8)
             .style("fill", "#4daf4a")
             .attr("stroke", "#4daf4a")
             .attr("stroke-width", 3)
@@ -74,6 +74,14 @@ orchestrator.addListener('dataReady', function (e) {
 
         function updatePointsEntries() {
             modifiedData = evalData();
+            var newR = 1.8;
+            var newStroke = 3;
+            if (last_zoom_transform != undefined && last_zoom_transform.k!=undefined) {
+                k = last_zoom_transform.k;
+                if (k>6) k = 6;
+                newR = newR/k;
+                newStroke = newStroke/k;
+            }
             var u = svg_map.select(".circles_container").selectAll("circle").data(modifiedData);
             u.exit().remove();
             u.enter().append('circle')
@@ -84,7 +92,7 @@ orchestrator.addListener('dataReady', function (e) {
                 .style("opacity", .6);
 
             svg_map.select(".circles_container").selectAll("circle").data(modifiedData).transition().duration(200)
-                .attr("r", 1.7)
+                .attr("r", newR)
                 .attr("cx", function (d) { return projection([+d["longitude"], +d["latitude"]])[0]; })
                 .attr("cy", function (d) { return projection([+d["longitude"], +d["latitude"]])[1]; })
                 .style('fill', function (d) {
@@ -95,13 +103,22 @@ orchestrator.addListener('dataReady', function (e) {
                     if (orchestrator.filteringByScatterplot(d)) return '#e41a1c'
                     else return "#4daf4a";
                 })
-                .attr("stroke-width", 3)
+                .attr("stroke-width", newStroke)
         }
     });
     function zoomed() {
         last_zoom_transform = d3.event.transform;
+        var newR = 1.8;
+        var newStroke = 3;
+        if (last_zoom_transform.k!=undefined) {
+            k = last_zoom_transform.k;
+            if (k>6.5) k = 6.5;
+            newR = newR/k;
+            newStroke = newStroke/k;
+        }
         svg_map.selectAll('.map_path') // To prevent stroke width from scaling
             .attr('transform', last_zoom_transform);
-        svg_map.select(".circles_container").selectAll("circle").attr('transform', last_zoom_transform);
+        svg_map.select(".circles_container").selectAll("circle").attr('r', newR).attr('transform', last_zoom_transform)
+        .attr("stroke-width", newStroke);
     }
 });
