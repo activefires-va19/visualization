@@ -128,13 +128,13 @@ orchestrator.addListener('dataReady', function (e) {
 
         y_b.domain(t10_country);
 
-        svg_b.select(".x-axis_b").transition().duration(1)
+        svg_b.select(".x-axis_b").transition().duration(150)
             .call(d3.axisBottom(x_b))
             .selectAll("text")
             //.attr("transform", "translate(-10,0)rotate(-45)")
             .style("text-anchor", "end");
 
-        svg_b.select(".y-axis_b").transition().duration(1)
+        svg_b.select(".y-axis_b").transition().duration(150)
             .call(d3.axisLeft(y_b))
             .selectAll("text")
             .attr("class", "text_bar")
