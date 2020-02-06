@@ -83,15 +83,18 @@ orchestrator.addListener('dataReady', function (e) {
                 .attr("cy", function (d) { return projection([+d["longitude"], +d["latitude"]])[1]; })
                 .attr('transform', last_zoom_transform)
                 .attr("r", 0)
+                .attr("stroke-width", 0)
                 .style("opacity", .6);
 
-            svg_map.select(".circles_container").selectAll("circle").data(modifiedData).transition().duration(200)
-                .attr("r", newR)
+                svg_map.select(".circles_container").selectAll("circle").data(modifiedData).transition().duration(400)
                 .attr("cx", function (d) { return projection([+d["longitude"], +d["latitude"]])[0]; })
                 .attr("cy", function (d) { return projection([+d["longitude"], +d["latitude"]])[1]; })
+                .attr('transform', last_zoom_transform)
+                .attr("r", newR)
+                .attr("stroke-width", newStroke)
+                .style("opacity", .6)
                 .style('fill', _chooseColorMapByScatterplot)
                 .attr('stroke', _chooseColorMapByScatterplot)
-                .attr("stroke-width", newStroke)
         }
     });
     function zoomed() {
