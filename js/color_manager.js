@@ -15,19 +15,19 @@ ColorsManager.prototype.setColorBlindModeEnabled = function (enabled) {
 }
 
 ColorsManager.prototype.getScatterplotColorSet = function () {
+    var color;
     if (this.isColorBlindModeEnabled()) {
-        var color = {
-            "Monday": '#1b9e77',
-            "Tuesday": "#d95f02",
-            "Wednesday": "#7570b3",
-            "Thursday": "#e7298a",
-            "Friday": "#66a61e",
-            "Saturday": "#a6761d",
-            "Sunday": "#666666"
-          };
-        return color;
+        color = {
+            "Monday": '#1468DC',
+            "Tuesday": "#A1AFAF",
+            "Wednesday": "#F0F032",
+            "Thursday": "#C32C01",
+            "Friday": "#A1DBFF",
+            "Saturday": "#3B494A",
+            "Sunday": "#FFA765"
+        };
     } else {
-        var color = {
+        color = {
             "Monday": '#1b9e77',
             "Tuesday": "#d95f02",
             "Wednesday": "#7570b3",
@@ -35,9 +35,9 @@ ColorsManager.prototype.getScatterplotColorSet = function () {
             "Friday": "#66a61e",
             "Saturday": "#a6761d",
             "Sunday": "#666666"
-          };
-        return color;
+        };
     }
+    return color;
 }
 
 ColorsManager.prototype.getParallelHighlightColor = function () {
@@ -61,7 +61,7 @@ ColorsManager.prototype.getMapNormalColor = function () {
 }
 
 ColorsManager.prototype.getMapTerrainColor = function () {
-    if (this.isColorBlindModeEnabled()) return "#8da0cb";
+    if (this.isColorBlindModeEnabled()) return "#c2cce3";
     else return "#a6cee3";
 }
 
