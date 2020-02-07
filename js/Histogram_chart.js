@@ -82,12 +82,12 @@ orchestrator.addListener('dataReady', function (e) {
 
     selected_h = num;
     data = evalData();
-
     events_days = [];
     events_hour = [];
     data.forEach(e => {
       events_hour.push(parse_hour_h(e['acq_time']));
       events_days.push(parseDays(e["acq_date"] + "-" + e["acq_time"]));
+
     });
     events_days.sort(function (a, b) { return a.getTime() - b.getTime() });
     if (selected_h == 1) {
@@ -118,9 +118,20 @@ orchestrator.addListener('dataReady', function (e) {
 
       low_h = parseDays(string_l);
       high_h = parseDays(string_h);
-      ticks = 24;
       selected_set = events_days;
-      xAxis = d3.axisBottom(x_h).ticks(7).tickFormat(d3.timeFormat("%a-%d-%m"));
+
+      tick_number = 0;
+
+      current = events_days[0].getDay();
+
+      for(i = 1; i < events_days.length; i++){
+        if(events_days[i].getDay() != current){
+          current = events_days[i].getDay();
+          tick_number += 1;
+        }
+      }
+      xAxis = d3.axisBottom(x_h).ticks(tick_number).tickFormat(d3.timeFormat("%a %d/%m"));
+      ticks = tick_number * 4;
     }
 
 
