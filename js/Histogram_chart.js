@@ -43,11 +43,13 @@ orchestrator.addListener('dataReady', function (e) {
     .domain([low_h, high_h])
     .range([0, width_h]);
 
+  xAxis = d3.axisBottom(x_h);
+
   svg_h.append("g")
     .attr("class", "x-axis")
     .attr("transform", "translate(0," + height_h + ")")
     .style("font-size", "8px")
-    .call(d3.axisBottom(x_h));
+    .call(xAxis);
 
   var histogram = d3.histogram()
     .value(function (d) { return d; })
@@ -93,6 +95,7 @@ orchestrator.addListener('dataReady', function (e) {
       high_h = parse_hour_h("2359");
       ticks = 24;
       selected_set = events_hour;
+      xAxis = d3.axisBottom(x_h);
     }
     else {
       day_l = events_days[0].getDate();
@@ -117,6 +120,7 @@ orchestrator.addListener('dataReady', function (e) {
       high_h = parseDays(string_h);
       ticks = 24;
       selected_set = events_days;
+      xAxis = d3.axisBottom(x_h).ticks(7).tickFormat(d3.timeFormat("%a-%d-%m"));
     }
 
 
@@ -130,7 +134,7 @@ orchestrator.addListener('dataReady', function (e) {
     var bins = histogram(selected_set);
     y_h.domain([0, d3.max(bins, function (d) { return d.length; })]);
 
-    svg_h.select(".x-axis").call(d3.axisBottom(x_h));
+    svg_h.select(".x-axis").call(xAxis);
 
     svg_h.select(".y-axis").transition().duration(50).call(d3.axisLeft(y_h));
 
