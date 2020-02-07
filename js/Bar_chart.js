@@ -3,7 +3,7 @@ var margin_b = { top: 20, right: 20, bottom: 30, left: 100 },
     width_b = Math.round(clientWidth * 0.25),
     height_b = Math.round(clientHeight * 0.32);
 
-var svg_b = d3.select(".pie_area")
+var svg_b = d3.select(".bar_area")
     .append("svg")
     .attr("width", '100%')
     .attr("height", '100%')

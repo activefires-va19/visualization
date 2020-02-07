@@ -112,7 +112,7 @@ th {
   height: 33%;
 }
 
-.pie_area {
+.bar_area {
   margin-left: 10px;
   float: left;
   width: 34%;
@@ -191,10 +191,6 @@ html, body {
   opacity: 1 !important;
   stroke: black;
   stroke-width: 1px;
-}
-
-.pie_label{
-  font-size: 10px;
 }
 
 .text_bar{
