@@ -63,15 +63,7 @@ orchestrator.addListener('dataReady', function (e) {
     .call(d3.axisLeft(y));
 
   // Color scale: give me a specie name, I return a color
-  var color = {
-    "Monday": '#1b9e77',
-    "Tuesday": "#d95f02",
-    "Wednesday": "#7570b3",
-    "Thursday": "#e7298a",
-    "Friday": "#66a61e",
-    "Saturday": "#e6ab02",
-    "Sunday": "#a6761d"
-  };
+  var color = colorManager.getScatterplotColorSet();
 
   function evalData() {
     return orchestrator.getDataFilteredByParallel();

@@ -73,7 +73,7 @@ orchestrator.addListener('dataReady', function (e) {
     .attr("transform", function (d) { return "translate(" + x_h(d.x0) + "," + y_h(d.length) + ")"; })
     .attr("width", function (d) { return x_h(d.x1) - x_h(d.x0) - 1; })
     .attr("height", function (d) { return height_h - y_h(d.length); })
-    .style("fill", "#80b1d3")
+    .style("fill", colorManager.getHistogramColor())
 
   elem_to_fix = document.getElementsByClassName('histo')[0].getElementsByClassName('x-axis')[0].getElementsByClassName('tick')[0].getElementsByTagName('text')[0];
   if (!elem_to_fix.innerHTML.match(/^\d/)) elem_to_fix.innerHTML = '00 AM'
@@ -169,7 +169,7 @@ orchestrator.addListener('dataReady', function (e) {
       .attr("transform", function (d) { return "translate(" + x_h(d.x0) + "," + y_h(d.length) + ")"; })
       .attr("width", function (d) { return x_h(d.x1) - x_h(d.x0) - 1; })
       .attr("height", function (d) { return height_h - y_h(d.length); })
-      .style("fill", "#80b1d3")
+      .style("fill", colorManager.getHistogramColor())
       .style('opacity', 1);
     elem_to_fix = document.getElementsByClassName('histo')[0].getElementsByClassName('x-axis')[0].getElementsByClassName('tick')[0].getElementsByTagName('text')[0];
     if (num == 1 && !elem_to_fix.innerHTML.match(/^\d/)) elem_to_fix.innerHTML = '00 AM'

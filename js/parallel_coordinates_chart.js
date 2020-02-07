@@ -281,10 +281,10 @@ orchestrator.addListener('updatedDataFiltering', function (e) {
 });
 
 function _chooseColorByScatterplot(d) {
-  if (orchestrator.filteringByScatterplot == undefined) return "#4daf4a";
+  if (orchestrator.filteringByScatterplot == undefined) return colorManager.getParallelNormalColor();
   value = orchestrator.filteringByScatterplot(d);
   if (value) {
-    return '#e41a1c';
+    return colorManager.getParallelHighlightColor();
   }
-  return "#4daf4a";
+  return colorManager.getParallelNormalColor();
 }

@@ -34,7 +34,7 @@ orchestrator.addListener('dataReady', function (e) {
             .data(data.features)
             .enter()
             .append("path")
-            .attr("fill", "#a6cee3")
+            .attr("fill", colorManager.getMapTerrainColor())
             .attr("class", "map_path")
             .attr("d", d3.geoPath().projection(projection))
             .style("stroke", "black")
@@ -47,8 +47,8 @@ orchestrator.addListener('dataReady', function (e) {
             .attr("cx", function (d) { return projection([+d["longitude"], +d["latitude"]])[0]; })
             .attr("cy", function (d) { return projection([+d["longitude"], +d["latitude"]])[1]; })
             .attr("r", 1.8)
-            .style("fill", "#4daf4a")
-            .attr("stroke", "#4daf4a")
+            .style("fill", colorManager.getMapNormalColor())
+            .attr("stroke", colorManager.getMapNormalColor())
             .attr("stroke-width", 3)
             .style("opacity", .6);
 
@@ -115,7 +115,7 @@ orchestrator.addListener('dataReady', function (e) {
 });
 
 function _chooseColorMapByScatterplot(d) {
-    if (orchestrator.filteringByScatterplot == undefined) return "#4daf4a";
-    if (orchestrator.filteringByScatterplot(d)) return '#e41a1c';
-    else return "#4daf4a";
+    if (orchestrator.filteringByScatterplot == undefined) return colorManager.getMapNormalColor();
+    if (orchestrator.filteringByScatterplot(d)) return colorManager.getMapHighlightColor();
+    else return colorManager.getMapNormalColor();
 }

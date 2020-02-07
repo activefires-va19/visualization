@@ -79,7 +79,7 @@ orchestrator.addListener('dataReady', function (e) {
         .attr("y", function (d) { return y_b(d[0]); })
         .attr("width", function (d) { return x_b(d[1]); })
         .attr("height", y_b.bandwidth())
-        .attr("fill", "#fdb462")
+        .attr("fill", colorManager.getBarChartColor())
 
     function update_bar() {
         data = evalData();
@@ -152,7 +152,7 @@ orchestrator.addListener('dataReady', function (e) {
             .attr("y", function (d) { return y_b(d[0]); })
             .attr("width", function (d) { return x_b(d[1]); })
             .attr("height", y_b.bandwidth())
-            .attr("fill", "#fdb462")
+            .attr("fill", colorManager.getBarChartColor())
             .style('opacity', 0);
 
         svg_b.selectAll(".bar_rect").data(t10).transition().duration(200)
@@ -160,7 +160,7 @@ orchestrator.addListener('dataReady', function (e) {
             .attr("y", function (d) { return y_b(d[0]); })
             .attr("width", function (d) { return x_b(d[1]); })
             .attr("height", y_b.bandwidth())
-            .attr("fill", "#fdb462")
+            .attr("fill", colorManager.getBarChartColor())
             .style('opacity', 1);
     }
 
