@@ -70,11 +70,11 @@ orchestrator.addListener('dataReady', function (e) {
             modifiedData = evalData();
             var newR = 1.8;
             var newStroke = 3;
-            if (last_zoom_transform != undefined && last_zoom_transform.k!=undefined) {
+            if (last_zoom_transform != undefined && last_zoom_transform.k != undefined) {
                 k = last_zoom_transform.k;
-                if (k>6) k = 6;
-                newR = newR/k;
-                newStroke = newStroke/k;
+                if (k > 6) k = 6;
+                newR = newR / k;
+                newStroke = newStroke / k;
             }
             var u = svg_map.select(".circles_container").selectAll("circle").data(modifiedData);
             u.exit().remove();
@@ -86,7 +86,7 @@ orchestrator.addListener('dataReady', function (e) {
                 .attr("stroke-width", 0)
                 .style("opacity", .6);
 
-                svg_map.select(".circles_container").selectAll("circle").data(modifiedData).transition().duration(400)
+            svg_map.select(".circles_container").selectAll("circle").data(modifiedData).transition().duration(400)
                 .attr("cx", function (d) { return projection([+d["longitude"], +d["latitude"]])[0]; })
                 .attr("cy", function (d) { return projection([+d["longitude"], +d["latitude"]])[1]; })
                 .attr('transform', last_zoom_transform)
@@ -101,20 +101,20 @@ orchestrator.addListener('dataReady', function (e) {
         last_zoom_transform = d3.event.transform;
         var newR = 1.8;
         var newStroke = 3;
-        if (last_zoom_transform.k!=undefined) {
+        if (last_zoom_transform.k != undefined) {
             k = last_zoom_transform.k;
-            if (k>6.5) k = 6.5;
-            newR = newR/k;
-            newStroke = newStroke/k;
+            if (k > 6.5) k = 6.5;
+            newR = newR / k;
+            newStroke = newStroke / k;
         }
         svg_map.selectAll('.map_path') // To prevent stroke width from scaling
             .attr('transform', last_zoom_transform);
         svg_map.select(".circles_container").selectAll("circle").attr('r', newR).attr('transform', last_zoom_transform)
-        .attr("stroke-width", newStroke);
+            .attr("stroke-width", newStroke);
     }
 });
 
-function _chooseColorMapByScatterplot(d){
+function _chooseColorMapByScatterplot(d) {
     if (orchestrator.filteringByScatterplot == undefined) return "#4daf4a";
     if (orchestrator.filteringByScatterplot(d)) return '#e41a1c';
     else return "#4daf4a";

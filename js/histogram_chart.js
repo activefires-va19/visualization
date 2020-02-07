@@ -124,8 +124,8 @@ orchestrator.addListener('dataReady', function (e) {
 
       current = events_days[0].getDay();
 
-      for(i = 1; i < events_days.length; i++){
-        if(events_days[i].getDay() != current){
+      for (i = 1; i < events_days.length; i++) {
+        if (events_days[i].getDay() != current) {
           current = events_days[i].getDay();
           tick_number += 1;
         }

@@ -74,7 +74,7 @@ function update_statistics(data) {
     if (acqua_p + terra_p < 100) acqua_p += 1;
     if (day_p + night_p < 100) day_p += 1;
 
-    if(!Number.isNaN(terra_p)) d3.select("#terra_text").html("Terra (" + String(terra_p) + "%)");
+    if (!Number.isNaN(terra_p)) d3.select("#terra_text").html("Terra (" + String(terra_p) + "%)");
     else d3.select("#terra_text").html("Terra");
     if (!Number.isNaN(acqua_p)) d3.select("#aqua_text").html("Aqua (" + String(acqua_p) + "%) &nbsp &nbsp");
     else d3.select("#aqua_text").html("Aqua &nbsp &nbsp");
