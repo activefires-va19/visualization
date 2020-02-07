@@ -1,5 +1,6 @@
 clientWidth = document.documentElement.clientWidth;
 clientHeight = document.documentElement.clientHeight;
+setBlindnessButton();
 function getWeekNumber(d) {
     // Copy date so don't modify original
     d = new Date(Date.UTC(d.getFullYear(), d.getMonth(), d.getDate()));
@@ -39,3 +40,12 @@ function setWeekSelectorMinMax(min, max) {
 }
 
 
+function setBlindnessButton(){
+    var blind_img = document.getElementById('blind_img');
+    if (colorManager.isColorBlindModeEnabled()) blind_img.src = './res/blind_on.svg';
+    else blind_img.src = './res/blind_off.svg';
+    document.getElementById('blind_button').addEventListener("click", function (){
+        colorManager.setColorBlindModeEnabled(!colorManager.isColorBlindModeEnabled());
+        location.reload();
+    });
+}

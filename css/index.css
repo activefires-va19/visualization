@@ -21,22 +21,30 @@
   display: inline;
 }
 
-button {
+button.button_interaction {
   border: 1px solid #0066cc;
   background-color: #0099cc;
   color: #ffffff;
   padding: 1px 2px;
 }
 
-button:hover {
+button.invisible_button {
+  outline: 0;
+  padding: 0;
+  border: none;
+  background: none;
+  margin-right: 20px;
+}
+
+button:hover.button_interaction {
   border: 1px solid #0099cc;
   background-color: #00aacc;
   color: #ffffff;
   padding: 1px 2px;
 }
 
-button:disabled,
-button[disabled]{
+button:disabled.button_interaction,
+button[disabled].button_interaction{
   border: 1px solid #999999;
   background-color: #cccccc;
   color: #9c9c9c;
@@ -135,9 +143,6 @@ th {
   margin-top: 4px;
 }
 
-.button_box{
-  font-size: 13px
-}
 
 .button_box_area{
   float: right;

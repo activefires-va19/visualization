@@ -36,6 +36,12 @@
             <input type="week" name="year_week">
           </span>
         </th>
+        <th>
+          <button style="display:inline-block" id='blind_button' class='invisible_button'>
+            <img src="./res/blind_off.svg" height="30" width="30" id='blind_img' />
+          </button>
+
+        </th>
       </tr>
     </table>
   </div>
@@ -46,8 +52,8 @@
       <div class="box_area">
 
         <div class='button_box_area'>
-          <button class="button_box" disabled="true" id="c21" type="radio"> 21k </button>
-          <button class="button_box" id="c31" type="radio"> 31k </button>
+          <button disabled="true" id="c21" type="radio" class='button_interaction'> 21k </button>
+          <button id="c31" type="radio" class='button_interaction'> 31k </button>
         </div>
 
         <div class="box1">
@@ -71,14 +77,14 @@
       <div class="bar_area"></div>
       <div class="histo_area">
         <div class='button_histo_area'>
-          <button id="hours" disabled="true" type="radio"> 0-24 </button>
-          <button id="week" type="radio"> Week </button>
+          <button id="hours" disabled="true" type="radio" class='button_interaction'> 0-24 </button>
+          <button id="week" type="radio" class='button_interaction'> Week </button>
         </div>
       </div>
     </div>
   </div>
-  <script src="./js/utils.js"></script>
   <script src="./js/color_manager.js"></script>
+  <script src="./js/utils.js"></script>
   <script src="./js/orchestrator.js"></script>
   <script src="./js/header_filtering.js"></script>
   <script src="./js/parallel_coordinates_chart.js"></script>
