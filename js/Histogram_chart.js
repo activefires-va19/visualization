@@ -48,7 +48,7 @@ orchestrator.addListener('dataReady', function (e) {
   svg_h.append("g")
     .attr("class", "x-axis")
     .attr("transform", "translate(0," + height_h + ")")
-    .style("font-size", "8px")
+    .style("font-size", "9px")
     .call(xAxis);
 
   var histogram = d3.histogram()
