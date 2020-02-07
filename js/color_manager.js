@@ -42,7 +42,7 @@ ColorsManager.prototype.getScatterplotColorSet = function () {
 
 ColorsManager.prototype.getParallelHighlightColor = function () {
     if (this.isColorBlindModeEnabled()) return '#fc8d62';
-    else return 'e41a1c';
+    else return '#e41a1c';
 }
 
 ColorsManager.prototype.getParallelNormalColor = function () {
@@ -52,7 +52,7 @@ ColorsManager.prototype.getParallelNormalColor = function () {
 
 ColorsManager.prototype.getMapHighlightColor = function () {
     if (this.isColorBlindModeEnabled()) return '#fc8d62';
-    else return 'e41a1c';
+    else return '#e41a1c';
 }
 
 ColorsManager.prototype.getMapNormalColor = function () {
