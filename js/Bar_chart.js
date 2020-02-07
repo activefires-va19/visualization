@@ -1,12 +1,12 @@
 
-var margin_b = { top: 20, right: 20, bottom: 30, left: 100 },
+var margin_b = { top: 27, right: 20, bottom: 30, left: 100 },
     width_b = Math.round(clientWidth * 0.25),
-    height_b = Math.round(clientHeight * 0.32);
+    height_b = Math.round(clientHeight * 0.31);
 
 var svg_b = d3.select(".bar_area")
     .append("svg")
     .attr("width", '100%')
-    .attr("height", '100%')
+    .attr("height", '94%')
     .append("g")
     .attr("transform",
         "translate(" + margin_b.left + "," + margin_b.top + ")");

@@ -1,6 +1,6 @@
-var margin_h = { top: 20, right: 30, bottom: 20, left: 50 },
+var margin_h = { top: 14, right: 30, bottom: 20, left: 50 },
   width_h = Math.round(clientWidth * 0.25),
-  height_h = Math.round(clientHeight * 0.295);
+  height_h = Math.round(clientHeight * 0.31);
 
 var svg_h = d3.select(".histo_area")
   .append("svg")
@@ -46,7 +46,7 @@ orchestrator.addListener('dataReady', function (e) {
   svg_h.append("g")
     .attr("class", "x-axis")
     .attr("transform", "translate(0," + height_h + ")")
-    .style("font-size", "9px")
+    .style("font-size", "8px")
     .call(d3.axisBottom(x_h));
 
   var histogram = d3.histogram()
