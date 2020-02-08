@@ -280,6 +280,18 @@ orchestrator.addListener('updatedDataFiltering', function (e) {
 
 });
 
+orchestrator.addListener('colorChanged', function (e) {
+  d3.select(".parallel_area").select("svg").remove();
+  svg_parallel = d3.select(".parallel_area").append("svg")
+    .attr("width", width_parallel + margin_parallel.left + margin_parallel.right)
+    .attr("height", height_parallel + margin_parallel.top + margin_parallel.bottom)
+    .append("g")
+    .attr("transform", "translate(" + margin_parallel.left + "," + margin_parallel.top + ")");
+  create_graph();
+
+});
+
+
 function _chooseColorByScatterplot(d) {
   if (orchestrator.filteringByScatterplot == undefined) return colorManager.getParallelNormalColor();
   value = orchestrator.filteringByScatterplot(d);

@@ -80,3 +80,16 @@ ColorsManager.prototype.getHistogramColor = function () {
     else return "#80b1d3";
 }
 var colorManager = new ColorsManager();
+setBlindnessButton();
+
+function setBlindnessButton() {
+    var blind_img = document.getElementById('blind_img');
+    if (colorManager.isColorBlindModeEnabled()) blind_img.src = './res/blind_on.svg';
+    else blind_img.src = './res/blind_off.svg';
+    document.getElementById('blind_button').addEventListener("click", function () {
+        colorManager.setColorBlindModeEnabled(!colorManager.isColorBlindModeEnabled());
+        if (colorManager.isColorBlindModeEnabled()) blind_img.src = './res/blind_on.svg';
+        else blind_img.src = './res/blind_off.svg';
+        orchestrator.notifyColorChanged();
+    });
+}

@@ -123,6 +123,7 @@ orchestrator.addListener('dataReady', function (e) {
     .attr('x', width_scatter)
     .attr('width', 15)
     .attr('height', 15)
+    .attr('class', 'legend_rect')
     .style('fill', function (d) { return color[d] });
 
   legend.append('text')
@@ -154,6 +155,12 @@ orchestrator.addListener('dataReady', function (e) {
   });
 
   orchestrator.addListener('updatedDataFiltering', function (e) {
+    update_graph();
+  });
+
+  orchestrator.addListener('colorChanged', function (e) {
+    color = colorManager.getScatterplotColorSet();
+    svg_scatter.selectAll('.legend_rect').transition().duration(200).style('fill', function (d) { return color[d] });
     update_graph();
   });
 

@@ -90,6 +90,11 @@ orchestrator.addListener('dataReady', function (e) {
         update();
     });
 
+
+    orchestrator.addListener('colorChanged', function (e) {
+        update();
+    });
+
     function update() {
         data = evalData();
         var points_frp = [];

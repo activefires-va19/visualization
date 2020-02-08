@@ -66,6 +66,12 @@ orchestrator.addListener('dataReady', function (e) {
             updatePointsEntries();
         });
 
+        orchestrator.addListener('colorChanged', function (e) {
+            svg_map.selectAll(".map_path")
+                .attr("fill", colorManager.getMapTerrainColor());
+            updatePointsEntries();
+        });
+
         function updatePointsEntries() {
             modifiedData = evalData();
             var newR = 1.8;

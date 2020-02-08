@@ -177,4 +177,7 @@ orchestrator.addListener('dataReady', function (e) {
         update_bar();
     });
 
+    orchestrator.addListener('colorChanged', function (e) {
+        update_bar();
+    });
 });

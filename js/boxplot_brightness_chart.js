@@ -97,6 +97,10 @@ orchestrator.addListener('dataReady', function (e) {
     });
 
 
+    orchestrator.addListener('colorChanged', function (e) {
+        update(channel);
+    });
+
 
     function update(num) {
 

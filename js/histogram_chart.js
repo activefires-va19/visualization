@@ -183,6 +183,10 @@ orchestrator.addListener('dataReady', function (e) {
     update_histogram(selected_h);
   });
 
+  orchestrator.addListener('colorChanged', function (e) {
+    update_histogram(selected_h);
+  });
+
   d3.select("#hours").on("click", function () {
     document.getElementById("hours").disabled = true;
     document.getElementById("week").disabled = false;
