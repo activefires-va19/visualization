@@ -92,6 +92,10 @@ Orchestrator.prototype.getDataFilteredByParallel = function () {
     else return this.filteredByParallel;
 }
 
+Orchestrator.prototype.getWeeklyFilteredData = function () {
+    return this.data;
+}
+
 Orchestrator.prototype.triggerFilterEvent = function () {
     this._updateDataFromWeek();
     this.notifyUpdatedDataFiltering();

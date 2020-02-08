@@ -257,7 +257,7 @@ function create_graph() {
   }
 
   function evalData() {
-    return orchestrator.getDataFilteredByParallel();
+    return orchestrator.getWeeklyFilteredData();
   }
 }
 orchestrator.addListener('dataReady', function (e) {
