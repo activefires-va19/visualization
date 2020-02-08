@@ -83,6 +83,10 @@ Orchestrator.prototype.notifyUpdatedDataFiltering = function () {
     this.listenersContainer.dispatchEvent(new Event('updatedDataFiltering'));
 }
 
+Orchestrator.prototype.notifyColorChanged = function () {
+    this.listenersContainer.dispatchEvent(new Event('colorChanged'));
+}
+
 Orchestrator.prototype.getDataFilteredByParallel = function () {
     if (this.filteredByParallel == undefined) return this.data;
     else return this.filteredByParallel;
