@@ -120,9 +120,8 @@ orchestrator.addListener('dataReady', function (e) {
       high_h = parseDays(string_h);
       selected_set = events_days;
 
-      tick_number = 0;
-
       current = events_days[0].getDay();
+      tick_number = 1;
 
       for (i = 1; i < events_days.length; i++) {
         if (events_days[i].getDay() != current) {
