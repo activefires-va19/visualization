@@ -173,6 +173,7 @@ orchestrator.addListener('dataReady', function (e) {
     color = colorManager.getScatterplotColorSet();
     svg_scatter.selectAll('.legend_rect').transition().duration(200).style('fill', function (d) { return color[d] });
     svg_scatter.selectAll("text").style("fill", colorManager.getTextColor());
+    svg_scatter.selectAll(".tick").selectAll('text').style("fill", colorManager.getTextColor());
     legend.select("text").style("fill", colorManager.getTextColor());
     x_axis_scatter = svg_scatter.select(".scatterplot_x_axis");
     x_axis_scatter.selectAll("line").style("stroke", colorManager.getAxesColor());
