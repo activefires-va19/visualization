@@ -42,6 +42,10 @@ orchestrator.addListener("weekChanged", function (e) {
     update_statistics(data);
 });
 
+orchestrator.addListener("colorChanged", function (e) {
+    // TODO: Change background, checkboxes text color, title color, div border color when dark mode is enabled/disabled
+});
+
 function update_statistics(data) {
     tot = data.length;
     acqua_n = 0;
