@@ -210,7 +210,7 @@ function updateBlindnessImgStyle() {
 
 function setDarkModeButton() {
     var darkmode_img = document.getElementById('darkmode_img');
-    if (colorManager.isColorBlindModeEnabled()) darkmode_img.src = './res/darkmode_on.svg';
+    if (colorManager.isDarkModeEnabled()) darkmode_img.src = './res/darkmode_on.svg';
     else darkmode_img.src = './res/darkmode_off.svg';
     document.getElementById('darkmode_button').addEventListener("click", function () {
         colorManager.setDarkModeEnabled(!colorManager.isDarkModeEnabled());
