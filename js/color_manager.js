@@ -100,6 +100,15 @@ ColorsManager.prototype.getParallelNormalColor = function () {
     }
 }
 
+ColorsManager.prototype.getParallelBackgroundColor = function () {
+    if (this.isDarkModeEnabled()) {
+        return '#595953';
+    } else {
+        return '#ddd';
+    }
+}
+
+
 ColorsManager.prototype.getMapHighlightColor = function () {
     if (this.isDarkModeEnabled()) {
         if (this.isColorBlindModeEnabled()) return '#fc8d62';
@@ -176,7 +185,7 @@ ColorsManager.prototype.getLineColor = function () {
 }
 
 ColorsManager.prototype.getModeColor = function () {
-    if (this.isDarkModeEnabled()) return "#000000";
+    if (this.isDarkModeEnabled()) return "#1d1e21";
     else return "#FFFFFF";
 }
 

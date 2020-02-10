@@ -146,7 +146,8 @@ function create_graph() {
     .data(data)
     .enter().append("path")
     .attr("d", path)
-    .attr("class", "path_background");
+    .attr("class", "path_background")
+    .style("stroke", colorManager.getParallelBackgroundColor());
 
   foreground = svg_parallel.append("g")
     .attr("class", "foreground")
@@ -285,8 +286,7 @@ orchestrator.addListener('updatedDataFiltering', function (e) {
 
 orchestrator.addListener('colorChanged', function (e) {
   svg_parallel.selectAll('.path_foreground').attr('class', _getClass).transition().duration(200).style("stroke", _chooseColorByScatterplot);
-  if (colorManager.isDarkModeEnabled()) svg_parallel.selectAll('.path_background').transition().duration(200).style("stroke", "#595953");
-  else svg_parallel.selectAll('.path_background').transition().duration(200).style("stroke", "#ddd");
+  svg_parallel.selectAll('.path_background').transition().duration(200).style("stroke", colorManager.getParallelBackgroundColor());
   y_axis_parallel = d3.selectAll(".axis");
   y_axis_parallel.selectAll("text").style("fill", colorManager.getTextColor());
   y_axis_parallel.selectAll("line").style("stroke", colorManager.getAxesColor());
