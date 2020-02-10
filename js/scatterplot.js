@@ -7,7 +7,7 @@ var margin_scatter = { top: 27, right: 30, bottom: 30, left: 60 },
 var svg_scatter = d3.select(".scatterplot_area")
   .append("svg")
   .attr("width", '99%')
-  .attr("height", '94%')
+  .attr("height", '100%')
   .append("g")
   .attr("transform",
     "translate(" + margin_scatter.left + "," + margin_scatter.top + ")");
@@ -146,7 +146,7 @@ orchestrator.addListener('dataReady', function (e) {
     .attr("class", "label_scatter")
     .attr("transform",
       "translate(" + (width_scatter / 2) + " ," +
-      (height_scatter + margin_scatter.top + 20) + ")")
+      (height_scatter + margin_scatter.top + 5) + ")")
     .style("text-anchor", "middle")
     .text("Y1");
 
@@ -161,6 +161,14 @@ orchestrator.addListener('dataReady', function (e) {
   orchestrator.addListener('colorChanged', function (e) {
     color = colorManager.getScatterplotColorSet();
     svg_scatter.selectAll('.legend_rect').transition().duration(200).style('fill', function (d) { return color[d] });
+    svg_scatter.selectAll("text").style("fill", colorManager.getTextColor());
+    legend.select("text").style("fill", colorManager.getTextColor());
+    x_axis_scatter = svg_scatter.select(".scatterplot_x_axis");
+    x_axis_scatter.selectAll("line").style("stroke", colorManager.getAxesColor());
+    x_axis_scatter.select(".domain").style("stroke", colorManager.getAxesColor());
+    y_axis_scatter = svg_scatter.select(".scatterplot_y_axis");
+    y_axis_scatter.selectAll("line").style("stroke", colorManager.getAxesColor());
+    y_axis_scatter.select(".domain").style("stroke", colorManager.getAxesColor());
     update_graph();
   });
 
