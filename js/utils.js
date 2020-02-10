@@ -37,3 +37,14 @@ function setWeekSelectorMinMax(min, max) {
     weekSelector.max = max[0] + '-W' + maxWeekText;
     weekSelector.value = weekSelector.max;
 }
+
+function shuffleArray(a) {
+    var j, x, i;
+    for (i = a.length - 1; i > 0; i--) {
+        j = Math.floor(Math.random() * (i + 1));
+        x = a[i];
+        a[i] = a[j];
+        a[j] = x;
+    }
+    return a;
+}
