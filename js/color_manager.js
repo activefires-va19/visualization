@@ -75,7 +75,7 @@ ColorsManager.prototype.getScatterplotColorSet = function () {
             };
         }
     }
-    
+
     return color;
 }
 
@@ -146,12 +146,12 @@ ColorsManager.prototype.getBoxplotColor = function () {
         else return "#bebada";
     } else {
         if (this.isColorBlindModeEnabled()) return "#1f78b4";
-        else return "#bebada";  
+        else return "#bebada";
     }
 }
 
 ColorsManager.prototype.getHistogramColor = function () {
-    if (this.isDarkModeEnabled()){
+    if (this.isDarkModeEnabled()) {
         if (this.isColorBlindModeEnabled()) return "#b2df8a";
         else return "#80b1d3";
     } else {
@@ -159,6 +159,17 @@ ColorsManager.prototype.getHistogramColor = function () {
         else return "#80b1d3";
     }
 }
+
+ColorsManager.prototype.getTextColor = function () {
+    if (this.isDarkModeEnabled()) return "#FFFFFF";
+    else return "#000000";
+}
+
+ColorsManager.prototype.getAxesColor = function () {
+    if (this.isDarkModeEnabled()) return "#FFFFFF";
+    else return "#000000";
+}
+
 var colorManager = new ColorsManager();
 setBlindnessButton();
 setDarkModeButton();
@@ -169,10 +180,17 @@ function setBlindnessButton() {
     else blind_img.src = './res/blind_off.svg';
     document.getElementById('blind_button').addEventListener("click", function () {
         colorManager.setColorBlindModeEnabled(!colorManager.isColorBlindModeEnabled());
-        if (colorManager.isColorBlindModeEnabled()) blind_img.src = './res/blind_on.svg';
-        else blind_img.src = './res/blind_off.svg';
+        updateBlindnessImgStyle();
         orchestrator.notifyColorChanged();
     });
+}
+
+function updateBlindnessImgStyle() {
+    var blind_img = document.getElementById('blind_img');
+    if (colorManager.isColorBlindModeEnabled() && !colorManager.isDarkModeEnabled()) blind_img.src = './res/blind_on.svg';
+    else if (!colorManager.isColorBlindModeEnabled() && !colorManager.isDarkModeEnabled()) blind_img.src = './res/blind_off.svg';
+    else if (colorManager.isColorBlindModeEnabled() && colorManager.isDarkModeEnabled()) blind_img.src = './res/blind_on_dark.svg';
+    else blind_img.src = './res/blind_off_dark.svg';
 }
 
 function setDarkModeButton() {
@@ -183,6 +201,7 @@ function setDarkModeButton() {
         colorManager.setDarkModeEnabled(!colorManager.isDarkModeEnabled());
         if (colorManager.isDarkModeEnabled()) darkmode_img.src = './res/darkmode_on.svg';
         else darkmode_img.src = './res/darkmode_off.svg';
+        updateBlindnessImgStyle()
         orchestrator.notifyColorChanged();
     });
 }
