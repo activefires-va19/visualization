@@ -170,6 +170,11 @@ ColorsManager.prototype.getAxesColor = function () {
     else return "#000000";
 }
 
+ColorsManager.prototype.getModeColor = function () {
+    if (this.isDarkModeEnabled()) return "#000000";
+    else return "#FFFFFF";
+}
+
 var colorManager = new ColorsManager();
 setBlindnessButton();
 setDarkModeButton();
