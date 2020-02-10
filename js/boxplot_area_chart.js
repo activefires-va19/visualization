@@ -42,7 +42,13 @@ orchestrator.addListener('dataReady', function (e) {
 
     var yAxis2 = d3.axisLeft(y2);
 
-    svg_box_b2.append("g").attr('class', "y_axis").call(yAxis2.ticks(6));
+    y_axis_box2 = svg_box_b2.append("g").attr('class', "y_axis").call(yAxis2.ticks(6));
+
+    y_axis_box2.selectAll("text").style("fill", colorManager.getTextColor());
+
+    y_axis_box2.selectAll("line").style("stroke", colorManager.getAxesColor());
+
+    y_axis_box2.select(".domain").style("stroke", colorManager.getAxesColor());
 
     svg_box_b2.append("line")
         .attr('class', "box_line_vertical")
@@ -50,7 +56,7 @@ orchestrator.addListener('dataReady', function (e) {
         .attr("x2", center2)
         .attr("y1", y2(min2))
         .attr("y2", y2(max2))
-        .attr("stroke", "black");
+        .attr("stroke", colorManager.getLineColor());
 
     svg_box_b2.append("rect")
         .attr('class', "box_rect")
@@ -58,7 +64,7 @@ orchestrator.addListener('dataReady', function (e) {
         .attr("y", y2(third_quantile2))
         .attr("height", (y2(first_quantile2) - y2(third_quantile2)))
         .attr("width", width2)
-        .attr("stroke", "black")
+        .attr("stroke", colorManager.getLineColor())
         .style("fill", colorManager.getBoxplotColor());
 
     svg_box_b2.selectAll("wings").attr('class', "box_wings")
@@ -70,7 +76,7 @@ orchestrator.addListener('dataReady', function (e) {
         .attr("x2", center2 + width2 / 2)
         .attr("y1", function (d) { return (y2(d)) })
         .attr("y2", function (d) { return (y2(d)) })
-        .attr("stroke", "black");
+        .attr("stroke", colorManager.getLineColor());
 
     svg_box_b2.append("text")
         .attr("id" , "label_area")
@@ -80,6 +86,7 @@ orchestrator.addListener('dataReady', function (e) {
         .attr("x", 0 - (height_box_b / 2))
         .attr("dy", "1em")
         .style("text-anchor", "middle")
+        .style("fill", colorManager.getTextColor())
         .text("Area");
 
     orchestrator.addListener('parallelBrushing', function (e) {

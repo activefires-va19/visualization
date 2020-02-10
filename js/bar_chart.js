@@ -44,14 +44,22 @@ orchestrator.addListener('dataReady', function (e) {
         .domain([0, items[0][1] + 5])
         .range([0, width_b]);
 
-    svg_b.append("g")
+    x_axis_bar = svg_b.append("g")
         .attr("class", "x-axis_b")
         .attr("transform", "translate(0," + height_b + ")")
-        .call(d3.axisBottom(x_b))
-        .selectAll("text")
+        .call(d3.axisBottom(x_b));
+
+    x_axis_bar.selectAll("text")
         .attr("transform", "translate(2,0)")
         .style("text-anchor", "middle")
+        .style("fill", colorManager.getTextColor())
         .style("font-size", "9px");
+
+    x_axis_bar.selectAll("line")
+        .style("stroke", colorManager.getAxesColor());
+
+    x_axis_bar.select(".domain")
+        .style("stroke", colorManager.getAxesColor());
 
 
     var y_b = d3.scaleBand()
@@ -59,14 +67,22 @@ orchestrator.addListener('dataReady', function (e) {
         .domain(t10_country)
         .padding(.1);
 
-    svg_b.append("g")
+    y_axis_bar = svg_b.append("g")
         .attr("class", "y-axis_b")
-        .call(d3.axisLeft(y_b))
-        .selectAll("text")
+        .call(d3.axisLeft(y_b));
+
+    y_axis_bar.selectAll("text")
         .attr("class", "text_bar")
         .attr("transform", "rotate(-30)")
         .style("text-anchor", "end")
+        .style("fill", colorManager.getTextColor())
         .style("font-size", "9px");
+
+    y_axis_bar.selectAll("line")
+        .style("stroke", colorManager.getAxesColor());
+
+    y_axis_bar.select(".domain")
+        .style("stroke", colorManager.getAxesColor());
 
 
     svg_b.selectAll("rect")

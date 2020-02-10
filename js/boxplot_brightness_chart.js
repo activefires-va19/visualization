@@ -49,21 +49,27 @@ orchestrator.addListener('dataReady', function (e) {
 
     var yAxis = d3.axisLeft(y1);
 
-    svg_box_b1.append("g").attr('class', "y_axis").call(yAxis.ticks(6));
+    y_axis_box1 = svg_box_b1.append("g").attr('class', "y_axis").call(yAxis.ticks(6));
+
+    y_axis_box1.selectAll("text").style("fill", colorManager.getTextColor());
+
+    y_axis_box1.selectAll("line").style("stroke", colorManager.getAxesColor());
+
+    y_axis_box1.select(".domain").style("stroke", colorManager.getAxesColor());
 
     svg_box_b1.append("line").attr('class', "box_line_vertical")
         .attr("x1", center1)
         .attr("x2", center1)
         .attr("y1", y1(min1))
         .attr("y2", y1(max1))
-        .attr("stroke", "black");
+        .attr("stroke", colorManager.getLineColor());
 
     svg_box_b1.append("rect").attr('class', "box_rect")
         .attr("x", center1 - width1 / 2)
         .attr("y", y1(third_quantile1))
         .attr("height", (y1(first_quantile1) - y1(third_quantile1)))
         .attr("width", width1)
-        .attr("stroke", "black")
+        .attr("stroke", colorManager.getLineColor())
         .style("fill", colorManager.getBoxplotColor());
 
     svg_box_b1.selectAll("wings").attr('class', "box_wings")
@@ -75,7 +81,7 @@ orchestrator.addListener('dataReady', function (e) {
         .attr("x2", center1 + width1 / 2)
         .attr("y1", function (d) { return (y1(d)) })
         .attr("y2", function (d) { return (y1(d)) })
-        .attr("stroke", "black");
+        .attr("stroke", colorManager.getLineColor());
 
     svg_box_b1.append("text")
         .attr("id", "label_bright")
@@ -85,6 +91,7 @@ orchestrator.addListener('dataReady', function (e) {
         .attr("x", 0 - (height_box_b / 2))
         .attr("dy", "1em")
         .style("text-anchor", "middle")
+        .style("fill", colorManager.getTextColor())
         .text("Brightness");
 
 

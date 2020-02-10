@@ -43,7 +43,14 @@ orchestrator.addListener('dataReady', function (e) {
 
     var yAxis3 = d3.axisLeft(y3);
 
-    svg_box_b3.append("g").attr('class', "y_axis").call(yAxis3.ticks(8));
+    y_axis_box3 = svg_box_b3.append("g").attr('class', "y_axis").call(yAxis3.ticks(8));
+
+    y_axis_box3.selectAll("text").style("fill", colorManager.getTextColor());
+
+    y_axis_box3.selectAll("line").style("stroke", colorManager.getAxesColor());
+
+    y_axis_box3.select(".domain").style("stroke", colorManager.getAxesColor());
+
 
     svg_box_b3.append("line")
         .attr('class', "box_line_vertical")
@@ -51,7 +58,7 @@ orchestrator.addListener('dataReady', function (e) {
         .attr("x2", center3)
         .attr("y1", y3(min3))
         .attr("y2", y3(max3))
-        .attr("stroke", "black");
+        .attr("stroke", colorManager.getLineColor());
 
     svg_box_b3.append("rect")
         .attr('class', "box_rect")
@@ -59,7 +66,7 @@ orchestrator.addListener('dataReady', function (e) {
         .attr("y", y3(third_quantile3))
         .attr("height", (y3(first_quantile3) - y3(third_quantile3)))
         .attr("width", width3)
-        .attr("stroke", "black")
+        .attr("stroke", colorManager.getLineColor())
         .style("fill", colorManager.getBoxplotColor());
 
     svg_box_b3.selectAll("wings")
@@ -71,7 +78,7 @@ orchestrator.addListener('dataReady', function (e) {
         .attr("x2", center3 + width3 / 2)
         .attr("y1", function (d) { return (y3(d)) })
         .attr("y2", function (d) { return (y3(d)) })
-        .attr("stroke", "black");
+        .attr("stroke", colorManager.getLineColor());
 
     svg_box_b3.append("text")
         .attr("id" , "label_frp")
@@ -81,6 +88,7 @@ orchestrator.addListener('dataReady', function (e) {
         .attr("x", 0 - (height_box_b / 2))
         .attr("dy", "1em")
         .style("text-anchor", "middle")
+        .style("fill", colorManager.getLineColor())
         .text("Frp");
 
     orchestrator.addListener('parallelBrushing', function (e) {
