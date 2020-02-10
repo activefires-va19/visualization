@@ -92,7 +92,7 @@ orchestrator.addListener('dataReady', function (e) {
     .append("circle")
     .attr("cx", function (d) { return x(d.PCA_component1); })
     .attr("cy", function (d) { return y(d.PCA_component2); })
-    .attr("r", 4)
+    .attr("r", 3)
     .style("fill", function (d) { return color[d.dayOfWeek] })
     .style("opacity", 0.5);
 
@@ -235,7 +235,7 @@ orchestrator.addListener('dataReady', function (e) {
       .style("opacity", 0.5).merge(u);
 
     svg_scatter.select('.circle_container').selectAll("circle").data(modifiedData).transition().duration(400)
-      .attr("r", 4)
+      .attr("r", 3)
       .attr("cx", function (d) { return x(d.PCA_component1); })
       .attr("cy", function (d) { return y(d.PCA_component2); })
       .style("fill", function (d) { return color[d.dayOfWeek] })
