@@ -285,7 +285,8 @@ orchestrator.addListener('updatedDataFiltering', function (e) {
 
 orchestrator.addListener('colorChanged', function (e) {
   svg_parallel.selectAll('.path_foreground').attr('class', _getClass).transition().duration(200).style("stroke", _chooseColorByScatterplot);
-  svg_parallel.selectAll('.path_background').transition().duration(200).style("stroke", "#595953");
+  if (colorManager.isDarkModeEnabled()) svg_parallel.selectAll('.path_background').transition().duration(200).style("stroke", "#595953");
+  else svg_parallel.selectAll('.path_background').transition().duration(200).style("stroke", "#ddd");
   y_axis_parallel = d3.selectAll(".axis");
   y_axis_parallel.selectAll("text").style("fill", colorManager.getTextColor());
   y_axis_parallel.selectAll("line").style("stroke", colorManager.getAxesColor());
