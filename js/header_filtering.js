@@ -43,7 +43,7 @@ orchestrator.addListener("weekChanged", function (e) {
 });
 
 orchestrator.addListener("colorChanged", function (e) {
-   color_elements();
+   color_elements(true);
 });
 
 function update_statistics(data) {
@@ -88,11 +88,13 @@ function update_statistics(data) {
     else d3.select("#night_text").html("Night &nbsp &nbsp");
 }
 
-function color_elements(){
-    d3.select("body").style("background-color", colorManager.getModeColor());
-    d3.select(".header").style("background-color", colorManager.getModeColor());
-    d3.selectAll("p").style("color", colorManager.getTextColor());
-    d3.selectAll("b").style("color", colorManager.getTextColor());
+function color_elements(animate){
+    var duration = 0;
+    if (animate) duration = 300;
+    d3.select("body").transition().duration(duration).style("background-color", colorManager.getModeColor());
+    d3.select(".header").transition().duration(duration).style("background-color", colorManager.getModeColor());
+    d3.selectAll("p").transition().duration(duration).style("color", colorManager.getTextColor());
+    d3.selectAll("b").transition().duration(duration).style("color", colorManager.getTextColor());
     d3.select(".map_area").style("border", "2px solid " + colorManager.getBorderColor());
     d3.select(".histo_area").style("border", "2px solid " + colorManager.getBorderColor());
     d3.select(".bar_area").style("border", "2px solid " + colorManager.getBorderColor());
