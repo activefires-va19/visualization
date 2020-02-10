@@ -175,6 +175,11 @@ ColorsManager.prototype.getModeColor = function () {
     else return "#FFFFFF";
 }
 
+ColorsManager.prototype.getBorderColor = function () {
+    if (this.isDarkModeEnabled()) return "#FFFFFF";
+    else return "#808080";
+}
+
 var colorManager = new ColorsManager();
 setBlindnessButton();
 setDarkModeButton();
