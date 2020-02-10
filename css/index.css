@@ -159,7 +159,6 @@ html, body {
 .background path {
   fill: none;
   stroke: #ddd;
-  shape-rendering: crispEdges;
 }
 
 .foreground path {
@@ -169,7 +168,6 @@ html, body {
 .brush .extent {
   fill-opacity: .3;
   stroke: #fff;
-  shape-rendering: crispEdges;
 }
 
 .text_area { 
