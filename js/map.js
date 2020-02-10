@@ -37,7 +37,7 @@ orchestrator.addListener('dataReady', function (e) {
             .attr("fill", colorManager.getMapTerrainColor())
             .attr("class", "map_path")
             .attr("d", d3.geoPath().projection(projection))
-            .style("stroke", "black")
+            .style("stroke", colorManager.getBorderColor())
             .style("opacity", .3);
 
         svg_map.append('g').attr('class', 'circles_container').selectAll("circle")
@@ -128,5 +128,5 @@ function _chooseColorMapByScatterplot(d) {
 }
 
 function updateMapBorders(){
-    svg_map.selectAll(".map_path").style("stroke", colorManager.getTextColor());
+    svg_map.selectAll(".map_path").style("stroke", colorManager.getBorderColor());
 }

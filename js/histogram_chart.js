@@ -45,13 +45,17 @@ orchestrator.addListener('dataReady', function (e) {
 
   xAxis = d3.axisBottom(x_h);
 
-  svg_h.append("g")
+  x_axis_histo = svg_h.append("g")
     .attr("class", "x-axis")
     .attr("transform", "translate(0," + height_h + ")")
     .style("font-size", "9px")
     .call(xAxis);
-
   
+  x_axis_histo.selectAll("text").style("fill", colorManager.getTextColor());
+
+  x_axis_histo.selectAll("line").style("stroke", colorManager.getAxesColor());
+
+  x_axis_histo.select(".domain").style("stroke", colorManager.getAxesColor());
 
   var histogram = d3.histogram()
     .value(function (d) { return d; })
@@ -64,7 +68,13 @@ orchestrator.addListener('dataReady', function (e) {
 
   y_h.domain([0, d3.max(bins, function (d) { return d.length; })]);
 
-  svg_h.append("g").attr("class", "y-axis").call(d3.axisLeft(y_h));
+  y_axis_histo = svg_h.append("g").attr("class", "y-axis").call(d3.axisLeft(y_h));
+
+  y_axis_histo.selectAll("text").style("fill", colorManager.getTextColor());
+
+  y_axis_histo.selectAll("line").style("stroke", colorManager.getAxesColor());
+
+  y_axis_histo.select(".domain").style("stroke", colorManager.getAxesColor());
 
   svg_h.selectAll("rect")
     .data(bins)
