@@ -151,10 +151,10 @@ ColorsManager.prototype.getBarChartColor = function () {
 
 ColorsManager.prototype.getBoxplotColor = function () {
     if (this.isDarkModeEnabled()) {
-        if (this.isColorBlindModeEnabled()) return "#1f78b4";
+        if (this.isColorBlindModeEnabled()) return "#f4a582";
         else return "#bebada";
     } else {
-        if (this.isColorBlindModeEnabled()) return "#1f78b4";
+        if (this.isColorBlindModeEnabled()) return "#f4a582";
         else return "#bebada";
     }
 }

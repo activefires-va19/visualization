@@ -55,14 +55,7 @@ orchestrator.addListener('dataReady', function (e) {
 
   x_axis_scatter.select(".domain").style("stroke", colorManager.getAxesColor());
 
-  svg_scatter.append("text")
-    .attr("transform",
-      "translate(" + (width_scatter / 2) + " ," +
-      (height_scatter + margin_scatter.top + 20) + ")")
-    .style("text-anchor", "middle")
-    .style("fill", colorManager.getTextColor())
-    .text("Date");
-
+  
   // Add Y axis
   var y = d3.scaleLinear()
     .domain([0, max_y + 2])
