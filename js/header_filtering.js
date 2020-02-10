@@ -44,6 +44,16 @@ orchestrator.addListener("weekChanged", function (e) {
 
 orchestrator.addListener("colorChanged", function (e) {
     // TODO: Change background, checkboxes text color, title color, div border color when dark mode is enabled/disabled
+    d3.select("body").style("background-color", colorManager.getModeColor());
+    d3.select(".header").style("background-color", colorManager.getModeColor());
+    d3.selectAll("p").style("color", colorManager.getTextColor());
+    d3.selectAll("b").style("color", colorManager.getTextColor());
+    d3.select(".map_area").style("border", "2px solid " + colorManager.getBorderColor());
+    d3.select(".histo_area").style("border", "2px solid " + colorManager.getBorderColor());
+    d3.select(".bar_area").style("border", "2px solid " + colorManager.getBorderColor());
+    d3.select(".parallel_area").style("border", "2px solid " + colorManager.getBorderColor());
+    d3.select(".box_area").style("border", "2px solid " + colorManager.getBorderColor());
+    d3.select(".scatterplot_area").style("border", "2px solid " + colorManager.getBorderColor());
 });
 
 function update_statistics(data) {

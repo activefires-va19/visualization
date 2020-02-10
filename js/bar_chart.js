@@ -127,19 +127,35 @@ orchestrator.addListener('dataReady', function (e) {
 
         y_b.domain(t10_country);
 
-        svg_b.select(".x-axis_b").transition().duration(150)
-            .call(d3.axisBottom(x_b))
-            .selectAll("text")
-            //.attr("transform", "translate(-10,0)rotate(-45)")
+        x_axis_bar = svg_b.select(".x-axis_b").transition().duration(150)
+            .call(d3.axisBottom(x_b));
+
+        x_axis_bar.selectAll("text")
+            .style("fill", colorManager.getTextColor())
             .style("text-anchor", "end");
 
-        svg_b.select(".y-axis_b").transition().duration(150)
-            .call(d3.axisLeft(y_b))
-            .selectAll("text")
+        x_axis_bar.selectAll("line")
+            .style("stroke", colorManager.getAxesColor());
+
+        x_axis_bar.select(".domain")
+            .style("stroke", colorManager.getAxesColor());
+        
+
+        y_axis_bar = svg_b.select(".y-axis_b").transition().duration(150)
+            .call(d3.axisLeft(y_b));
+        
+        y_axis_bar.selectAll("text")
             .attr("class", "text_bar")
             .attr("transform", "rotate(-30)")
             .style("text-anchor", "end")
+            .style("fill", colorManager.getTextColor())
             .style("font-size", "9px");
+        
+        y_axis_bar.selectAll("line")
+            .style("stroke", colorManager.getAxesColor());
+
+        y_axis_bar.select(".domain")
+            .style("stroke", colorManager.getAxesColor());
 
         var v = svg_b.selectAll(".bar_rect").data(t10);
         v.exit().remove();
