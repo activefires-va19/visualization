@@ -15,6 +15,7 @@ Orchestrator = function () {
 Orchestrator.prototype.loadData = function () {
     _obj = this;
     d3.csv("./data/dataset.csv", function (loadedData) {
+        shuffleArray(loadedData);
         var max_week = undefined;
         var min_week = undefined;
         for (i = 0; i < loadedData.length; i++) {
