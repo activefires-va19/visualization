@@ -35,9 +35,8 @@ orchestrator.addListener('dataReady', function (e) {
     });
 
     var t10 = items.slice(0, 10);
-
     var t10_country = [];
-    for (i = 0; i < 10; i++) {
+    for (i = 0; i < t10.length; i++) {
         t10_country.push(t10[i][0]);
     }
 
