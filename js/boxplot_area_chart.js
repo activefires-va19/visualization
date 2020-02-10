@@ -73,6 +73,7 @@ orchestrator.addListener('dataReady', function (e) {
         .attr("stroke", "black");
 
     svg_box_b2.append("text")
+        .attr("id" , "label_area")
         .attr("class", "label_boxplot")
         .attr("transform", "rotate(-90)")
         .attr("y", 0 - margin_box_b.left)
@@ -139,14 +140,22 @@ orchestrator.addListener('dataReady', function (e) {
 
         var yAxis2 = d3.axisLeft(y2);
 
-        svg_box_b2.select(".y_axis").style("display", null).call(yAxis2.ticks(6));
+        y_axis_box2 = svg_box_b2.select(".y_axis").style("display", null).call(yAxis2.ticks(6));
+
+        y_axis_box2.selectAll("text").style("fill", colorManager.getTextColor());
+
+        y_axis_box2.selectAll("line").style("stroke", colorManager.getAxesColor());
+
+        y_axis_box2.select(".domain").style("stroke", colorManager.getAxesColor());
+
+        svg_box_b2.select("#label_area").style("fill", colorManager.getTextColor());
 
         svg_box_b2.select('.box_line_vertical')
             .attr("x1", center2)
             .attr("x2", center2)
             .attr("y1", y2(min2))
             .attr("y2", y2(max2))
-            .attr("stroke", "black")
+            .attr("stroke", colorManager.getLineColor())
             .style("display", null);
 
         svg_box_b2.select('.box_rect')
@@ -154,7 +163,7 @@ orchestrator.addListener('dataReady', function (e) {
             .attr("y", y2(third_quantile2))
             .attr("height", (y2(first_quantile2) - y2(third_quantile2)))
             .attr("width", width2)
-            .attr("stroke", "black")
+            .attr("stroke", colorManager.getLineColor())
             .style("fill", colorManager.getBoxplotColor())
             .style("display", null);
 
@@ -164,7 +173,7 @@ orchestrator.addListener('dataReady', function (e) {
             .attr("x2", center2 + width2 / 2)
             .attr("y1", function (d) { return (y2(d)) })
             .attr("y2", function (d) { return (y2(d)) })
-            .attr("stroke", "black")
+            .attr("stroke", colorManager.getLineColor())
             .style("display", null);
     }
     function evalData() {

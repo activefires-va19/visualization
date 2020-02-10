@@ -154,7 +154,7 @@ orchestrator.addListener('dataReady', function (e) {
 
     x_axis_histo.select(".domain").style("stroke", colorManager.getAxesColor());
 
-    y_axis_histo = svg_h.select(".y-axis").transition().duration(50).call(d3.axisLeft(y_h));
+    y_axis_histo = svg_h.select(".y-axis").call(d3.axisLeft(y_h));
 
     y_axis_histo.selectAll("text").style("fill", colorManager.getTextColor());
 

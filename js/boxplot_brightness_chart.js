@@ -151,13 +151,21 @@ orchestrator.addListener('dataReady', function (e) {
             .range([height_box_b, 0]);
 
         var yAxis = d3.axisLeft(y1);
-        svg_box_b1.select(".y_axis").style('display', null).transition().duration(150).call(yAxis.ticks(6));
+        y_axis_box1 = svg_box_b1.select(".y_axis").style('display', null).call(yAxis.ticks(6));
+
+        y_axis_box1.selectAll("text").style("fill", colorManager.getTextColor());
+
+        y_axis_box1.selectAll("line").style("stroke", colorManager.getAxesColor());
+
+        y_axis_box1.select(".domain").style("stroke", colorManager.getAxesColor());
+
         svg_box_b1.select('.box_line_vertical')
             .attr("x1", center1)
             .attr("x2", center1)
             .attr("y1", y1(min1))
             .attr("y2", y1(max1))
-            .attr("stroke", "black").style('display', null);
+            .attr("stroke", colorManager.getLineColor())
+            .style('display', null);
         ;
 
         svg_box_b1.select('.box_rect')
@@ -165,7 +173,7 @@ orchestrator.addListener('dataReady', function (e) {
             .attr("y", y1(third_quantile1))
             .attr("height", (y1(first_quantile1) - y1(third_quantile1)))
             .attr("width", width1)
-            .attr("stroke", "black")
+            .attr("stroke", colorManager.getLineColor())
             .style("fill", colorManager.getBoxplotColor()).style('display', null);;
 
         svg_box_b1.selectAll('.box_line_horizontal')
@@ -174,7 +182,8 @@ orchestrator.addListener('dataReady', function (e) {
             .attr("x2", center1 + width1 / 2)
             .attr("y1", function (d) { return (y1(d)) })
             .attr("y2", function (d) { return (y1(d)) })
-            .attr("stroke", "black").style('display', null);
+            .attr("stroke", colorManager.getLineColor())
+            .style('display', null);
 
         if (channel == 1) {
             text_axis = "Brightness";
@@ -193,6 +202,7 @@ orchestrator.addListener('dataReady', function (e) {
             .attr("x", 0 - (height_box_b / 2))
             .attr("dy", "1em")
             .style("text-anchor", "middle")
+            .style("fill", colorManager.getTextColor())
             .text(text_axis);
     }
 
