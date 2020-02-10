@@ -156,7 +156,9 @@ orchestrator.addListener('dataReady', function (e) {
     var bins = histogram(selected_set);
     y_h.domain([0, d3.max(bins, function (d) { return d.length; })]);
 
-    x_axis_histo = svg_h.select(".x-axis").call(xAxis);
+    svg_h.select(".x-axis").transition().duration(50).call(xAxis);
+
+    x_axis_histo = svg_h.select(".x-axis");
 
     x_axis_histo.selectAll("text").style("fill", colorManager.getTextColor());
 
@@ -164,7 +166,9 @@ orchestrator.addListener('dataReady', function (e) {
 
     x_axis_histo.select(".domain").style("stroke", colorManager.getAxesColor());
 
-    y_axis_histo = svg_h.select(".y-axis").call(d3.axisLeft(y_h));
+    svg_h.select(".y-axis").transition().duration(50).call(d3.axisLeft(y_h));
+
+    y_axis_histo = svg_h.select(".y-axis");
 
     y_axis_histo.selectAll("text").style("fill", colorManager.getTextColor());
 
