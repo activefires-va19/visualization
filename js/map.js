@@ -46,7 +46,7 @@ orchestrator.addListener('dataReady', function (e) {
             .append("circle")
             .attr("cx", function (d) { return projection([+d["longitude"], +d["latitude"]])[0]; })
             .attr("cy", function (d) { return projection([+d["longitude"], +d["latitude"]])[1]; })
-            .attr("r", 2.2)
+            .attr("r", 2.85)
             .style("fill", colorManager.getMapNormalColor())
             .style("opacity", .6);
 
@@ -73,7 +73,7 @@ orchestrator.addListener('dataReady', function (e) {
 
         function updatePointsEntries() {
             modifiedData = evalData();
-            var newR = 2.2;
+            var newR = 2.85;
             if (last_zoom_transform != undefined && last_zoom_transform.k != undefined) {
                 k = last_zoom_transform.k;
                 if (k > 6) k = 6;
@@ -99,7 +99,7 @@ orchestrator.addListener('dataReady', function (e) {
     });
     function zoomed() {
         last_zoom_transform = d3.event.transform;
-        var newR = 2.2;
+        var newR = 2.85;
         if (last_zoom_transform.k != undefined) {
             k = last_zoom_transform.k;
             if (k > 6.5) k = 6.5;
