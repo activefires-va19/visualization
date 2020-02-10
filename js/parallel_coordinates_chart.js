@@ -154,8 +154,10 @@ function create_graph() {
     .data(data)
     .enter().append("path")
     .attr("d", path)
-    .attr("class", "path_foreground")
+    .attr('class', _getClass)
     .style("stroke", _chooseColorByScatterplot);;
+
+  svg_parallel.selectAll('.path_highlighted').raise();
 
   var g = svg_parallel.selectAll("axis")
     .data(dimensions)
@@ -265,7 +267,8 @@ orchestrator.addListener('dataReady', function (e) {
 });
 
 orchestrator.addListener('scatterplotBrushing', function (e) {
-  foreground.style("stroke", _chooseColorByScatterplot);
+  svg_parallel.selectAll('.path_foreground').style("stroke", _chooseColorByScatterplot).attr('class', _getClass);
+  svg_parallel.selectAll('.path_highlighted').raise();
 });
 
 
@@ -281,7 +284,7 @@ orchestrator.addListener('updatedDataFiltering', function (e) {
 });
 
 orchestrator.addListener('colorChanged', function (e) {
-  foreground.transition().duration(200).style("stroke", _chooseColorByScatterplot);
+  svg_parallel.selectAll('.path_foreground').attr('class', _getClass).transition().duration(200).style("stroke", _chooseColorByScatterplot);
 });
 
 
@@ -292,4 +295,11 @@ function _chooseColorByScatterplot(d) {
     return colorManager.getParallelHighlightColor();
   }
   return colorManager.getParallelNormalColor();
+}
+
+function _getClass(d) {
+  if (orchestrator.filteringByScatterplot == undefined) return 'path_foreground path_normal';
+  value = orchestrator.filteringByScatterplot(d);
+  if (value) return 'path_foreground path_highlighted';
+  else return 'path_foreground path_normal';
 }
