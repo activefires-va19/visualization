@@ -1,86 +1,167 @@
 ColorsManager = function () {
     var isColorBlindnessModeEnabled = localStorage.getItem("colorBlindnessMode");
-    if (isColorBlindnessModeEnabled == undefined) this.isColorBlindnessModeEnabled = false;
-    else if (isColorBlindnessModeEnabled == 'true') this.isColorBlindnessModeEnabled = true;
-    else this.isColorBlindnessModeEnabled = false;
+    var isDarkModeEnabled = localStorage.getItem("darkMode");
+    if (isColorBlindnessModeEnabled == undefined) this._isColorBlindnessModeEnabled = false;
+    else if (isColorBlindnessModeEnabled == 'true') this._isColorBlindnessModeEnabled = true;
+    else this._isColorBlindnessModeEnabled = false;
+
+    if (isDarkModeEnabled == undefined) this._isDarkModeEnabled = false;
+    else if (isDarkModeEnabled == 'true') this._isDarkModeEnabled = true;
+    else this._isDarkModeEnabled = false;
 }
 
 ColorsManager.prototype.isColorBlindModeEnabled = function () {
-    return this.isColorBlindnessModeEnabled;
+    return this._isColorBlindnessModeEnabled;
+}
+
+ColorsManager.prototype.isDarkModeEnabled = function () {
+    return this._isDarkModeEnabled;
+}
+
+ColorsManager.prototype.setDarkModeEnabled = function (enabled) {
+    localStorage.setItem('darkMode', enabled.toString());
+    this._isDarkModeEnabled = enabled;
 }
 
 ColorsManager.prototype.setColorBlindModeEnabled = function (enabled) {
     localStorage.setItem('colorBlindnessMode', enabled.toString());
-    this.isColorBlindnessModeEnabled = enabled;
+    this._isColorBlindnessModeEnabled = enabled;
 }
 
 ColorsManager.prototype.getScatterplotColorSet = function () {
     var color;
-    if (this.isColorBlindModeEnabled()) {
-        color = {
-            "Monday": '#1468DC',
-            "Tuesday": "#A1AFAF",
-            "Wednesday": "#F0F032",
-            "Thursday": "#C32C01",
-            "Friday": "#A1DBFF",
-            "Saturday": "#3B494A",
-            "Sunday": "#FFA765"
-        };
+    if (this.isDarkModeEnabled()) {
+        if (this.isColorBlindModeEnabled()) {
+            color = {
+                "Monday": '#1468DC',
+                "Tuesday": "#A1AFAF",
+                "Wednesday": "#F0F032",
+                "Thursday": "#C32C01",
+                "Friday": "#A1DBFF",
+                "Saturday": "#3B494A",
+                "Sunday": "#FFA765"
+            };
+        } else {
+            color = {
+                "Monday": '#1b9e77',
+                "Tuesday": "#d95f02",
+                "Wednesday": "#7570b3",
+                "Thursday": "#e7298a",
+                "Friday": "#66a61e",
+                "Saturday": "#a6761d",
+                "Sunday": "#666666"
+            };
+        }
     } else {
-        color = {
-            "Monday": '#1b9e77',
-            "Tuesday": "#d95f02",
-            "Wednesday": "#7570b3",
-            "Thursday": "#e7298a",
-            "Friday": "#66a61e",
-            "Saturday": "#a6761d",
-            "Sunday": "#666666"
-        };
+        if (this.isColorBlindModeEnabled()) {
+            color = {
+                "Monday": '#1468DC',
+                "Tuesday": "#A1AFAF",
+                "Wednesday": "#F0F032",
+                "Thursday": "#C32C01",
+                "Friday": "#A1DBFF",
+                "Saturday": "#3B494A",
+                "Sunday": "#FFA765"
+            };
+        } else {
+            color = {
+                "Monday": '#1b9e77',
+                "Tuesday": "#d95f02",
+                "Wednesday": "#7570b3",
+                "Thursday": "#e7298a",
+                "Friday": "#66a61e",
+                "Saturday": "#a6761d",
+                "Sunday": "#666666"
+            };
+        }
     }
+    
     return color;
 }
 
 ColorsManager.prototype.getParallelHighlightColor = function () {
-    if (this.isColorBlindModeEnabled()) return '#fc8d62';
-    else return '#e41a1c';
+    if (this.isDarkModeEnabled()) {
+        if (this.isColorBlindModeEnabled()) return '#fc8d62';
+        else return '#e41a1c';
+    } else {
+        if (this.isColorBlindModeEnabled()) return '#fc8d62';
+        else return '#e41a1c';
+    }
+
 }
 
 ColorsManager.prototype.getParallelNormalColor = function () {
-    if (this.isColorBlindModeEnabled()) return '#66c2a5';
-    else return '#4daf4a';
+    if (this.isDarkModeEnabled()) {
+        if (this.isColorBlindModeEnabled()) return '#66c2a5';
+        else return '#4daf4a';
+    } else {
+        if (this.isColorBlindModeEnabled()) return '#66c2a5';
+        else return '#4daf4a';
+    }
 }
 
 ColorsManager.prototype.getMapHighlightColor = function () {
-    if (this.isColorBlindModeEnabled()) return '#fc8d62';
-    else return '#e41a1c';
+    if (this.isDarkModeEnabled()) {
+        if (this.isColorBlindModeEnabled()) return '#fc8d62';
+        else return '#e41a1c';
+    } else {
+        if (this.isColorBlindModeEnabled()) return '#fc8d62';
+        else return '#e41a1c';
+    }
 }
 
 ColorsManager.prototype.getMapNormalColor = function () {
-    if (this.isColorBlindModeEnabled()) return '#66c2a5';
-    else return '#4daf4a';
+    if (this.isDarkModeEnabled()) {
+        if (this.isColorBlindModeEnabled()) return '#66c2a5';
+        else return '#4daf4a';
+    } else {
+        if (this.isColorBlindModeEnabled()) return '#66c2a5';
+        else return '#4daf4a';
+    }
 }
 
 ColorsManager.prototype.getMapTerrainColor = function () {
-    if (this.isColorBlindModeEnabled()) return "#c2cce3";
-    else return "#a6cee3";
+    if (this.isDarkModeEnabled()) {
+        if (this.isColorBlindModeEnabled()) return "#c2cce3";
+        else return "#a6cee3";
+    } else {
+        if (this.isColorBlindModeEnabled()) return "#c2cce3";
+        else return "#a6cee3";
+    }
 }
 
 ColorsManager.prototype.getBarChartColor = function () {
-    if (this.isColorBlindModeEnabled()) return "#a6cee3";
-    else return "#fdb462";
+    if (this.isDarkModeEnabled()) {
+        if (this.isColorBlindModeEnabled()) return "#a6cee3";
+        else return "#fdb462";
+    } else {
+        if (this.isColorBlindModeEnabled()) return "#a6cee3";
+        else return "#fdb462";
+    }
 }
 
 ColorsManager.prototype.getBoxplotColor = function () {
-    if (this.isColorBlindModeEnabled()) return "#1f78b4";
-    else return "#bebada";
+    if (this.isDarkModeEnabled()) {
+        if (this.isColorBlindModeEnabled()) return "#1f78b4";
+        else return "#bebada";
+    } else {
+        if (this.isColorBlindModeEnabled()) return "#1f78b4";
+        else return "#bebada";  
+    }
 }
 
 ColorsManager.prototype.getHistogramColor = function () {
-    if (this.isColorBlindModeEnabled()) return "#b2df8a";
-    else return "#80b1d3";
+    if (this.isDarkModeEnabled()){
+        if (this.isColorBlindModeEnabled()) return "#b2df8a";
+        else return "#80b1d3";
+    } else {
+        if (this.isColorBlindModeEnabled()) return "#b2df8a";
+        else return "#80b1d3";
+    }
 }
 var colorManager = new ColorsManager();
 setBlindnessButton();
+setDarkModeButton();
 
 function setBlindnessButton() {
     var blind_img = document.getElementById('blind_img');
@@ -90,6 +171,18 @@ function setBlindnessButton() {
         colorManager.setColorBlindModeEnabled(!colorManager.isColorBlindModeEnabled());
         if (colorManager.isColorBlindModeEnabled()) blind_img.src = './res/blind_on.svg';
         else blind_img.src = './res/blind_off.svg';
+        orchestrator.notifyColorChanged();
+    });
+}
+
+function setDarkModeButton() {
+    var darkmode_img = document.getElementById('darkmode_img');
+    if (colorManager.isColorBlindModeEnabled()) darkmode_img.src = './res/darkmode_on.svg';
+    else darkmode_img.src = './res/darkmode_off.svg';
+    document.getElementById('darkmode_button').addEventListener("click", function () {
+        colorManager.setDarkModeEnabled(!colorManager.isDarkModeEnabled());
+        if (colorManager.isDarkModeEnabled()) darkmode_img.src = './res/darkmode_on.svg';
+        else darkmode_img.src = './res/darkmode_off.svg';
         orchestrator.notifyColorChanged();
     });
 }
