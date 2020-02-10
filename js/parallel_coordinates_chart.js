@@ -175,6 +175,10 @@ function create_graph() {
     .text(function (d) { return d.name; })
     .style("fill", "black");
 
+  y_axis_parallel = d3.selectAll(".axis");
+  y_axis_parallel.selectAll("text").style("fill", colorManager.getTextColor());
+  y_axis_parallel.selectAll("line").style("stroke", colorManager.getAxesColor());
+  y_axis_parallel.select(".domain").style("stroke", colorManager.getAxesColor());
 
   g.append("g")
     .attr("class", "brush")
