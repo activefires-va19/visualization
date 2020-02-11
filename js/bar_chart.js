@@ -95,6 +95,7 @@ orchestrator.addListener('dataReady', function (e) {
         .attr("width", function (d) { return x_b(d[1]); })
         .attr("height", y_b.bandwidth())
         .attr("fill", colorManager.getBarChartColor())
+        .attr("transform","translate(1,0)");
 
     function update_bar() {
         data = evalData();
@@ -184,6 +185,7 @@ orchestrator.addListener('dataReady', function (e) {
             .attr("width", function (d) { return x_b(d[1]); })
             .attr("height", y_b.bandwidth())
             .attr("fill", colorManager.getBarChartColor())
+            .attr("transform","translate(1,0)")
             .style('opacity', 0);
 
         svg_b.selectAll(".bar_rect").data(t10).transition().duration(200)
