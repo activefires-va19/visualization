@@ -33,7 +33,7 @@ ColorsManager.prototype.getScatterplotColorSet = function () {
     if (this.isDarkModeEnabled()) {
         if (this.isColorBlindModeEnabled()) {
             color = {
-                "Monday": '#1468DC',
+                "Monday": '#2b77df',
                 "Tuesday": "#6d8181",
                 "Wednesday": "#F0F032",
                 "Thursday": "#C32C01",
@@ -151,8 +151,8 @@ ColorsManager.prototype.getBarChartColor = function () {
 
 ColorsManager.prototype.getBoxplotColor = function () {
     if (this.isDarkModeEnabled()) {
-        if (this.isColorBlindModeEnabled()) return "#f4a582";
-        else return "#bebada";
+        if (this.isColorBlindModeEnabled()) return "#cc6500";
+        else return "#984ea3";
     } else {
         if (this.isColorBlindModeEnabled()) return "#f4a582";
         else return "#bebada";
