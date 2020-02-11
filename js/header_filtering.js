@@ -92,9 +92,10 @@ function color_elements(animate){
     var duration = 0;
     if (animate) duration = 300;
     d3.select("body").transition().duration(duration).style("background-color", colorManager.getModeColor());
-    d3.select(".header").transition().duration(duration).style("background-color", colorManager.getModeColor());
+    d3.select(".header").transition().duration(duration).style("background-color", colorManager.getHeaderBackgroundColor());
     d3.selectAll("p").transition().duration(duration).style("color", colorManager.getTextColor());
     d3.selectAll("b").transition().duration(duration).style("color", colorManager.getTextColor());
+    d3.select(".header").style("border-bottom", "1px solid " + colorManager.getBorderColor());
     d3.select(".map_area").style("border", "2px solid " + colorManager.getBorderColor());
     d3.select(".histo_area").style("border", "2px solid " + colorManager.getBorderColor());
     d3.select(".bar_area").style("border", "2px solid " + colorManager.getBorderColor());
