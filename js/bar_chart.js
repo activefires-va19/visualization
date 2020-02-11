@@ -53,7 +53,7 @@ orchestrator.addListener('dataReady', function (e) {
         .attr("transform", "translate(2,0)")
         .style("text-anchor", "middle")
         .style("fill", colorManager.getTextColor())
-        .style("font-size", "9px");
+        .style("font-size", "10px");
 
     x_axis_bar.selectAll("line")
         .style("stroke", colorManager.getAxesColor());
@@ -76,7 +76,7 @@ orchestrator.addListener('dataReady', function (e) {
         .attr("transform", "rotate(-30)")
         .style("text-anchor", "end")
         .style("fill", colorManager.getTextColor())
-        .style("font-size", "9px");
+        .style("font-size", "10px");
 
     y_axis_bar.selectAll("line")
         .style("stroke", colorManager.getAxesColor());
@@ -165,7 +165,7 @@ orchestrator.addListener('dataReady', function (e) {
             .attr("transform", "rotate(-30)")
             .style("text-anchor", "end")
             .style("fill", colorManager.getTextColor())
-            .style("font-size", "9px");
+            .style("font-size", "10px");
         
         y_axis_bar.selectAll("line")
             .style("stroke", colorManager.getAxesColor());

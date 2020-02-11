@@ -48,7 +48,7 @@ orchestrator.addListener('dataReady', function (e) {
   x_axis_histo = svg_h.append("g")
     .attr("class", "x-axis")
     .attr("transform", "translate(0," + height_h + ")")
-    .style("font-size", "9px")
+    .style("font-size", "10px")
     .call(xAxis);
   
   x_axis_histo.selectAll("text").style("fill", colorManager.getTextColor());
