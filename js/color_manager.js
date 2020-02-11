@@ -34,11 +34,11 @@ ColorsManager.prototype.getScatterplotColorSet = function () {
         if (this.isColorBlindModeEnabled()) {
             color = {
                 "Monday": '#1468DC',
-                "Tuesday": "#A1AFAF",
+                "Tuesday": "#6d8181",
                 "Wednesday": "#F0F032",
                 "Thursday": "#C32C01",
                 "Friday": "#A1DBFF",
-                "Saturday": "#3B494A",
+                "Saturday": "#FFFFFF",
                 "Sunday": "#FFA765"
             };
         } else {
@@ -48,8 +48,8 @@ ColorsManager.prototype.getScatterplotColorSet = function () {
                 "Wednesday": "#7570b3",
                 "Thursday": "#e7298a",
                 "Friday": "#66a61e",
-                "Saturday": "#a6761d",
-                "Sunday": "#666666"
+                "Saturday": "#FFFFFF",
+                "Sunday": "#a6761d"
             };
         }
     } else {
@@ -70,8 +70,8 @@ ColorsManager.prototype.getScatterplotColorSet = function () {
                 "Wednesday": "#7570b3",
                 "Thursday": "#e7298a",
                 "Friday": "#66a61e",
-                "Saturday": "#a6761d",
-                "Sunday": "#666666"
+                "Saturday": "#666666",
+                "Sunday": "#a6761d"
             };
         }
     }
@@ -189,8 +189,13 @@ ColorsManager.prototype.getModeColor = function () {
     else return "#FFFFFF";
 }
 
+ColorsManager.prototype.getHeaderBackgroundColor = function () {
+    if (this.isDarkModeEnabled()) return "#383838";
+    else return "#f3f3f3";
+}
+
 ColorsManager.prototype.getBorderColor = function () {
-    if (this.isDarkModeEnabled()) return "#FFFFFF";
+    if (this.isDarkModeEnabled()) return "#707070";
     else return "#808080";
 }
 
