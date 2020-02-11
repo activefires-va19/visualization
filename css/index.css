@@ -75,7 +75,7 @@ th {
   margin-left: 10px;
   float: left;
   margin-bottom: 10px;
-  width: 30%;
+  width: 31%;
   height: 100%;
   border: 2px solid gray;
 }
@@ -83,7 +83,7 @@ th {
 .parallel_area { 
   float: left;
   margin-left: 10px;
-  width: 54%;
+  width: 55%;
   height: 100%;
   border: 2px solid gray;
 }
@@ -91,7 +91,7 @@ th {
 .scatterplot_area {
   margin-left: 10px;
   float: left;
-  width: 30%;
+  width: 31%;
   height: 100%;
   border: 2px solid gray;
 }
@@ -123,7 +123,7 @@ th {
 .bar_area {
   margin-left: 10px;
   float: left;
-  width: 34%;
+  width: 35%;
   height: 100%;
   border: 2px solid gray;
 }
@@ -205,7 +205,6 @@ html, body {
   margin-bottom: 2%;
   margin-left: 6%;
 }
-
 
 .boxplot2 {
   width: 100%;
