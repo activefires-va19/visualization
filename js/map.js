@@ -69,7 +69,6 @@ orchestrator.addListener('dataReady', function (e) {
                 .attr("fill", colorManager.getMapTerrainColor())
                 .style("stroke", colorManager.getMapBorderColor());
             updatePointsEntries();
-            updateMapBorders();
         });
 
         function updatePointsEntries() {
@@ -116,8 +115,4 @@ function _chooseColorMapByScatterplot(d) {
     if (orchestrator.filteringByScatterplot == undefined) return colorManager.getMapNormalColor();
     if (orchestrator.filteringByScatterplot(d)) return colorManager.getMapHighlightColor();
     else return colorManager.getMapNormalColor();
-}
-
-function updateMapBorders() {
-    svg_map.selectAll(".map_path").style("stroke", colorManager.getBorderColor());
 }
