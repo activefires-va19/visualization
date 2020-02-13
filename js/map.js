@@ -37,7 +37,7 @@ orchestrator.addListener('dataReady', function (e) {
             .attr("fill", colorManager.getMapTerrainColor())
             .attr("class", "map_path")
             .attr("d", d3.geoPath().projection(projection))
-            .style("stroke", colorManager.getBorderColor())
+            .style("stroke", colorManager.getMapBorderColor())
             .style("opacity", .3);
 
         svg_map.append('g').attr('class', 'circles_container').selectAll("circle")
@@ -66,7 +66,8 @@ orchestrator.addListener('dataReady', function (e) {
 
         orchestrator.addListener('colorChanged', function (e) {
             svg_map.selectAll(".map_path")
-                .attr("fill", colorManager.getMapTerrainColor());
+                .attr("fill", colorManager.getMapTerrainColor())
+                .style("stroke", colorManager.getMapBorderColor());
             updatePointsEntries();
             updateMapBorders();
         });
@@ -117,6 +118,6 @@ function _chooseColorMapByScatterplot(d) {
     else return colorManager.getMapNormalColor();
 }
 
-function updateMapBorders(){
+function updateMapBorders() {
     svg_map.selectAll(".map_path").style("stroke", colorManager.getBorderColor());
 }

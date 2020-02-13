@@ -139,6 +139,16 @@ ColorsManager.prototype.getMapTerrainColor = function () {
     }
 }
 
+ColorsManager.prototype.getMapPathColor = function () {
+    if (this.isDarkModeEnabled()) {
+        if (this.isColorBlindModeEnabled()) return "#c2cce3";
+        else return "#a6cee3";
+    } else {
+        if (this.isColorBlindModeEnabled()) return "#c2cce3";
+        else return "#a6cee3";
+    }
+}
+
 ColorsManager.prototype.getBarChartColor = function () {
     if (this.isDarkModeEnabled()) {
         if (this.isColorBlindModeEnabled()) return "#a6cee3";
@@ -197,6 +207,11 @@ ColorsManager.prototype.getHeaderBackgroundColor = function () {
 ColorsManager.prototype.getBorderColor = function () {
     if (this.isDarkModeEnabled()) return "#707070";
     else return "#808080";
+}
+
+ColorsManager.prototype.getMapBorderColor = function () {
+    if (this.isDarkModeEnabled()) return "#bdbdbd";
+    else return "#000000";
 }
 
 var colorManager = new ColorsManager();
