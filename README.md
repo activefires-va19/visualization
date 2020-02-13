@@ -1,4 +1,4 @@
-# Active Fire Monitoring Visualization
+# Active Fires Monitoring - Visualization
 
 This project was made for the exam of course "Visual Analytics" for the Sapienza's master degree "Engineering in Computer Science".
 
