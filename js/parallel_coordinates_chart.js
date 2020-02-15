@@ -67,15 +67,15 @@ function create_graph() {
     k = dimensions[i].key;
     names.push(dimensions[i].name);
     if (k == "country") {
-      countries = [""];
+      countries = [" "];
       data.forEach(element => {
         if (!countries.includes(element[k])) {
           countries.push(element[k])
         }
       });
       countries.sort();
-      countries.push("");
-
+      countries.push("  ");
+      console.log(countries);
       y[k] = d3.scalePoint()
         .domain(countries)
         .range([0, height_parallel]);
