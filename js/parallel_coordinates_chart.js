@@ -75,7 +75,6 @@ function create_graph() {
       });
       countries.sort();
       countries.push("  ");
-      console.log(countries);
       y[k] = d3.scalePoint()
         .domain(countries)
         .range([0, height_parallel]);
