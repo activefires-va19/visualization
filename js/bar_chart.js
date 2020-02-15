@@ -1,5 +1,5 @@
 
-var margin_b = { top: 27, right: 20, bottom: 0, left: 100 },
+var margin_b = { top: 27, right: 20, bottom: 0, left: 105 },
     width_b = Math.round(clientWidth * 0.25),
     height_b = Math.round(clientHeight * 0.31);
 
@@ -73,7 +73,7 @@ orchestrator.addListener('dataReady', function (e) {
 
     y_axis_bar.selectAll("text")
         .attr("class", "text_bar")
-        .attr("transform", "rotate(-30)")
+        .attr("transform", "translate(-1,-5)rotate(-30)")
         .style("text-anchor", "end")
         .style("fill", colorManager.getTextColor())
         .style("font-size", "10px");
@@ -163,7 +163,7 @@ orchestrator.addListener('dataReady', function (e) {
         
         y_axis_bar.selectAll("text")
             .attr("class", "text_bar")
-            .attr("transform", "rotate(-30)")
+            .attr("transform", "translate(-1,-5)rotate(-30)")
             .style("text-anchor", "end")
             .style("fill", colorManager.getTextColor())
             .style("font-size", "10px");
