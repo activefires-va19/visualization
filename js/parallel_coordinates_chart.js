@@ -204,7 +204,7 @@ function create_graph() {
         return true;
       }
       if (p.key == "country") {
-        if (country_selection == 'undefined') return true;
+        if (country_selection == undefined) return true;
         dValue = rangePoints[countries.indexOf(d[p.key])];
         return dValue >= country_selection[0] && dValue <= country_selection[1];
       }
