@@ -20,7 +20,7 @@ function parse_hour_p(input) {
 }
 var background;
 var foreground;
-
+var country_selection;
 function create_graph() {
   data = evalData();
   dimensions = [
@@ -116,7 +116,6 @@ function create_graph() {
     var range = y["country"].range();
     var rangePoints = d3.range(range[0], range[1], y["country"].step())
     var inverse = domain[d3.bisect(rangePoints, xPos)];
-
     return inverse;
   }
 
@@ -198,15 +197,16 @@ function create_graph() {
 
 
   function parallelFiltering(d) {
+    var range = y["country"].range();
+    var rangePoints = d3.range(range[0], range[1], y["country"].step());
     value = dimensions.every(function (p, i) {
       if (extents[i][0] == 0 && extents[i][1] == 0) {
         return true;
       }
       if (p.key == "country") {
-        ex0 = countries.indexOf(extents[i][0]);
-        ex1 = countries.indexOf(extents[i][1]);
-        value = countries.indexOf(d[p.key]);
-        return ex1 >= value && value >= ex0;
+        if (country_selection == 'undefined') return true;
+        dValue = rangePoints[countries.indexOf(d[p.key])];
+        return dValue >= country_selection[0] && dValue <= country_selection[1];
       }
       if (p.key == "acq_time") {
         date = parse_hour_p(d[p.key]);
@@ -226,6 +226,7 @@ function create_graph() {
     for (i in dimensions) {
       if (d3.event.target == y[dimensions[i].key].brush) {
         if (dimensions[i].key == "country") {
+          country_selection = d3.event.selection;
           extents[i] = d3.event.selection.map(scalePointInverse, y[dimensions[i].key]);
         }
         else {
