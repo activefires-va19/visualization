@@ -11,6 +11,7 @@ var svg_box_b1 = d3.select(".boxplot1")
 var channel = 1;
 
 orchestrator.addListener('dataReady', function (e) {
+    document.getElementById("c21").disabled = true;
     data = evalData();
     var points_brightness = [];
     var points_brightness_31k_ = [];

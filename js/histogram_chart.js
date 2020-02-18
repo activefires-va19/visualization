@@ -27,6 +27,7 @@ function parse_hour_h(e) {
 }
 
 orchestrator.addListener('dataReady', function (e) {
+  document.getElementById("hours").disabled = true;
   data = evalData();
   data.forEach(e => {
     events_hour.push(parse_hour_h(e["acq_time"]));
@@ -50,7 +51,7 @@ orchestrator.addListener('dataReady', function (e) {
     .attr("transform", "translate(0," + height_h + ")")
     .style("font-size", "10px")
     .call(xAxis);
-  
+
   x_axis_histo.selectAll("text").style("fill", colorManager.getTextColor());
 
   x_axis_histo.selectAll("line").style("stroke", colorManager.getAxesColor());
