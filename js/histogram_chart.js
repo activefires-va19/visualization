@@ -28,6 +28,7 @@ function parse_hour_h(e) {
 
 orchestrator.addListener('dataReady', function (e) {
   document.getElementById("hours").disabled = true;
+  document.getElementById("week").disabled = false;
   data = evalData();
   data.forEach(e => {
     events_hour.push(parse_hour_h(e["acq_time"]));

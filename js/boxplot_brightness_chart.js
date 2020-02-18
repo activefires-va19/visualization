@@ -12,6 +12,7 @@ var channel = 1;
 
 orchestrator.addListener('dataReady', function (e) {
     document.getElementById("c21").disabled = true;
+    document.getElementById("c31").disabled = false;
     data = evalData();
     var points_brightness = [];
     var points_brightness_31k_ = [];
