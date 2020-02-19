@@ -215,6 +215,8 @@ orchestrator.addListener('dataReady', function (e) {
       .range([height_scatter, 0]);
     svg_scatter.select(".scatterplot_y_axis").transition().duration(100)
       .call(d3.axisLeft(y));
+    svg_scatter.selectAll(".tick").selectAll('text').style("fill", colorManager.getTextColor());
+    svg_scatter.selectAll(".tick").selectAll('line').style("stroke", colorManager.getTextColor());
   });
 
   function update_graph() {
