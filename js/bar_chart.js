@@ -144,7 +144,7 @@ orchestrator.addListener('dataReady', function (e) {
 
         y_b.domain(t10_country);
 
-        x_axis_bar = svg_b.select(".x-axis_b")
+        x_axis_bar = svg_b.select(".x-axis_b").transition().duration(100)
             .call(d3.axisBottom(x_b));
 
         x_axis_bar.selectAll("text")
@@ -158,7 +158,7 @@ orchestrator.addListener('dataReady', function (e) {
             .style("stroke", colorManager.getAxesColor());
         
 
-        y_axis_bar = svg_b.select(".y-axis_b")
+        y_axis_bar = svg_b.select(".y-axis_b").transition().duration(150)
             .call(d3.axisLeft(y_b));
         
         y_axis_bar.selectAll("text")
