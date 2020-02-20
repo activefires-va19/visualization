@@ -23,19 +23,22 @@ orchestrator.addListener('dataReady', function (e) {
 
     if (min3 < 0) min3 = 0;
 
+    var f3 = 0;
+    if (max3 - min3 < 4) f3 = 0.5 * (max3 - min3);
+
     var center3 = 50;
     var width3 = 25;
 
     var low3;
 
-    if (min3 < 0) {
+    if (min3 - 1 + f3< 0) {
         low3 = 0;
     }
     else {
-        low3 = min3;
+        low3 = min3 - 1 + f3;
     }
 
-    var high3 = max3;
+    var high3 = max3 + 1 - f3;
 
     var y3 = d3.scaleLinear()
         .domain([low3, high3])
@@ -43,7 +46,7 @@ orchestrator.addListener('dataReady', function (e) {
 
     var yAxis3 = d3.axisLeft(y3);
 
-    y_axis_box3 = svg_box_b3.append("g").attr('class', "y_axis").call(yAxis3.ticks(8));
+    y_axis_box3 = svg_box_b3.append("g").attr('class', "y_axis").call(yAxis3.ticks(6));
 
     y_axis_box3.selectAll("text").style("fill", colorManager.getTextColor());
 
@@ -136,14 +139,17 @@ orchestrator.addListener('dataReady', function (e) {
 
         var low3;
 
-        if (min3 < 0) {
+        var f3 = 0;
+        if (max3 - min3 < 4) f3 = 0.5 * (max3 - min3);
+
+        if (min3 - 1 + f3< 0) {
             low3 = 0;
         }
         else {
-            low3 = min3;
+            low3 = min3 - 1 + f3;
         }
 
-        var high3 = max3;
+        var high3 = max3 + 1 - f3;
 
         var y3 = d3.scaleLinear()
             .domain([low3, high3])
@@ -151,7 +157,7 @@ orchestrator.addListener('dataReady', function (e) {
 
         var yAxis3 = d3.axisLeft(y3);
 
-        y_axis_box3 = svg_box_b3.select(".y_axis").style("display", null).call(yAxis3.ticks(8));
+        y_axis_box3 = svg_box_b3.select(".y_axis").style("display", null).call(yAxis3.ticks(6));
 
         y_axis_box3.selectAll("text").style("fill", colorManager.getTextColor());
 
