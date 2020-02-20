@@ -214,6 +214,11 @@ ColorsManager.prototype.getMapBorderColor = function () {
     else return "#000000";
 }
 
+ColorsManager.prototype.getCircleSelectedBorderColor = function () {
+    if (this.isDarkModeEnabled()) return "#d7d7d7";
+    else return "#000000";
+}
+
 var colorManager = new ColorsManager();
 setBlindnessButton();
 setDarkModeButton();

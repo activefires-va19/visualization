@@ -55,7 +55,7 @@ orchestrator.addListener('dataReady', function (e) {
 
   x_axis_scatter.select(".domain").style("stroke", colorManager.getAxesColor());
 
-  
+
   // Add Y axis
   var y = d3.scaleLinear()
     .domain([0, max_y + 2])
@@ -63,9 +63,9 @@ orchestrator.addListener('dataReady', function (e) {
 
   y_axis_scatter = svg_scatter.append("g").attr("class", 'scatterplot_y_axis')
     .call(d3.axisLeft(y));
-  
+
   y_axis_scatter.selectAll("text").style("fill", colorManager.getTextColor());
-  
+
   y_axis_scatter.selectAll("line").style("stroke", colorManager.getAxesColor());
 
   y_axis_scatter.select(".domain").style("stroke", colorManager.getAxesColor());
@@ -117,7 +117,14 @@ orchestrator.addListener('dataReady', function (e) {
     svg_scatter.select('.circle_container').selectAll("circle").data(evalData()).classed("selected", function (d) {
       if (filteringByScatterplot(d)) return true;
       else return false;
+    }).style('stroke', function (d) {
+      if (filteringByScatterplot(d)) return colorManager.getCircleSelectedBorderColor();
+      else return ''
     })
+      .style('stroke-width', function (d) {
+        if (colorManager.isDarkModeEnabled()) return '0.85px'
+        else '1px'
+      });
   }
 
 
@@ -239,6 +246,14 @@ orchestrator.addListener('dataReady', function (e) {
       .attr('class', function (d) {
         if (filteringByScatterplot(d)) return 'selected'
         else return '';
+      })
+      .style('stroke', function (d) {
+        if (filteringByScatterplot(d)) return colorManager.getCircleSelectedBorderColor();
+        else return ''
+      })
+      .style('stroke-width', function (d) {
+        if (colorManager.isDarkModeEnabled()) return '0.85px'
+        else '1px'
       });
   }
 });
