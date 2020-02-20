@@ -48,6 +48,7 @@ orchestrator.addListener('dataReady', function (e) {
   xAxis = d3.axisBottom(x_h);
 
   x_axis_histo = svg_h.append("g")
+    .transition().duration(150)
     .attr("class", "x-axis")
     .attr("transform", "translate(0," + height_h + ")")
     .style("font-size", "10px")
