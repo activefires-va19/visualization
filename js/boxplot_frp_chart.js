@@ -157,7 +157,7 @@ orchestrator.addListener('dataReady', function (e) {
 
         var yAxis3 = d3.axisLeft(y3);
 
-        y_axis_box3 = svg_box_b3.select(".y_axis").style("display", null).call(yAxis3.ticks(6));
+        y_axis_box3 = svg_box_b3.select(".y_axis").transition().duration(150).style("display", null).call(yAxis3.ticks(6));
 
         y_axis_box3.selectAll("text").style("fill", colorManager.getTextColor());
 
