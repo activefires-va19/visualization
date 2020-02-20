@@ -14,7 +14,7 @@ Orchestrator = function () {
 }
 Orchestrator.prototype.loadData = function () {
     _obj = this;
-    d3.csv("./data/dataset.csv", function (loadedData) {
+    d3.csv("https://raw.githubusercontent.com/activefires-va19/dataset/master/active_fire_events_dataset.csv", function (loadedData) {
         shuffleArray(loadedData);
         var max_week = undefined;
         var min_week = undefined;
