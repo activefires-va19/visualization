@@ -36,14 +36,14 @@ orchestrator.addListener('dataReady', function (e) {
 
     var low1;
 
-    if (min1 - 10 < 0) {
+    if (min1 < 0) {
         low1 = 0;
     }
     else {
-        low1 = (min1 - 10);
+        low1 = min1;
     }
 
-    var high1 = (max1 + 10);
+    var high1 = max1;
 
     var y1 = d3.scaleLinear()
         .domain([low1, high1])
@@ -147,13 +147,13 @@ orchestrator.addListener('dataReady', function (e) {
         var width1 = 25;
         var low1;
 
-        if (min1 - 10 < 0) {
+        if (min1 < 0) {
             low1 = 0;
         }
         else {
-            low1 = (min1 - 10);
+            low1 = min1;
         }
-        var high1 = (max1 + 10);
+        var high1 = max1;
 
         var y1 = d3.scaleLinear()
             .domain([low1, high1])
