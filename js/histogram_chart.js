@@ -48,7 +48,6 @@ orchestrator.addListener('dataReady', function (e) {
   xAxis = d3.axisBottom(x_h);
 
   x_axis_histo = svg_h.append("g")
-    .transition().duration(150)
     .attr("class", "x-axis")
     .attr("transform", "translate(0," + height_h + ")")
     .style("font-size", "10px")
@@ -159,7 +158,7 @@ orchestrator.addListener('dataReady', function (e) {
     var bins = histogram(selected_set);
     y_h.domain([0, d3.max(bins, function (d) { return d.length; })]);
 
-    svg_h.select(".x-axis").transition().duration(50).call(xAxis);
+    svg_h.select(".x-axis").call(xAxis);
 
     x_axis_histo = svg_h.select(".x-axis");
 
